@@ -13,7 +13,7 @@ module.exports = function(grunt){
     var done = this.async();
     var srcs = this.file.src.join(' ');
     var dest = this.file.dest;
-    var command = 'coffee --join ' + dest + ' --compile ' + srcs;
+    var command = 'coffee --bare --join ' + dest + ' --compile ' + srcs;
     var out = proc.exec(command, function(err, sout, serr){
       if(err || sout || serr){
         proc.exec("growlnotify -t 'COFFEE COMPILE ERROR!' -m '" + serr + "'");

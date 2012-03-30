@@ -318,3 +318,31 @@ td {
 
 .clearfix {
   *zoom: 1; }
+
+body {
+  text-align: center; }
+
+.mod-all {
+  text-align: left;
+  width: 1000px;
+  padding: 0 50px;
+  margin: 0 auto; }
+
+#logger {
+  position: fixed;
+  right: 0;
+  top: 0;
+  text-align: left; }
+  #logger div {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    margin: 1px 0 0;
+    padding: 3px 8px; }
+
+#loading {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 3px 8px; }
