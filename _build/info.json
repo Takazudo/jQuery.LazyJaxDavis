@@ -1,0 +1,19 @@
+{
+  "name": "jQuery.LazyJaxDavis",
+  "description": "Url router for static websites.",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Takazudo/jQuery.LazyJaxDavix",
+  "author": {
+    "name": "\"Takazudo\" Takeshi Takatsudo",
+    "url": "http://takazudo.github.com/blog/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Takazudo/jQuery.LazyJaxDavis.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
