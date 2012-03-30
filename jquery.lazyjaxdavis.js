@@ -16,6 +16,7 @@ var __slice = Array.prototype.slice,
       }, time);
     });
   };
+  $.support.pushstate = Davis.supported();
   ns.isToId = function(path) {
     if ((path.charAt(0)) === '#') {
       return true;
@@ -29,54 +30,48 @@ var __slice = Array.prototype.slice,
     if ((path.indexOf('#')) === -1) return false;
     res = path.match(/^([^#]+)#(.+)/);
     ret = {
-      path: res[0]
+      path: res[1]
     };
-    if (res[2]) ret.hash = "" + res[2];
+    if (res[2]) ret.hash = "#" + res[2];
     return ret;
   };
-  ns.fetchPageContent = (function() {
+  ns.filterStr = function(str, expr) {
+    var res;
+    res = str.match(expr);
+    if (res && res[1]) {
+      return $.trim(res[1]);
+    } else {
+      return null;
+    }
+  };
+  ns.fetchPage = (function() {
     var current;
     current = null;
     return function(url) {
-      return $.Deferred(function(defer) {
+      var ret;
+      ret = $.Deferred(function(defer) {
+        var options;
         if (current) current.abort();
-        return current = $.ajax({
+        options = {
           url: url,
           dataType: 'text',
           cache: true
-        }).then(function(res) {
-          var content;
+        };
+        return current = ($.ajax(options)).then(function(res) {
           current = null;
-          content = ns.filterContent(res);
-          return defer.resolve(content);
-        }, function(jqXHR, msg) {
-          return defer.reject("something wrong or aborted.", msg === 'abort');
+          return defer.resolve(res);
+        }, function(xhr, msg) {
+          var aborted;
+          aborted = msg === 'abort';
+          return defer.reject(aborted);
         });
       }).promise();
+      ret.abort = function() {
+        return current != null ? current.abort() : void 0;
+      };
+      return ret;
     };
   })();
-  ns.filterContent = function(pagestr) {
-    var res, ret, started, title;
-    started = false;
-    res = [];
-    ret = {};
-    title = null;
-    $.each(pagestr.split('\n'), function(i, line) {
-      if (title === null) {
-        if (/^<title>/.test(line)) ret.title = (line.match(/^<title>([^<]*)/))[1];
-      }
-      if (line === '<!-- LazyJaxDavis start -->') {
-        started = true;
-        return;
-      }
-      if (line === '<!-- LazyJaxDavis end -->') {
-        ret.html = res.join('\n');
-        return false;
-      }
-      if (started) return res.push(line);
-    });
-    return ret;
-  };
   ns.Event = (function() {
 
     function Event() {
@@ -147,7 +142,8 @@ var __slice = Array.prototype.slice,
     }
 
     HistoryLogger.prototype.log = function(obj) {
-      return this._items.push(obj);
+      this._items.push(obj);
+      return this;
     };
 
     HistoryLogger.prototype.last = function() {
@@ -183,11 +179,12 @@ var __slice = Array.prototype.slice,
 
     Page.prototype.router = null;
 
-    function Page(request, config, routed) {
+    function Page(request, config, routed, router) {
       var _this = this;
       this.request = request;
       this.config = config;
       this.routed = routed;
+      this.router = router;
       Page.__super__.constructor.apply(this, arguments);
       $.each(eventNames, function(i, eventName) {
         return $.each(_this.config, function(key, val) {
@@ -214,15 +211,20 @@ var __slice = Array.prototype.slice,
       var _this = this;
       return $.Deferred(function(defer) {
         _this.trigger('fetchstart', _this.router.$root, _this.router);
-        return (ns.fetchPageContent(_this.request.path)).then(function(content) {
-          _this.trigger('fetchend', _this.router.$root, _this.router);
-          return defer.resolve(content);
-        }, function(msg, aborted) {
+        return (ns.fetchPage(_this.request.path)).then(function(text) {
+          var data;
+          data = {
+            wholetext: text,
+            title: ns.filterStr(text, _this.router.options.exprTitle),
+            content: ns.filterStr(text, _this.router.options.exprContent)
+          };
+          _this.trigger('fetchend', _this.router.$root, _this.router, data);
+          return defer.resolve(data);
+        }, function(aborted) {
           if (!aborted) {
             _this.trigger('fetchfail', _this.router.$root, _this.router);
           }
           return defer.reject({
-            msg: msg,
             aborted: aborted
           });
         });
@@ -239,19 +241,24 @@ var __slice = Array.prototype.slice,
 
     eventNames = ['everyfetchstart', 'everyfetchend', 'everybeforerefresh', 'everyafterrefresh', 'everyfetchfail'];
 
+    Router.prototype.options = {
+      exprTitle: /<title[^>]*>([^<]*)<\/title>/,
+      exprContent: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/,
+      linkSelector: 'a:not(.apply-nolazyjax)',
+      formSelector: 'form:not(.apply-nolazyjax)',
+      throwErrors: false,
+      handleRouteNotFound: true
+    };
+
     function Router(pages, options) {
-      this.pages = pages;
-      this.options = options;
+      if (!(this instanceof arguments.callee)) {
+        return new ns.Router(pages, options);
+      }
       Router.__super__.constructor.apply(this, arguments);
+      this.pages = pages || null;
+      this.options = $.extend({}, this.options, options);
+      this.$root = this.options.root || null;
       this.logger = new ns.HistoryLogger;
-      this.options = $.extend({
-        linkSelector: 'a:not(.apply-nolazyjax)',
-        formSelector: 'form:not(.apply-nolazyjax)',
-        throwErrors: false,
-        handleRouteNotFound: true
-      }, this.options);
-      this.$root = $(this.options.root);
-      if (!this.$root.size()) return;
       this._eventify();
       this._setupDavis();
     }
@@ -270,35 +277,36 @@ var __slice = Array.prototype.slice,
     Router.prototype._setupDavis = function() {
       var self,
         _this = this;
+      if (!$.support.pushstate) return;
       self = this;
-      if (!Modernizr.history) return;
       this.davis = new Davis(function() {
         var davis;
         davis = this;
+        if (!self.pages) return;
         return $.each(self.pages, function(i, pageInfo) {
           davis.get(pageInfo.path, function(request) {
             var page;
             if (self.logger.isToSamePageRequst(request)) return;
-            page = new ns.Page(request, pageInfo, true);
-            page.router = self;
+            page = new ns.Page(request, pageInfo, true, self);
             self.logger.log(page);
             return self.updateContent(page);
           });
           return true;
         });
       });
-      this.davis.bind('routeNotFound', function(request) {
-        var page;
-        if (ns.isToId(request.path)) {
-          self.trigger('toid', request.path);
-          return;
-        }
-        if (self.logger.isToSamePageRequst(request)) return;
-        page = new ns.Page(request, {}, false);
-        page.router = self;
-        self.logger.log(page);
-        return self.updateContent(page);
-      });
+      if (this.options.handleRouteNotFound) {
+        this.davis.bind('routeNotFound', function(request) {
+          var page;
+          if (ns.isToId(request.path)) {
+            self.trigger('toid', request.path);
+            return;
+          }
+          if (self.logger.isToSamePageRequst(request)) return;
+          page = new ns.Page(request, {}, false, self);
+          self.logger.log(page);
+          return self.updateContent(page);
+        });
+      }
       this.davis.configure(function(config) {
         return $.each(_this.options, function(key, val) {
           config[key] = val;
@@ -319,11 +327,11 @@ var __slice = Array.prototype.slice,
       var _this = this;
       return $.Deferred(function(defer) {
         _this.trigger('everyfetchstart', _this.$root, _this);
-        return page.fetch().then(function(content) {
+        return page.fetch().then(function(data) {
           _this.trigger('everyfetchend', _this.$root, _this);
           page.trigger('beforerefresh', _this.$root, _this);
           _this.trigger('everybeforerefresh', _this.$root, _this);
-          _this.$root.html(content.html);
+          _this.$root.html(data.content);
           page.trigger('afterrefresh', _this.$root, _this);
           _this.trigger('everyafterrefresh', _this.$root, _this);
           return defer.resolve();
@@ -333,11 +341,15 @@ var __slice = Array.prototype.slice,
       }).promise();
     };
 
+    Router.prototype.destroy = function() {
+      var _ref;
+      if ((_ref = this.davis) != null) _ref.stop();
+      return this;
+    };
+
     return Router;
 
   })(ns.Event);
-  ns.configure = function(config, options) {
-    return ns.router = new ns.Router(config, options);
-  };
-  return $.LazyJaxDavis = ns;
+  $.LazyJaxDavisNs = ns;
+  return $.LazyJaxDavis = ns.Router;
 })(jQuery, this, this.document);

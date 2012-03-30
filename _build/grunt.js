@@ -30,7 +30,8 @@ module.exports = function(grunt){
     },
     coffee: {
       '../jquery.lazyjaxdavis.js': [ '../jquery.lazyjaxdavis.coffee' ],
-      '../demos/applied/common/js/script.js': [ '../demos/applied/common/coffee/script.coffee' ]
+      '../demos/applied/common/js/script.js': [ '../demos/applied/common/coffee/script.coffee' ],
+      '../tests/qunit/test/test.js' : [ '../tests/qunit/test/test.coffee' ]
     },
     sass: {
       '../demos/applied/common/css/style.css': '../demos/applied/common/scss/style.scss'

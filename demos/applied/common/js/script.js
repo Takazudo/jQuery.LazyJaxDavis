@@ -54,7 +54,7 @@ jQuery(function($) {
 
   })();
   loading = new Loading;
-  return $.LazyJaxDavis.configure([
+  return $.LazyJaxDavis([
     {
       path: '/jQuery.LazyJaxDavis/demos/applied/',
       fetchstart: function() {

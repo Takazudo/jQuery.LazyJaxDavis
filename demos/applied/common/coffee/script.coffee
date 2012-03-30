@@ -38,7 +38,7 @@ jQuery(($) ->
 
   # configure Router
 
-  $.LazyJaxDavis.configure [
+  $.LazyJaxDavis [
     {
       path: '/jQuery.LazyJaxDavis/demos/applied/'
       fetchstart: ->
