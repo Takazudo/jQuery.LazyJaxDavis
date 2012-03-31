@@ -77,7 +77,7 @@
       ret.abort = -> current?.abort()
       ret
   )()
-  
+
 
   # ============================================================
   # event module
@@ -289,6 +289,18 @@
         else
           location.href = hash
 
+      @_tweakDavis()
+      @
+
+    _tweakDavis: ->
+      warn = @davis.logger.warn
+      info = @davis.logger.info
+      @davis.logger.warn = (args...) =>
+        if (args[0].indexOf 'routeNotFound') isnt -1
+          args[0] = args[0].replace /routeNotFound/, 'unRouted'
+          info.apply @davis.logger, args
+        else
+          warn.apply @davis.logger, args
       @
 
     updateContent: (page) ->

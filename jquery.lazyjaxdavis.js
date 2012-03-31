@@ -340,6 +340,25 @@ var __slice = Array.prototype.slice,
           return location.href = hash;
         }
       });
+      this._tweakDavis();
+      return this;
+    };
+
+    Router.prototype._tweakDavis = function() {
+      var info, warn,
+        _this = this;
+      warn = this.davis.logger.warn;
+      info = this.davis.logger.info;
+      this.davis.logger.warn = function() {
+        var args;
+        args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        if ((args[0].indexOf('routeNotFound')) !== -1) {
+          args[0] = args[0].replace(/routeNotFound/, 'unRouted');
+          return info.apply(_this.davis.logger, args);
+        } else {
+          return warn.apply(_this.davis.logger, args);
+        }
+      };
       return this;
     };
 

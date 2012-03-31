@@ -6,7 +6,7 @@ Url router for static websites.
 
 ## demos
 
-working
+* [demo](http://takazudo.github.com/jQuery.LazyJaxDavis/demos/applied/_site/)
 
 ## Usage
 

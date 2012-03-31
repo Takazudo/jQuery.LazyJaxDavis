@@ -326,9 +326,11 @@ h1, h2, h3, h4, h5, h6, p, ul, li {
 a {
   color: #666;
   text-decoration: underline; }
-  a:hover {
+  a:hover, a:focus {
     background: #666;
     color: #fff; }
+  a:visited {
+    color: #666; }
 
 html {
   background: #FDF6E3; }
