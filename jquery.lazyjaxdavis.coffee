@@ -169,8 +169,11 @@
 
     _handleAnotherPageAnchor: ->
       res = ns.tryParseAnotherPageAnchor @request.path
-      if not res?.hash then return @
+      if not res?.hash
+        @path = @request.path
+        return @
       @_hash = res.hash
+      @path = res.path
       @bind 'fetchend', =>
         location.href = @_hash
       @
@@ -221,9 +224,15 @@
       if not (@ instanceof arguments.callee)
         return new ns.Router pages, options, extraRoute
 
+      # pages can be skipped
+      if not $.isArray(pages)
+        extraRoute = options
+        options = pages
+        pages = null
+      @pages = pages
+
       super
 
-      @pages = pages or null
       @extraRoute = extraRoute or $.noop
       @options = $.extend true, {}, @options, options
       @$root = @options.root or null

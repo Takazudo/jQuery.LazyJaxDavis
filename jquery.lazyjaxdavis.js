@@ -1,4 +1,4 @@
-/*! jQuery.LazyJaxDavis - v0.0.0 -  3/31/2012
+/*! jQuery.LazyJaxDavis - v0.0.0 -  4/1/2012
  * https://github.com/Takazudo/jQuery.LazyJaxDavix
  * Copyright (c) 2012 "Takazudo" Takeshi Takatsudo; Licensed MIT */
 
@@ -200,8 +200,12 @@ var __slice = Array.prototype.slice,
       var res,
         _this = this;
       res = ns.tryParseAnotherPageAnchor(this.request.path);
-      if (!(res != null ? res.hash : void 0)) return this;
+      if (!(res != null ? res.hash : void 0)) {
+        this.path = this.request.path;
+        return this;
+      }
       this._hash = res.hash;
+      this.path = res.path;
       this.bind('fetchend', function() {
         return location.href = _this._hash;
       });
@@ -259,8 +263,13 @@ var __slice = Array.prototype.slice,
       if (!(this instanceof arguments.callee)) {
         return new ns.Router(pages, options, extraRoute);
       }
+      if (!$.isArray(pages)) {
+        extraRoute = options;
+        options = pages;
+        pages = null;
+      }
+      this.pages = pages;
       Router.__super__.constructor.apply(this, arguments);
-      this.pages = pages || null;
       this.extraRoute = extraRoute || $.noop;
       this.options = $.extend(true, {}, this.options, options);
       this.$root = this.options.root || null;

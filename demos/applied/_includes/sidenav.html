@@ -1,0 +1,8 @@
+<div class="mod-side">
+	<ul class="mod-sidenav" id="sidenav">
+		<li><a href="{{ site.basedir }}/">Top page</a></li>
+		{% for post in site.posts %}
+			<li><a href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
+		{% endfor %}
+	</ul>
+</div>

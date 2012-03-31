@@ -20,8 +20,9 @@ module.exports = function(grunt){
     },
     watch: {
       files: [
-        '../**/*.coffee',
-        '../**/*.scss'
+        '../jquery.lazyjaxdavis.coffee',
+        '../tests/qunit/test/test.coffee',
+        '../demos/applied/common/scss/*.scss'
       ],
       tasks: 'coffee sass concat notifyOK'
     },
@@ -30,7 +31,6 @@ module.exports = function(grunt){
     },
     coffee: {
       '../jquery.lazyjaxdavis.js': [ '../jquery.lazyjaxdavis.coffee' ],
-      '../demos/applied/common/js/script.js': [ '../demos/applied/common/coffee/script.coffee' ],
       '../tests/qunit/test/test.js' : [ '../tests/qunit/test/test.coffee' ]
     },
     sass: {
