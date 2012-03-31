@@ -20,23 +20,23 @@
 <div class="mod-body">
 	<div class="mod-side">
 	<ul class="mod-sidenav" id="sidenav">
-		<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Top page</a></li>
+		<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Introduction</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">TheLazyDog</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">Davis.js</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">JumpsOver</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">setup</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">URL routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">Davis.js routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">Davis.js routing</a></li>
 		
 			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/quickbrown.html">quickbrown</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">foobar</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">JumpsOver</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">TheLazyDog</a></li>
-		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">JumpsOver</a></li>
-		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">quickbrown</a></li>
-		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">foobar</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">TheLazyDog</a></li>
 		
 	</ul>
 </div>
@@ -48,29 +48,32 @@
 			<div class="mod-article">
 				<h2>Introduction</h2>
 
-<p>jQuery.LazyJaxDavis is a url router for static websites using htlm5's history API.</p>
+<p>jQuery.LazyJaxDavis is a url router for static websites.<br/>
+This makes location changes dynamic using htlm5's history API.</p>
 
 <h3>What jQuery.LazyJaxDavis is for?</h3>
 
 <p>Do you usually use history API?<br/>
 It's... pushState, replaceState or something like that.</p>
 
-<p>If you are a developer of JavaScript web applications - and the web app which you work in are pretty challenging, the answer may be "Yes". But in most of the cases it must be "No", I guess. And, when you create static websites which are - for example, a corporate site, a weblog, or something which are not web applications, it is pretty rare to use history API, I think.</p>
+<p>If you are a developer of JavaScript web applications - and the web apps which you work in are challenging, the answer may be "Yes". But in most of the cases it must be "No" because we need to support old browsers which do not support history API yet. And, when you create static websites which are like - for example, a corporate site, a weblog, or something which is not a web app, it is pretty rare to use history API, I guess.</p>
 
-<p>But, don't you want to make your websites more dynamic and better for user experience with history API? It sounds hard but it's easy - if you use jQuery.LazyJaxDavis. jQuery.LazyJaxDavis gives you simple API to make it possible.</p>
+<p>But, don't you want to make your websites more dynamic and better for user experience with history API? It sounds hard. But I want to say that it's easy! - if you use jQuery.LazyJaxDavis. jQuery.LazyJaxDavis gives you simple API to make it possible.</p>
 
-<p>jQuery.LazyJaxDavis provide easy APIs for static websites.</p>
+<p>jQuery.LazyJaxDavis provides nice APIs for static websites development.</p>
 
 <h3>Hey, what about the old browser like IE</h3>
 
-<p>New browsers has no problem about history API. But, we need to support them, of course. So do we need to give up using history API? The answer is "No".</p>
+<p>New browsers has no problem about history API. But, we need to support old browsers like Internet Explorer 9 or less, of course. So do we need to give up using history API? The answer is "No".</p>
 
-<p>jQuery.LazyJaxDavis does not provide dynamic features to the browsers which don't have history API features. This just ignores those browsers. And this bring cool features to the browsers which support history API.</p>
+<p>jQuery.LazyJaxDavis does not provide features to the browsers which don't have history API features. This just ignores those browsers. And this bring cool features to the browsers which support history API.</p>
 
 <h3>How does it work?</h3>
 
-<p>This website is a document of jQuery.LazyJaxDavis but also a demo of it.<br/>
-Try clicking left navigations or links in this page. You'll see what jQuery.LazyJaxDavis does... if you use a browser which supports history API.</p>
+<p>This website is a document of jQuery.LazyJaxDavis but also its demo.<br/>
+Try clicking left navigations in this page. You'll see what jQuery.LazyJaxDavis does if you use a browser which supports history API.</p>
+
+<p>If your browser does not support the history API, nothing happens. Just a location change occurs.</p>
 
 <h3>How can I use this?</h3>
 
@@ -81,30 +84,10 @@ Click the button below to confirm it.</p>
 
 <p><button id="whatthemaincontent">Let me know what you mean</button></p>
 
-<script>
-(function(){
-    var $btn = $('#whatthemaincontent');
-    var $root = $('#lazyjaxdavisroot');
-    var hilighted = false;
-    $btn.click(function(){
-        if(hilighted){
-            hilighted = false;
-            $root.css('background', 'none');
-            $btn.html('Let me know what you mean');
-        }else{
-            hilighted = true;
-            $root.css('background', '#faa');
-            $btn.html('OK, bring me back');
-        }
-    });
-})();
-</script>
-
-
 <p>This is the main area of the website.<br/>
 In the case of this website, only the html source in this main area is different among each pages. The html source of Header, footer and sidenav is completely same, right?</p>
 
-<p>So what we should do when the location was changed is - replace the html source in the main area. We don't need to change the source about header, footer and sidenav. jQuery.LazyJaxDavis helps you to do this.</p>
+<p>So what we should do when the location was changed is - replace the html source in the main area. We don't need to change the source about header, footer and sidenav.</p>
 
 <p>With jQuery.LazyJaxDavis, do like below.</p>
 
@@ -129,9 +112,12 @@ In the case of this website, only the html source in this main area is different
 </div>
 
 
-<p>if you do $.LazyJaxDavis(), all links and form submits are hijacked. Instead of location change, jQuery.LazyJaxDavis does pushState and fetch the target page using jQuery.ajax. You need to define what to do when - ajax was started - and,  ajax was done.</p>
+<p>if you do <code>$.LazyJaxDavis()</code>, all links and form submits are hijacked. Instead of normal location change, jQuery.LazyJaxDavis does pushState and fetch the target page using <code>$.ajax</code>. You need to define what to do when - ajax was started - and,  ajax was completed.</p>
 
-<p>After the ajax thing was done, you can rip the part of the fetched page using page.ript('content'). What does this rip from the page? It's the html source in the main area, of course. But, you need to add the comment to the html like below.</p>
+<p>After the ajax thing was done, you can rip the part of the fetched page using <code>page.ript('content')</code>. What does this rip from the page? It's the html source in the main area, of course.</p>
+
+<p>But, who can know what the main content is?<br/>
+You need to add the comment to the html like below.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;mod-body&quot;</span><span class="o">&gt;</span>
     <span class="nx">sidenav</span> <span class="nx">here</span>
@@ -139,9 +125,9 @@ In the case of this website, only the html source in this main area is different
             <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;lazyjaxdavisroot&quot;</span><span class="o">&gt;</span>
             <span class="c">&lt;!--</span> <span class="nx">LazyJaxDavis</span> <span class="nx">start</span> <span class="o">--&gt;</span>
 
-            <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;mod-article&quot;</span><span class="o">&gt;</span>
-                <span class="nx">main</span> <span class="nx">content</span> <span class="nx">blah</span> <span class="nx">blah</span> <span class="nx">blah</span>
-            <span class="o">&lt;</span><span class="err">/div&gt;</span>
+                <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;mod-article&quot;</span><span class="o">&gt;</span>
+                    <span class="nx">main</span> <span class="nx">content</span> <span class="nx">blah</span> <span class="nx">blah</span> <span class="nx">blah</span>
+                <span class="o">&lt;</span><span class="err">/div&gt;</span>
 
             <span class="c">&lt;!--</span> <span class="nx">LazyJaxDavis</span> <span class="nx">end</span> <span class="o">--&gt;</span>
             <span class="o">&lt;</span><span class="err">/div&gt;</span>
@@ -151,13 +137,18 @@ In the case of this website, only the html source in this main area is different
 </div>
 
 
-<p>The source code between <code>&lt;!-- LazyJaxDavis start --&gt;</code> and <code>&lt;!-- LazyJaxDavis end --&gt;</code> are the result of <code>page.ript('content')</code> is what you want. then, update the page.</p>
+<p>The source code between <code>&lt;!-- LazyJaxDavis start --&gt;</code> and <code>&lt;!-- LazyJaxDavis end --&gt;</code> is the result of <code>page.ript('content')</code>. This is what we want. then, manually update the dom on the page.</p>
 
 <p>Basically, that's what jQuery.LazyJaxDavis does.</p>
 
-<p>As you see, this demo site shows nowloading on the left top corner of the browser.  If you want to do the things like that, just add the code to the event handler <code>everyfetchstart</code> and <code>everyfetchend</code>.</p>
+<p>As you see, this demo site shows nowloading on the left top corner of the browser.</p>
 
-<p>jQuery.LazyJaxDavis provides only the apis to do things like this. To know more, keep reading the other pages in this document.</p>
+<p><button id="whattheloading">Let me know what you mean</button></p>
+
+<p>If you want to do the things like that, just add the code to the event handler <code>everyfetchstart</code> and <code>everyfetchend</code>.</p>
+
+<p>jQuery.LazyJaxDavis provides only the apis to do things like this.<br/>
+So if you want to implement the things like nice loading, it's what you need to code by yourself. To learn more, keep reading the other pages in this document.</p>
 
 <h3>Lazy links and no-lazy links</h3>
 
@@ -178,15 +169,15 @@ In the case of this website, only the html source in this main area is different
             
                 <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/quickbrown.html">quickbrown</a></li>
             
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">foobar</a></li>
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">Davis.js routing</a></li>
             
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">TheLazyDog</a></li>
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">Davis.js routing</a></li>
             
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">JumpsOver</a></li>
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">URL routing</a></li>
             
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">quickbrown</a></li>
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">setup</a></li>
             
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">foobar</a></li>
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">Davis.js</a></li>
             
         </ul>
     </div>
@@ -202,15 +193,15 @@ In the case of this website, only the html source in this main area is different
             
                 <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/quickbrown.html">quickbrown</a></li>
             
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">foobar</a></li>
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">Davis.js routing</a></li>
             
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">TheLazyDog</a></li>
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">Davis.js routing</a></li>
             
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">JumpsOver</a></li>
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">URL routing</a></li>
             
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">quickbrown</a></li>
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">setup</a></li>
             
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">foobar</a></li>
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">Davis.js</a></li>
             
         </ul>
     </div>

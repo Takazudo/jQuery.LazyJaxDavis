@@ -256,7 +256,8 @@ var __slice = Array.prototype.slice,
         throwErrors: false,
         handleRouteNotFound: true
       },
-      minwaittime: 0
+      minwaittime: 0,
+      updatetitle: true
     };
 
     function Router(pages, options, extraRoute) {
@@ -308,7 +309,7 @@ var __slice = Array.prototype.slice,
             if (self.logger.isToSamePageRequst(request)) return;
             page = self._createPage(request, pageConfig, true);
             self.logger.log(page);
-            return self.updateContent(page);
+            return self.fetch(page);
           });
           return true;
         });
@@ -324,7 +325,7 @@ var __slice = Array.prototype.slice,
           if (self.logger.isToSamePageRequst(request)) return;
           page = self._createPage(request, {}, false);
           self.logger.log(page);
-          return self.updateContent(page);
+          return self.fetch(page);
         });
       }
       this.davis.configure(function(config) {
@@ -362,12 +363,13 @@ var __slice = Array.prototype.slice,
       return this;
     };
 
-    Router.prototype.updateContent = function(page) {
+    Router.prototype.fetch = function(page) {
       var _this = this;
       return $.Deferred(function(defer) {
         _this.trigger('everyfetchstart', page);
         return ($.when(page.fetch(), wait(_this.options.minwaittime))).then(function() {
           _this.trigger('everyfetchend', page);
+          if (_this.options.updatetitle) document.title = page.rip('title');
           return defer.resolve();
         }, function() {
           return _this.trigger('everyfetchfail', page);

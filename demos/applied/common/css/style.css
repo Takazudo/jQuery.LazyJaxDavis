@@ -343,7 +343,7 @@ body {
 .mod-all {
   text-align: left; }
   .mod-all .mod-header {
-    padding: 60px 0 0 320px;
+    padding: 60px 0 0 220px;
     font-size: 1.5em;
     height: 110px; }
   .mod-all .mod-body {
@@ -362,13 +362,13 @@ body {
       padding: 0 0 50px; }
     .mod-all .mod-body .mod-side {
       float: left;
-      width: 300px;
+      width: 200px;
       text-align: right;
       margin: 0 20px 0 0;
       min-height: 1px;
       _height: 1px; }
   .mod-all .mod-footer {
-    margin: 0 0 0 320px;
+    margin: 0 0 0 220px;
     padding: 10px 0 0;
     height: 100px;
     border-top: 5px solid #666666; }
@@ -377,7 +377,7 @@ body {
   position: fixed;
   left: 0;
   top: 170px;
-  width: 300px;
+  width: 200px;
   list-style-type: none;
   border-top: 5px solid #666666; }
   .mod-sidenav li {
@@ -394,7 +394,7 @@ body {
 
 .mod-article h2 {
   padding: 10px 0 20px;
-  font-size: 2em; }
+  font-size: 2.2em; }
 .mod-article h3 {
   margin-top: 20px;
   padding: 0 0 10px;
@@ -402,6 +402,15 @@ body {
 .mod-article p {
   padding: 0 0 20px;
   max-width: 800px; }
+.mod-article blockquote {
+  border-left: 1px solid #666666;
+  padding: 0 0 0 20px;
+  margin: 5px 0 25px;
+  font-style: italic; }
+  .mod-article blockquote p {
+    padding: 10px 0 0; }
+    .mod-article blockquote p:first-child {
+      padding-top: 0; }
 
 .mod-nolazytestnav {
   padding: 0 0 20px;
@@ -460,7 +469,7 @@ body {
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 10px 14px;
-  font-size: 2em; }
+  font-size: 1.5em; }
 
 pre {
   padding: 20px 0 20px 20px;

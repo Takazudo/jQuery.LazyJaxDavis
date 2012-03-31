@@ -217,6 +217,7 @@
         throwErrors: false
         handleRouteNotFound: true
       minwaittime: 0
+      updatetitle: true
 
     constructor: (pages, options, extraRoute) ->
 
@@ -264,7 +265,7 @@
             if self.logger.isToSamePageRequst request then return
             page = self._createPage request, pageConfig, true
             self.logger.log page
-            self.updateContent page
+            self.fetch page
           true
         self.extraRoute.call davis
 
@@ -276,7 +277,7 @@
           if self.logger.isToSamePageRequst request then return
           page = self._createPage request, {}, false
           self.logger.log page
-          self.updateContent page
+          self.fetch page
 
       @davis.configure (config) =>
         $.each @options.davis, (key, val) ->
@@ -303,11 +304,13 @@
           warn.apply @davis.logger, args
       @
 
-    updateContent: (page) ->
+    fetch: (page) ->
       $.Deferred (defer) =>
         @trigger 'everyfetchstart', page
         ($.when page.fetch(), (wait @options.minwaittime)).then =>
           @trigger 'everyfetchend', page
+          if @options.updatetitle
+            document.title = page.rip('title')
           defer.resolve()
         , =>
           @trigger 'everyfetchfail', page

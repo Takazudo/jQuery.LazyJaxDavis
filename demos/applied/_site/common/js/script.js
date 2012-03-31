@@ -79,6 +79,52 @@ $(function(){
 
   $root = $('#lazyjaxdavisroot');
 
+  
+  $.fn.whatthemaincontent = function(){
+    return this.each(function(){
+      var $btn = $(this);
+      var hilighted = false;
+      $btn.click(function(){
+        if(hilighted){
+          hilighted = false;
+          $root.css('background', 'none');
+          $btn.html('Let me know what you mean');
+        }else{
+          hilighted = true;
+          $root.css('background', '#faa');
+          $btn.html('OK, bring me back');
+        }
+      });
+    });
+  };
+
+  $.fn.whattheloading = function(){
+    return this.each(function(){
+      var $btn = $(this);
+      var visible = false;
+      $btn.click(function(){
+        if(visible){
+          loading.hide();
+          visible = false;
+          $btn.html('Let me know what you mean');
+        }else{
+          loading.show();
+          visible = true;
+          $btn.html('OK, bring me back');
+        }
+      });
+    });
+  };
+
+  $.fn.applyCommonThings = function(){
+    return this.each(function(){
+      $('#whatthemaincontent', this).whatthemaincontent();
+      $('#whattheloading', this).whattheloading();
+    });
+  };
+
+  $('body').applyCommonThings();
+
 
   // do it
   
@@ -110,6 +156,7 @@ $(function(){
       $newcontent = $(page.rip('content')).hide();
       $root.empty().append($newcontent);
       $newcontent.fadeIn();
+      $root.applyCommonThings();
     },
     everyfetchfail: function() {
       log('everyfetchfail');
