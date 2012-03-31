@@ -212,8 +212,8 @@
         title: /<title[^>]*>([^<]*)<\/title>/
         content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
       davis:
-        linkSelector: 'a:not(.apply-nolazyjax)'
-        formSelector: 'form:not(.apply-nolazyjax)'
+        linkSelector: 'a:not(.apply-nolazy)'
+        formSelector: 'form:not(.apply-nolazy)'
         throwErrors: false
         handleRouteNotFound: true
       minwaittime: 0

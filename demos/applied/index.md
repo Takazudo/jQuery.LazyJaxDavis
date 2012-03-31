@@ -3,254 +3,114 @@ layout: default
 title: Top page
 ---
 
-## {{ page.title }} content
+## Introduction
 
-This page is the test of jQuery.LazyJaxDavis.
+jQuery.LazyJaxDavis is a url router for static websites using htlm5's history API.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis dui diam, at hendrerit nulla. Etiam sodales, erat ut tempor venenatis, nisi nunc bibendum felis, eget fermentum lorem magna et ipsum. Etiam ac neque odio. Aenean et mi nec leo tincidunt consequat et semper turpis. Cras auctor orci sed lorem venenatis et lobortis tellus tristique. Ut id porta turpis. Nullam velit nunc, porta vitae interdum nec, elementum ut leo. Vestibulum eget lacus ut magna venenatis lacinia. Integer rutrum ligula et sapien ultricies et lobortis nisl pretium. Ut ac lacus eget justo condimentum scelerisque eu in eros. Nunc sit amet justo vel turpis volutpat ullamcorper quis ac lectus. Sed interdum pretium risus hendrerit pretium. Nunc aliquet vestibulum ipsum et condimentum. Maecenas id enim a tellus facilisis gravida. Nam porttitor felis vitae libero iaculis ut mattis lacus eleifend. Duis id purus et mauris dignissim vestibulum et at est.
+### What jQuery.LazyJaxDavis is for?
 
-### {{ page.title }} heading
+Do you usually use history API?  
+It's... pushState, replaceState or something like that.  
 
-Curabitur lobortis, lectus quis pulvinar suscipit, lacus tellus sollicitudin nisl, vel adipiscing metus erat in sem. Phasellus viverra, turpis eget euismod dapibus, diam lacus mollis mauris, malesuada luctus elit orci vitae lectus. Donec fermentum ultricies volutpat. Aliquam in gravida ante. Fusce sed turpis justo, placerat interdum ante. Duis tempor vulputate aliquam. Aliquam eget libero nec mi mollis imperdiet eu porta lorem. Ut mollis, ligula vel pharetra pharetra, odio mauris accumsan mi, id tempor lectus lacus et nunc. Vestibulum sapien nibh, laoreet in tempus rutrum, dictum a ipsum. Maecenas sed mauris nibh, in porttitor magna. Mauris sapien purus, facilisis consequat venenatis id, volutpat non ligula.
+If you are a developer of JavaScript web applications - and the web app which you work in are pretty challenging, the answer may be "Yes". But in most of the cases it must be "No", I guess. And, when you create static websites which are - for example, a corporate site, a weblog, or something which are not web applications, it is pretty rare to use history API, I think.
 
-Nam pretium porta posuere. Morbi volutpat aliquam dictum. Suspendisse tincidunt tellus vitae eros venenatis aliquam. Sed condimentum justo quis magna fringilla in placerat sapien interdum. Vestibulum nisi orci, dictum sed aliquam venenatis, faucibus vel elit. Sed magna nisl, suscipit ut dapibus ullamcorper, aliquet sit amet ligula. Donec ultricies leo sed ligula sagittis rutrum. Donec mattis facilisis dui, in elementum felis porta quis. Suspendisse condimentum, lectus vel auctor consectetur, tortor lorem dignissim erat, eu vulputate orci nisi porttitor justo. In eleifend magna ac purus malesuada vel interdum diam accumsan. Nulla quis dui nisl. Proin nisl est, scelerisque vitae dapibus ac, congue sed massa. Phasellus diam libero, malesuada ut facilisis ultricies, egestas id magna.
+But, don't you want to make your websites more dynamic and better for user experience with history API? It sounds hard but it's easy - if you use jQuery.LazyJaxDavis. jQuery.LazyJaxDavis gives you simple API to make it possible.
 
-Vivamus nec quam lorem, tincidunt gravida nunc. Donec ante dolor, consequat non fringilla nec, pulvinar cursus metus. Sed sit amet turpis velit. Pellentesque sed est lectus, nec mollis dolor. Suspendisse lectus lacus, adipiscing id pretium eget, porttitor vitae ante. Vestibulum pellentesque ligula diam. Praesent ipsum lectus, consequat vitae facilisis in, interdum at nibh. Vivamus libero purus, pharetra eu fermentum sit amet, dignissim quis urna. Suspendisse ut nisi tortor, quis bibendum ipsum. Etiam elit tellus, accumsan et feugiat non, rhoncus in velit. Donec arcu turpis, laoreet vitae fermentum vitae, placerat sit amet augue. Sed hendrerit sagittis mattis. Phasellus nec diam eros, sed bibendum nulla.
+jQuery.LazyJaxDavis provide easy APIs for static websites.
 
-### {{ page.title }} heading
+### Hey, what about the old browser like IE
 
-Curabitur lobortis, lectus quis pulvinar suscipit, lacus tellus sollicitudin nisl, vel adipiscing metus erat in sem. Phasellus viverra, turpis eget euismod dapibus, diam lacus mollis mauris, malesuada luctus elit orci vitae lectus. Donec fermentum ultricies volutpat. Aliquam in gravida ante. Fusce sed turpis justo, placerat interdum ante. Duis tempor vulputate aliquam. Aliquam eget libero nec mi mollis imperdiet eu porta lorem. Ut mollis, ligula vel pharetra pharetra, odio mauris accumsan mi, id tempor lectus lacus et nunc. Vestibulum sapien nibh, laoreet in tempus rutrum, dictum a ipsum. Maecenas sed mauris nibh, in porttitor magna. Mauris sapien purus, facilisis consequat venenatis id, volutpat non ligula.
+New browsers has no problem about history API. But, we need to support them, of course. So do we need to give up using history API? The answer is "No".
 
-Nam pretium porta posuere. Morbi volutpat aliquam dictum. Suspendisse tincidunt tellus vitae eros venenatis aliquam. Sed condimentum justo quis magna fringilla in placerat sapien interdum. Vestibulum nisi orci, dictum sed aliquam venenatis, faucibus vel elit. Sed magna nisl, suscipit ut dapibus ullamcorper, aliquet sit amet ligula. Donec ultricies leo sed ligula sagittis rutrum. Donec mattis facilisis dui, in elementum felis porta quis. Suspendisse condimentum, lectus vel auctor consectetur, tortor lorem dignissim erat, eu vulputate orci nisi porttitor justo. In eleifend magna ac purus malesuada vel interdum diam accumsan. Nulla quis dui nisl. Proin nisl est, scelerisque vitae dapibus ac, congue sed massa. Phasellus diam libero, malesuada ut facilisis ultricies, egestas id magna.
+jQuery.LazyJaxDavis does not provide dynamic features to the browsers which don't have history API features. This just ignores those browsers. And this bring cool features to the browsers which support history API.
 
-### {{ page.title }} code snipet test CoffeeScript
+### How does it work?
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis dui diam, at hendrerit nulla. Etiam sodales, erat ut tempor venenatis, nisi nunc bibendum felis, eget fermentum lorem magna et ipsum. Etiam ac neque odio. Aenean et mi nec leo tincidunt consequat et semper turpis. Cras auctor orci sed lorem venenatis et lobortis tellus tristique. Ut id porta turpis. Nullam velit nunc, porta vitae interdum nec, elementum ut leo. Vestibulum eget lacus ut magna venenatis lacinia. Integer rutrum ligula et sapien ultricies et lobortis nisl pretium. Ut ac lacus eget justo condimentum scelerisque eu in eros. Nunc sit amet justo vel turpis volutpat ullamcorper quis ac lectus. Sed interdum pretium risus hendrerit pretium. Nunc aliquet vestibulum ipsum et condimentum. Maecenas id enim a tellus facilisis gravida. Nam porttitor felis vitae libero iaculis ut mattis lacus eleifend. Duis id purus et mauris dignissim vestibulum et at est.
+This website is a document of jQuery.LazyJaxDavis but also a demo of it.  
+Try clicking left navigations or links in this page. You'll see what jQuery.LazyJaxDavis does... if you use a browser which supports history API.
 
-{% highlight coffeescript %}
-class ns.BasicLoader extends ns.Event
-  constructor: ->
-    super
-    @items = []
+### How can I use this?
 
-  add: (loaderItem) ->
-    if ($.type loaderItem) is 'string'
-      src = loaderItem
-      loaderItem = new ns.LoaderItem src
-    @items.push loaderItem
-    loaderItem
+This demo site is a good example to understand how jQuery.LazyJaxDavis works.
 
-  load: ->
-    count = 0
-    laodDeferreds = $.map @items, (item) =>
-      item.bind 'complete', ($img) =>
-        @trigger 'itemload', $img, count
-        count++
-      .load()
-    $.Deferred (defer) =>
-      ($.when.apply @, laodDeferreds).always (imgs...) =>
-        $imgs = $(imgs)
-        @trigger 'allload', $imgs
-        defer.resolve $imgs
+First, this website has main content area.  
+Click the button below to confirm it.
 
-  kill: ->
-    $.each @items, (i, item) ->
-      item.unbind()
-    @trigger 'kill'
-    @unbind()
-    @
-{% endhighlight %}
+<button id="whatthemaincontent">Let me know what you mean</button>
+<script>
+(function(){
+	var $btn = $('#whatthemaincontent');
+	var $root = $('#lazyjaxdavisroot');
+	var hilighted = false;
+	$btn.click(function(){
+		if(hilighted){
+			hilighted = false;
+			$root.css('background', 'none');
+			$btn.html('Let me know what you mean');
+		}else{
+			hilighted = true;
+			$root.css('background', '#faa');
+			$btn.html('OK, bring me back');
+		}
+	});
+})();
+</script>
 
-### {{ page.title }} code snipet test JavaScript
+This is the main area of the website.  
+In the case of this website, only the html source in this main area is different among each pages. The html source of Header, footer and sidenav is completely same, right?
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis dui diam, at hendrerit nulla. Etiam sodales, erat ut tempor venenatis, nisi nunc bibendum felis, eget fermentum lorem magna et ipsum. Etiam ac neque odio. Aenean et mi nec leo tincidunt consequat et semper turpis. Cras auctor orci sed lorem venenatis et lobortis tellus tristique. Ut id porta turpis. Nullam velit nunc, porta vitae interdum nec, elementum ut leo. Vestibulum eget lacus ut magna venenatis lacinia. Integer rutrum ligula et sapien ultricies et lobortis nisl pretium. Ut ac lacus eget justo condimentum scelerisque eu in eros. Nunc sit amet justo vel turpis volutpat ullamcorper quis ac lectus. Sed interdum pretium risus hendrerit pretium. Nunc aliquet vestibulum ipsum et condimentum. Maecenas id enim a tellus facilisis gravida. Nam porttitor felis vitae libero iaculis ut mattis lacus eleifend. Duis id purus et mauris dignissim vestibulum et at est.
+So what we should do when the location was changed is - replace the html source in the main area. We don't need to change the source about header, footer and sidenav. jQuery.LazyJaxDavis helps you to do this.
 
-{% highlight coffeescript %}
-$.widget('ui.hideoverlay', {
-  options: {
-    overlayfade: true,
-    spinnersrc: null,
-    maxopacity: 0.8,
-    bgiframe: false,
-    spinjs: false,
-    spinjs_options: {
-      color: '#fff',
-      lines: 15,
-      length: 22,
-      radius: 40
+With jQuery.LazyJaxDavis, do like below.
+
+{% highlight javascript %}
+$(function(){
+
+  var $root = $('#lazyjaxdavisroot');
+
+  $.LazyJaxDavis({
+    everyfetchstart: function(page) {
+      window.scrollTo(0, 0);
+      $root.css('opacity', 0.6);
+    },
+    everyfetchend: function(page) {
+      var $newcontent = $(page.rip('content')).hide();
+      $root.css('opacity', 1).empty().append($newcontent);
+      $newcontent.fadeIn();
     }
-  },
-  widgetEventPrefix: 'hideoverlay.',
-  _active: false,
-  _create: function() {
-    this.$el = this.element;
-    this.$spinner = $('.ui-hideoverlay-spinner', this.$el);
-    if (this.options.spinjs) this.$spinner.css('background', 'none');
-    this.$bg = $('.ui-hideoverlay-bg', this.$el);
-    this._preloadSpinner();
-    this._eventify();
-    this._handleIE6();
-    return this;
-  },
-  _attachSpinjs: function() {
-    if (!this._showDefer) return this;
-    if (!this._spinning) return this;
-    return (new Spinner(this.options.spinjs_options)).spin(this.$spinner[0]);
-  },
-  _handleIE6: function() {
-    if (!ie6) return this;
-    this._resize();
-    if (this.options.bgiframe && $.fn.bgiframe) this.$el.bgiframe();
-    return this;
-  },
-  _resize: function() {
-    var h, w;
-    if (!ie6) return this;
-    w = $win.width();
-    h = $win.height();
-    this.$el.css({
-      width: w,
-      height: h,
-      top: $win.scrollTop(),
-      left: $win.scrollLeft()
-    });
-    return this.$bg.css({
-      width: w,
-      height: h
-    });
-  },
-  _eventify: function() {
-    var _this = this;
-    if (!ie6) return this;
-    $win.bind('resize scroll', function() {
-      return _this._resize();
-    });
-    return this;
-  },
-  _showOverlayEl: function(woSpinner) {
-    var _this = this;
-    return $.Deferred(function(defer) {
-      var animTo, cssTo;
-      _this.$spinner.hide();
-      _this.$el.css('display', 'block');
-      cssTo = {
-        opacity: 0
-      };
-      animTo = {
-        opacity: _this.options.maxopacity
-      };
-      if (_this.options.overlayfade) {
-        return ($.when(_this.$bg.stop().css(cssTo).animate(animTo, 200))).done(function() {
-          if (!woSpinner) {
-            if (_this.options.spinjs) {
-              _this.$spinner.show();
-              _this._attachSpinjs();
-            }
-            _this.$spinner.hide().fadeIn();
-          }
-          return defer.resolve();
-        });
-      } else {
-        _this.$bg.css(animTo);
-        if (!woSpinner) {
-          if (_this.options.spinjs) {
-            _this.$spinner.show();
-            _this._attachSpinjs();
-          }
-          _this.$spinner.show();
-        }
-        return defer.resolve();
-      }
-    }).promise();
-  },
-  _hideOverlayEl: function() {
-    var _this = this;
-    return $.Deferred(function(defer) {
-      var animTo, done;
-      animTo = {
-        opacity: 0
-      };
-      done = function() {
-        _this.$el.css('display', 'none');
-        _this.$spinner.show();
-        return defer.resolve();
-      };
-      if (_this.options.overlayfade) {
-        return ($.when(_this.$bg.stop().animate(animTo, 100))).done(function() {
-          return done();
-        });
-      } else {
-        _this.$bg.css(animTo);
-        return done();
-      }
-    }).promise();
-  },
-  _preloadSpinner: function() {
-    var src;
-    src = this.options.spinnersrc;
-    if (!src) return this;
-    (new Image).src = src;
-    return this;
-  },
-  show: function(woSpinner) {
-    var _this = this;
-    if (this._showDefer) return this._showDefer;
-    if (this._active) return resolveSilently();
-    this._active = true;
-    if (woSpinner) {
-      this.hideSpinner();
-    } else {
-      this._spinning = true;
-      this.$spinner.show();
-    }
-    this._trigger('showstart');
-    this._showDefer = this._showOverlayEl(woSpinner);
-    this._showDefer.done(function() {
-      _this._showDefer = null;
-      return _this._trigger('showend');
-    });
-    return this._showDefer;
-  },
-  hide: function() {
-    var _this = this;
-    if (this._showDefer) {
-      this._showDefer.done(function() {
-        return _this.hide();
-      });
-      return this;
-    }
-    if (!this._active) return resolveSilently();
-    this._active = false;
-    this._trigger('hidestart');
-    this._hideDefer = this._hideOverlayEl();
-    this._hideDefer.done(function() {
-      _this._hideDefer = null;
-      return _this._trigger('hideend');
-    });
-    return this._hideDefer;
-  },
-  hideSpinner: function() {
-    this._spinning = false;
-    this.$spinner.stop().empty().hide();
-    return this;
-  }
+  });
+
 });
-$.ui.hideoverlay.create = function(options) {
-  var src;
-  src = "<div class=\"ui-hideoverlay\" id=\"domwindow-hideoverlay\">\n  <div class=\"ui-hideoverlay-bg\"></div>\n  <div class=\"ui-hideoverlay-spinner\"></div>\n</div>";
-  return $(src).hideoverlay(options);
-};
-$.ui.hideoverlay.destroy = function(options) {
-  if (!widgets.$overlay) return false;
-  widgets.$overlay.hideoverlay('destroy').remove();
-  widgets.$overlay = null;
-  return true;
-};
-$.ui.hideoverlay.setup = function(options) {
-  var $overlay;
-  $.ui.hideoverlay.destroy();
-  $overlay = $.ui.hideoverlay.create(options).appendTo('body');
-  widgets.$overlay = $overlay;
-  return $overlay;
-};
 {% endhighlight %}
+
+if you do $.LazyJaxDavis(), all links and form submits are hijacked. Instead of location change, jQuery.LazyJaxDavis does pushState and fetch the target page using jQuery.ajax. You need to define what to do when - ajax was started - and,  ajax was done.
+
+After the ajax thing was done, you can rip the part of the fetched page using page.ript('content'). What does this rip from the page? It's the html source in the main area, of course. But, you need to add the comment to the html like below.
+
+{% highlight javascript %}
+<div class="mod-body">
+	sidenav here
+	<div class="mod-main">
+			<div id="lazyjaxdavisroot">
+			<!-- LazyJaxDavis start -->
+
+			<div class="mod-article">
+				main content blah blah blah
+			</div>
+
+			<!-- LazyJaxDavis end -->
+			</div>
+	</div>
+</div>
+{% endhighlight %}
+
+The source code between `<!-- LazyJaxDavis start -->` and `<!-- LazyJaxDavis end -->` are the result of `page.ript('content')` is what you want. then, update the page.
+
+Basically, that's what jQuery.LazyJaxDavis does.
+
+As you see, this demo site shows nowloading on the left top corner of the browser.  If you want to do the things like that, just add the code to the event handler `everyfetchstart` and `everyfetchend`.
+
+jQuery.LazyJaxDavis provides only the apis to do things like this. To know more, keep reading the other pages in this document.
+
+{% include nolazytestnav.html %}
+

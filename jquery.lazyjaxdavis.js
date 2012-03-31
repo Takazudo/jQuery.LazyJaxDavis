@@ -251,8 +251,8 @@ var __slice = Array.prototype.slice,
         content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
       },
       davis: {
-        linkSelector: 'a:not(.apply-nolazyjax)',
-        formSelector: 'form:not(.apply-nolazyjax)',
+        linkSelector: 'a:not(.apply-nolazy)',
+        formSelector: 'form:not(.apply-nolazy)',
         throwErrors: false,
         handleRouteNotFound: true
       },

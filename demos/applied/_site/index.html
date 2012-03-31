@@ -46,254 +46,179 @@
 			<!-- LazyJaxDavis start -->
 
 			<div class="mod-article">
-				<h2 id='top_page_content'>Top page content</h2>
+				<h2>Introduction</h2>
 
-<p>This page is the test of jQuery.LazyJaxDavis.</p>
+<p>jQuery.LazyJaxDavis is a url router for static websites using htlm5's history API.</p>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis dui diam, at hendrerit nulla. Etiam sodales, erat ut tempor venenatis, nisi nunc bibendum felis, eget fermentum lorem magna et ipsum. Etiam ac neque odio. Aenean et mi nec leo tincidunt consequat et semper turpis. Cras auctor orci sed lorem venenatis et lobortis tellus tristique. Ut id porta turpis. Nullam velit nunc, porta vitae interdum nec, elementum ut leo. Vestibulum eget lacus ut magna venenatis lacinia. Integer rutrum ligula et sapien ultricies et lobortis nisl pretium. Ut ac lacus eget justo condimentum scelerisque eu in eros. Nunc sit amet justo vel turpis volutpat ullamcorper quis ac lectus. Sed interdum pretium risus hendrerit pretium. Nunc aliquet vestibulum ipsum et condimentum. Maecenas id enim a tellus facilisis gravida. Nam porttitor felis vitae libero iaculis ut mattis lacus eleifend. Duis id purus et mauris dignissim vestibulum et at est.</p>
+<h3>What jQuery.LazyJaxDavis is for?</h3>
 
-<h3 id='top_page_heading'>Top page heading</h3>
+<p>Do you usually use history API?<br/>
+It's... pushState, replaceState or something like that.</p>
 
-<p>Curabitur lobortis, lectus quis pulvinar suscipit, lacus tellus sollicitudin nisl, vel adipiscing metus erat in sem. Phasellus viverra, turpis eget euismod dapibus, diam lacus mollis mauris, malesuada luctus elit orci vitae lectus. Donec fermentum ultricies volutpat. Aliquam in gravida ante. Fusce sed turpis justo, placerat interdum ante. Duis tempor vulputate aliquam. Aliquam eget libero nec mi mollis imperdiet eu porta lorem. Ut mollis, ligula vel pharetra pharetra, odio mauris accumsan mi, id tempor lectus lacus et nunc. Vestibulum sapien nibh, laoreet in tempus rutrum, dictum a ipsum. Maecenas sed mauris nibh, in porttitor magna. Mauris sapien purus, facilisis consequat venenatis id, volutpat non ligula.</p>
+<p>If you are a developer of JavaScript web applications - and the web app which you work in are pretty challenging, the answer may be "Yes". But in most of the cases it must be "No", I guess. And, when you create static websites which are - for example, a corporate site, a weblog, or something which are not web applications, it is pretty rare to use history API, I think.</p>
 
-<p>Nam pretium porta posuere. Morbi volutpat aliquam dictum. Suspendisse tincidunt tellus vitae eros venenatis aliquam. Sed condimentum justo quis magna fringilla in placerat sapien interdum. Vestibulum nisi orci, dictum sed aliquam venenatis, faucibus vel elit. Sed magna nisl, suscipit ut dapibus ullamcorper, aliquet sit amet ligula. Donec ultricies leo sed ligula sagittis rutrum. Donec mattis facilisis dui, in elementum felis porta quis. Suspendisse condimentum, lectus vel auctor consectetur, tortor lorem dignissim erat, eu vulputate orci nisi porttitor justo. In eleifend magna ac purus malesuada vel interdum diam accumsan. Nulla quis dui nisl. Proin nisl est, scelerisque vitae dapibus ac, congue sed massa. Phasellus diam libero, malesuada ut facilisis ultricies, egestas id magna.</p>
+<p>But, don't you want to make your websites more dynamic and better for user experience with history API? It sounds hard but it's easy - if you use jQuery.LazyJaxDavis. jQuery.LazyJaxDavis gives you simple API to make it possible.</p>
 
-<p>Vivamus nec quam lorem, tincidunt gravida nunc. Donec ante dolor, consequat non fringilla nec, pulvinar cursus metus. Sed sit amet turpis velit. Pellentesque sed est lectus, nec mollis dolor. Suspendisse lectus lacus, adipiscing id pretium eget, porttitor vitae ante. Vestibulum pellentesque ligula diam. Praesent ipsum lectus, consequat vitae facilisis in, interdum at nibh. Vivamus libero purus, pharetra eu fermentum sit amet, dignissim quis urna. Suspendisse ut nisi tortor, quis bibendum ipsum. Etiam elit tellus, accumsan et feugiat non, rhoncus in velit. Donec arcu turpis, laoreet vitae fermentum vitae, placerat sit amet augue. Sed hendrerit sagittis mattis. Phasellus nec diam eros, sed bibendum nulla.</p>
+<p>jQuery.LazyJaxDavis provide easy APIs for static websites.</p>
 
-<h3 id='top_page_heading'>Top page heading</h3>
+<h3>Hey, what about the old browser like IE</h3>
 
-<p>Curabitur lobortis, lectus quis pulvinar suscipit, lacus tellus sollicitudin nisl, vel adipiscing metus erat in sem. Phasellus viverra, turpis eget euismod dapibus, diam lacus mollis mauris, malesuada luctus elit orci vitae lectus. Donec fermentum ultricies volutpat. Aliquam in gravida ante. Fusce sed turpis justo, placerat interdum ante. Duis tempor vulputate aliquam. Aliquam eget libero nec mi mollis imperdiet eu porta lorem. Ut mollis, ligula vel pharetra pharetra, odio mauris accumsan mi, id tempor lectus lacus et nunc. Vestibulum sapien nibh, laoreet in tempus rutrum, dictum a ipsum. Maecenas sed mauris nibh, in porttitor magna. Mauris sapien purus, facilisis consequat venenatis id, volutpat non ligula.</p>
+<p>New browsers has no problem about history API. But, we need to support them, of course. So do we need to give up using history API? The answer is "No".</p>
 
-<p>Nam pretium porta posuere. Morbi volutpat aliquam dictum. Suspendisse tincidunt tellus vitae eros venenatis aliquam. Sed condimentum justo quis magna fringilla in placerat sapien interdum. Vestibulum nisi orci, dictum sed aliquam venenatis, faucibus vel elit. Sed magna nisl, suscipit ut dapibus ullamcorper, aliquet sit amet ligula. Donec ultricies leo sed ligula sagittis rutrum. Donec mattis facilisis dui, in elementum felis porta quis. Suspendisse condimentum, lectus vel auctor consectetur, tortor lorem dignissim erat, eu vulputate orci nisi porttitor justo. In eleifend magna ac purus malesuada vel interdum diam accumsan. Nulla quis dui nisl. Proin nisl est, scelerisque vitae dapibus ac, congue sed massa. Phasellus diam libero, malesuada ut facilisis ultricies, egestas id magna.</p>
+<p>jQuery.LazyJaxDavis does not provide dynamic features to the browsers which don't have history API features. This just ignores those browsers. And this bring cool features to the browsers which support history API.</p>
 
-<h3 id='top_page_code_snipet_test_coffeescript'>Top page code snipet test CoffeeScript</h3>
+<h3>How does it work?</h3>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis dui diam, at hendrerit nulla. Etiam sodales, erat ut tempor venenatis, nisi nunc bibendum felis, eget fermentum lorem magna et ipsum. Etiam ac neque odio. Aenean et mi nec leo tincidunt consequat et semper turpis. Cras auctor orci sed lorem venenatis et lobortis tellus tristique. Ut id porta turpis. Nullam velit nunc, porta vitae interdum nec, elementum ut leo. Vestibulum eget lacus ut magna venenatis lacinia. Integer rutrum ligula et sapien ultricies et lobortis nisl pretium. Ut ac lacus eget justo condimentum scelerisque eu in eros. Nunc sit amet justo vel turpis volutpat ullamcorper quis ac lectus. Sed interdum pretium risus hendrerit pretium. Nunc aliquet vestibulum ipsum et condimentum. Maecenas id enim a tellus facilisis gravida. Nam porttitor felis vitae libero iaculis ut mattis lacus eleifend. Duis id purus et mauris dignissim vestibulum et at est.</p>
-<div class='highlight'><pre><code class='coffeescript'><span class='k'>class</span> <span class='nx'>ns</span><span class='p'>.</span><span class='nx'>BasicLoader</span> <span class='k'>extends</span> <span class='nx'>ns</span><span class='p'>.</span><span class='nx'>Event</span>
-  <span class='nv'>constructor: </span><span class='o'>-&gt;</span>
-    <span class='k'>super</span>
-    <span class='vi'>@items = </span><span class='p'>[]</span>
+<p>This website is a document of jQuery.LazyJaxDavis but also a demo of it.<br/>
+Try clicking left navigations or links in this page. You'll see what jQuery.LazyJaxDavis does... if you use a browser which supports history API.</p>
 
-  <span class='nv'>add: </span><span class='nf'>(loaderItem) -&gt;</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='nx'>$</span><span class='p'>.</span><span class='nx'>type</span> <span class='nx'>loaderItem</span><span class='p'>)</span> <span class='o'>is</span> <span class='s1'>&#39;string&#39;</span>
-      <span class='nv'>src = </span><span class='nx'>loaderItem</span>
-      <span class='nv'>loaderItem = </span><span class='k'>new</span> <span class='nx'>ns</span><span class='p'>.</span><span class='nx'>LoaderItem</span> <span class='nx'>src</span>
-    <span class='nx'>@items</span><span class='p'>.</span><span class='nx'>push</span> <span class='nx'>loaderItem</span>
-    <span class='nx'>loaderItem</span>
+<h3>How can I use this?</h3>
 
-  <span class='nv'>load: </span><span class='o'>-&gt;</span>
-    <span class='nv'>count = </span><span class='mi'>0</span>
-    <span class='nv'>laodDeferreds = </span><span class='nx'>$</span><span class='p'>.</span><span class='nx'>map</span> <span class='nx'>@items</span><span class='p'>,</span> <span class='p'>(</span><span class='nx'>item</span><span class='p'>)</span> <span class='o'>=&gt;</span>
-      <span class='nx'>item</span><span class='p'>.</span><span class='nx'>bind</span> <span class='s1'>&#39;complete&#39;</span><span class='p'>,</span> <span class='p'>(</span><span class='nx'>$img</span><span class='p'>)</span> <span class='o'>=&gt;</span>
-        <span class='nx'>@trigger</span> <span class='s1'>&#39;itemload&#39;</span><span class='p'>,</span> <span class='nx'>$img</span><span class='p'>,</span> <span class='nx'>count</span>
-        <span class='nx'>count</span><span class='o'>++</span>
-      <span class='p'>.</span><span class='nx'>load</span><span class='p'>()</span>
-    <span class='nx'>$</span><span class='p'>.</span><span class='nx'>Deferred</span> <span class='p'>(</span><span class='nx'>defer</span><span class='p'>)</span> <span class='o'>=&gt;</span>
-      <span class='p'>(</span><span class='nx'>$</span><span class='p'>.</span><span class='k'>when</span><span class='p'>.</span><span class='nx'>apply</span> <span class='err'>@</span><span class='p'>,</span> <span class='nx'>laodDeferreds</span><span class='p'>).</span><span class='nx'>always</span> <span class='p'>(</span><span class='nx'>imgs</span><span class='p'>...)</span> <span class='o'>=&gt;</span>
-        <span class='nv'>$imgs = </span><span class='nx'>$</span><span class='p'>(</span><span class='nx'>imgs</span><span class='p'>)</span>
-        <span class='nx'>@trigger</span> <span class='s1'>&#39;allload&#39;</span><span class='p'>,</span> <span class='nx'>$imgs</span>
-        <span class='nx'>defer</span><span class='p'>.</span><span class='nx'>resolve</span> <span class='nx'>$imgs</span>
+<p>This demo site is a good example to understand how jQuery.LazyJaxDavis works.</p>
 
-  <span class='nv'>kill: </span><span class='o'>-&gt;</span>
-    <span class='nx'>$</span><span class='p'>.</span><span class='nx'>each</span> <span class='nx'>@items</span><span class='p'>,</span> <span class='nf'>(i, item) -&gt;</span>
-      <span class='nx'>item</span><span class='p'>.</span><span class='nx'>unbind</span><span class='p'>()</span>
-    <span class='nx'>@trigger</span> <span class='s1'>&#39;kill&#39;</span>
-    <span class='nx'>@unbind</span><span class='p'>()</span>
-    <span class='err'>@</span>
+<p>First, this website has main content area.<br/>
+Click the button below to confirm it.</p>
+
+<p><button id="whatthemaincontent">Let me know what you mean</button></p>
+
+<script>
+(function(){
+    var $btn = $('#whatthemaincontent');
+    var $root = $('#lazyjaxdavisroot');
+    var hilighted = false;
+    $btn.click(function(){
+        if(hilighted){
+            hilighted = false;
+            $root.css('background', 'none');
+            $btn.html('Let me know what you mean');
+        }else{
+            hilighted = true;
+            $root.css('background', '#faa');
+            $btn.html('OK, bring me back');
+        }
+    });
+})();
+</script>
+
+
+<p>This is the main area of the website.<br/>
+In the case of this website, only the html source in this main area is different among each pages. The html source of Header, footer and sidenav is completely same, right?</p>
+
+<p>So what we should do when the location was changed is - replace the html source in the main area. We don't need to change the source about header, footer and sidenav. jQuery.LazyJaxDavis helps you to do this.</p>
+
+<p>With jQuery.LazyJaxDavis, do like below.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+
+  <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
+
+  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+    <span class="nx">everyfetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+      <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">everyfetchend</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">$newcontent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)).</span><span class="nx">hide</span><span class="p">();</span>
+      <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">).</span><span class="nx">empty</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">$newcontent</span><span class="p">);</span>
+      <span class="nx">$newcontent</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+<span class="p">});</span>
 </code></pre>
 </div>
-<h3 id='top_page_code_snipet_test_javascript'>Top page code snipet test JavaScript</h3>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis dui diam, at hendrerit nulla. Etiam sodales, erat ut tempor venenatis, nisi nunc bibendum felis, eget fermentum lorem magna et ipsum. Etiam ac neque odio. Aenean et mi nec leo tincidunt consequat et semper turpis. Cras auctor orci sed lorem venenatis et lobortis tellus tristique. Ut id porta turpis. Nullam velit nunc, porta vitae interdum nec, elementum ut leo. Vestibulum eget lacus ut magna venenatis lacinia. Integer rutrum ligula et sapien ultricies et lobortis nisl pretium. Ut ac lacus eget justo condimentum scelerisque eu in eros. Nunc sit amet justo vel turpis volutpat ullamcorper quis ac lectus. Sed interdum pretium risus hendrerit pretium. Nunc aliquet vestibulum ipsum et condimentum. Maecenas id enim a tellus facilisis gravida. Nam porttitor felis vitae libero iaculis ut mattis lacus eleifend. Duis id purus et mauris dignissim vestibulum et at est.</p>
-<div class='highlight'><pre><code class='coffeescript'><span class='nx'>$</span><span class='p'>.</span><span class='nx'>widget</span><span class='p'>(</span><span class='s1'>&#39;ui.hideoverlay&#39;</span><span class='p'>,</span> <span class='p'>{</span>
-  <span class='nv'>options: </span><span class='p'>{</span>
-    <span class='nv'>overlayfade: </span><span class='kc'>true</span><span class='p'>,</span>
-    <span class='nv'>spinnersrc: </span><span class='kc'>null</span><span class='p'>,</span>
-    <span class='nv'>maxopacity: </span><span class='mf'>0.8</span><span class='p'>,</span>
-    <span class='nv'>bgiframe: </span><span class='kc'>false</span><span class='p'>,</span>
-    <span class='nv'>spinjs: </span><span class='kc'>false</span><span class='p'>,</span>
-    <span class='nv'>spinjs_options: </span><span class='p'>{</span>
-      <span class='nv'>color: </span><span class='s1'>&#39;#fff&#39;</span><span class='p'>,</span>
-      <span class='nv'>lines: </span><span class='mi'>15</span><span class='p'>,</span>
-      <span class='nv'>length: </span><span class='mi'>22</span><span class='p'>,</span>
-      <span class='nv'>radius: </span><span class='mi'>40</span>
-    <span class='p'>}</span>
-  <span class='p'>},</span>
-  <span class='nv'>widgetEventPrefix: </span><span class='s1'>&#39;hideoverlay.&#39;</span><span class='p'>,</span>
-  <span class='nv'>_active: </span><span class='kc'>false</span><span class='p'>,</span>
-  <span class='nv'>_create: </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nv'>$el = </span><span class='k'>this</span><span class='p'>.</span><span class='nx'>element</span><span class='p'>;</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nv'>$spinner = </span><span class='nx'>$</span><span class='p'>(</span><span class='s1'>&#39;.ui-hideoverlay-spinner&#39;</span><span class='p'>,</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>$el</span><span class='p'>);</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>options</span><span class='p'>.</span><span class='nx'>spinjs</span><span class='p'>)</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>.</span><span class='nx'>css</span><span class='p'>(</span><span class='s1'>&#39;background&#39;</span><span class='p'>,</span> <span class='s1'>&#39;none&#39;</span><span class='p'>);</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nv'>$bg = </span><span class='nx'>$</span><span class='p'>(</span><span class='s1'>&#39;.ui-hideoverlay-bg&#39;</span><span class='p'>,</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>$el</span><span class='p'>);</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>_preloadSpinner</span><span class='p'>();</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>_eventify</span><span class='p'>();</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>_handleIE6</span><span class='p'>();</span>
-    <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-  <span class='p'>},</span>
-  <span class='nv'>_attachSpinjs: </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>_showDefer</span><span class='p'>)</span> <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>_spinning</span><span class='p'>)</span> <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-    <span class='k'>return</span> <span class='p'>(</span><span class='k'>new</span> <span class='nx'>Spinner</span><span class='p'>(</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>options</span><span class='p'>.</span><span class='nx'>spinjs_options</span><span class='p'>)).</span><span class='nx'>spin</span><span class='p'>(</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>[</span><span class='mi'>0</span><span class='p'>]);</span>
-  <span class='p'>},</span>
-  <span class='nv'>_handleIE6: </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='nx'>ie6</span><span class='p'>)</span> <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>_resize</span><span class='p'>();</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>options</span><span class='p'>.</span><span class='nx'>bgiframe</span> <span class='o'>&amp;&amp;</span> <span class='nx'>$</span><span class='p'>.</span><span class='nx'>fn</span><span class='p'>.</span><span class='nx'>bgiframe</span><span class='p'>)</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>$el</span><span class='p'>.</span><span class='nx'>bgiframe</span><span class='p'>();</span>
-    <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-  <span class='p'>},</span>
-  <span class='nv'>_resize: </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-    <span class='nx'>var</span> <span class='nx'>h</span><span class='p'>,</span> <span class='nx'>w</span><span class='p'>;</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='nx'>ie6</span><span class='p'>)</span> <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-    <span class='nv'>w = </span><span class='nx'>$win</span><span class='p'>.</span><span class='nx'>width</span><span class='p'>();</span>
-    <span class='nv'>h = </span><span class='nx'>$win</span><span class='p'>.</span><span class='nx'>height</span><span class='p'>();</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>$el</span><span class='p'>.</span><span class='nx'>css</span><span class='p'>({</span>
-      <span class='nv'>width: </span><span class='nx'>w</span><span class='p'>,</span>
-      <span class='nv'>height: </span><span class='nx'>h</span><span class='p'>,</span>
-      <span class='nv'>top: </span><span class='nx'>$win</span><span class='p'>.</span><span class='nx'>scrollTop</span><span class='p'>(),</span>
-      <span class='nv'>left: </span><span class='nx'>$win</span><span class='p'>.</span><span class='nx'>scrollLeft</span><span class='p'>()</span>
-    <span class='p'>});</span>
-    <span class='k'>return</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>$bg</span><span class='p'>.</span><span class='nx'>css</span><span class='p'>({</span>
-      <span class='nv'>width: </span><span class='nx'>w</span><span class='p'>,</span>
-      <span class='nv'>height: </span><span class='nx'>h</span>
-    <span class='p'>});</span>
-  <span class='p'>},</span>
-  <span class='nv'>_eventify: </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-    <span class='nx'>var</span> <span class='nv'>_this = </span><span class='k'>this</span><span class='p'>;</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='nx'>ie6</span><span class='p'>)</span> <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-    <span class='nx'>$win</span><span class='p'>.</span><span class='nx'>bind</span><span class='p'>(</span><span class='s1'>&#39;resize scroll&#39;</span><span class='p'>,</span> <span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-      <span class='k'>return</span> <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>_resize</span><span class='p'>();</span>
-    <span class='p'>});</span>
-    <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-  <span class='p'>},</span>
-  <span class='nv'>_showOverlayEl: </span><span class='nx'>function</span><span class='p'>(</span><span class='nx'>woSpinner</span><span class='p'>)</span> <span class='p'>{</span>
-    <span class='nx'>var</span> <span class='nv'>_this = </span><span class='k'>this</span><span class='p'>;</span>
-    <span class='k'>return</span> <span class='nx'>$</span><span class='p'>.</span><span class='nx'>Deferred</span><span class='p'>(</span><span class='nx'>function</span><span class='p'>(</span><span class='nx'>defer</span><span class='p'>)</span> <span class='p'>{</span>
-      <span class='nx'>var</span> <span class='nx'>animTo</span><span class='p'>,</span> <span class='nx'>cssTo</span><span class='p'>;</span>
-      <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>.</span><span class='nx'>hide</span><span class='p'>();</span>
-      <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$el</span><span class='p'>.</span><span class='nx'>css</span><span class='p'>(</span><span class='s1'>&#39;display&#39;</span><span class='p'>,</span> <span class='s1'>&#39;block&#39;</span><span class='p'>);</span>
-      <span class='nv'>cssTo = </span><span class='p'>{</span>
-        <span class='nv'>opacity: </span><span class='mi'>0</span>
-      <span class='p'>};</span>
-      <span class='nv'>animTo = </span><span class='p'>{</span>
-        <span class='nv'>opacity: </span><span class='nx'>_this</span><span class='p'>.</span><span class='nx'>options</span><span class='p'>.</span><span class='nx'>maxopacity</span>
-      <span class='p'>};</span>
-      <span class='k'>if</span> <span class='p'>(</span><span class='nx'>_this</span><span class='p'>.</span><span class='nx'>options</span><span class='p'>.</span><span class='nx'>overlayfade</span><span class='p'>)</span> <span class='p'>{</span>
-        <span class='k'>return</span> <span class='p'>(</span><span class='nx'>$</span><span class='p'>.</span><span class='k'>when</span><span class='p'>(</span><span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$bg</span><span class='p'>.</span><span class='nx'>stop</span><span class='p'>().</span><span class='nx'>css</span><span class='p'>(</span><span class='nx'>cssTo</span><span class='p'>).</span><span class='nx'>animate</span><span class='p'>(</span><span class='nx'>animTo</span><span class='p'>,</span> <span class='mi'>200</span><span class='p'>))).</span><span class='nx'>done</span><span class='p'>(</span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-          <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='nx'>woSpinner</span><span class='p'>)</span> <span class='p'>{</span>
-            <span class='k'>if</span> <span class='p'>(</span><span class='nx'>_this</span><span class='p'>.</span><span class='nx'>options</span><span class='p'>.</span><span class='nx'>spinjs</span><span class='p'>)</span> <span class='p'>{</span>
-              <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>.</span><span class='nx'>show</span><span class='p'>();</span>
-              <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>_attachSpinjs</span><span class='p'>();</span>
-            <span class='p'>}</span>
-            <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>.</span><span class='nx'>hide</span><span class='p'>().</span><span class='nx'>fadeIn</span><span class='p'>();</span>
-          <span class='p'>}</span>
-          <span class='k'>return</span> <span class='nx'>defer</span><span class='p'>.</span><span class='nx'>resolve</span><span class='p'>();</span>
-        <span class='p'>});</span>
-      <span class='p'>}</span> <span class='k'>else</span> <span class='p'>{</span>
-        <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$bg</span><span class='p'>.</span><span class='nx'>css</span><span class='p'>(</span><span class='nx'>animTo</span><span class='p'>);</span>
-        <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='nx'>woSpinner</span><span class='p'>)</span> <span class='p'>{</span>
-          <span class='k'>if</span> <span class='p'>(</span><span class='nx'>_this</span><span class='p'>.</span><span class='nx'>options</span><span class='p'>.</span><span class='nx'>spinjs</span><span class='p'>)</span> <span class='p'>{</span>
-            <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>.</span><span class='nx'>show</span><span class='p'>();</span>
-            <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>_attachSpinjs</span><span class='p'>();</span>
-          <span class='p'>}</span>
-          <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>.</span><span class='nx'>show</span><span class='p'>();</span>
-        <span class='p'>}</span>
-        <span class='k'>return</span> <span class='nx'>defer</span><span class='p'>.</span><span class='nx'>resolve</span><span class='p'>();</span>
-      <span class='p'>}</span>
-    <span class='p'>}).</span><span class='nx'>promise</span><span class='p'>();</span>
-  <span class='p'>},</span>
-  <span class='nv'>_hideOverlayEl: </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-    <span class='nx'>var</span> <span class='nv'>_this = </span><span class='k'>this</span><span class='p'>;</span>
-    <span class='k'>return</span> <span class='nx'>$</span><span class='p'>.</span><span class='nx'>Deferred</span><span class='p'>(</span><span class='nx'>function</span><span class='p'>(</span><span class='nx'>defer</span><span class='p'>)</span> <span class='p'>{</span>
-      <span class='nx'>var</span> <span class='nx'>animTo</span><span class='p'>,</span> <span class='nx'>done</span><span class='p'>;</span>
-      <span class='nv'>animTo = </span><span class='p'>{</span>
-        <span class='nv'>opacity: </span><span class='mi'>0</span>
-      <span class='p'>};</span>
-      <span class='nv'>done = </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-        <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$el</span><span class='p'>.</span><span class='nx'>css</span><span class='p'>(</span><span class='s1'>&#39;display&#39;</span><span class='p'>,</span> <span class='s1'>&#39;none&#39;</span><span class='p'>);</span>
-        <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>.</span><span class='nx'>show</span><span class='p'>();</span>
-        <span class='k'>return</span> <span class='nx'>defer</span><span class='p'>.</span><span class='nx'>resolve</span><span class='p'>();</span>
-      <span class='p'>};</span>
-      <span class='k'>if</span> <span class='p'>(</span><span class='nx'>_this</span><span class='p'>.</span><span class='nx'>options</span><span class='p'>.</span><span class='nx'>overlayfade</span><span class='p'>)</span> <span class='p'>{</span>
-        <span class='k'>return</span> <span class='p'>(</span><span class='nx'>$</span><span class='p'>.</span><span class='k'>when</span><span class='p'>(</span><span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$bg</span><span class='p'>.</span><span class='nx'>stop</span><span class='p'>().</span><span class='nx'>animate</span><span class='p'>(</span><span class='nx'>animTo</span><span class='p'>,</span> <span class='mi'>100</span><span class='p'>))).</span><span class='nx'>done</span><span class='p'>(</span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-          <span class='k'>return</span> <span class='nx'>done</span><span class='p'>();</span>
-        <span class='p'>});</span>
-      <span class='p'>}</span> <span class='k'>else</span> <span class='p'>{</span>
-        <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>$bg</span><span class='p'>.</span><span class='nx'>css</span><span class='p'>(</span><span class='nx'>animTo</span><span class='p'>);</span>
-        <span class='k'>return</span> <span class='nx'>done</span><span class='p'>();</span>
-      <span class='p'>}</span>
-    <span class='p'>}).</span><span class='nx'>promise</span><span class='p'>();</span>
-  <span class='p'>},</span>
-  <span class='nv'>_preloadSpinner: </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-    <span class='nx'>var</span> <span class='nx'>src</span><span class='p'>;</span>
-    <span class='nv'>src = </span><span class='k'>this</span><span class='p'>.</span><span class='nx'>options</span><span class='p'>.</span><span class='nx'>spinnersrc</span><span class='p'>;</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='nx'>src</span><span class='p'>)</span> <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-    <span class='p'>(</span><span class='k'>new</span> <span class='nx'>Image</span><span class='p'>).</span><span class='nv'>src = </span><span class='nx'>src</span><span class='p'>;</span>
-    <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-  <span class='p'>},</span>
-  <span class='nv'>show: </span><span class='nx'>function</span><span class='p'>(</span><span class='nx'>woSpinner</span><span class='p'>)</span> <span class='p'>{</span>
-    <span class='nx'>var</span> <span class='nv'>_this = </span><span class='k'>this</span><span class='p'>;</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>_showDefer</span><span class='p'>)</span> <span class='k'>return</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>_showDefer</span><span class='p'>;</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>_active</span><span class='p'>)</span> <span class='k'>return</span> <span class='nx'>resolveSilently</span><span class='p'>();</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nv'>_active = </span><span class='kc'>true</span><span class='p'>;</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='nx'>woSpinner</span><span class='p'>)</span> <span class='p'>{</span>
-      <span class='k'>this</span><span class='p'>.</span><span class='nx'>hideSpinner</span><span class='p'>();</span>
-    <span class='p'>}</span> <span class='k'>else</span> <span class='p'>{</span>
-      <span class='k'>this</span><span class='p'>.</span><span class='nv'>_spinning = </span><span class='kc'>true</span><span class='p'>;</span>
-      <span class='k'>this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>.</span><span class='nx'>show</span><span class='p'>();</span>
-    <span class='p'>}</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>_trigger</span><span class='p'>(</span><span class='s1'>&#39;showstart&#39;</span><span class='p'>);</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nv'>_showDefer = </span><span class='k'>this</span><span class='p'>.</span><span class='nx'>_showOverlayEl</span><span class='p'>(</span><span class='nx'>woSpinner</span><span class='p'>);</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>_showDefer</span><span class='p'>.</span><span class='nx'>done</span><span class='p'>(</span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-      <span class='nv'>_this._showDefer = </span><span class='kc'>null</span><span class='p'>;</span>
-      <span class='k'>return</span> <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>_trigger</span><span class='p'>(</span><span class='s1'>&#39;showend&#39;</span><span class='p'>);</span>
-    <span class='p'>});</span>
-    <span class='k'>return</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>_showDefer</span><span class='p'>;</span>
-  <span class='p'>},</span>
-  <span class='nv'>hide: </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-    <span class='nx'>var</span> <span class='nv'>_this = </span><span class='k'>this</span><span class='p'>;</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>_showDefer</span><span class='p'>)</span> <span class='p'>{</span>
-      <span class='k'>this</span><span class='p'>.</span><span class='nx'>_showDefer</span><span class='p'>.</span><span class='nx'>done</span><span class='p'>(</span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-        <span class='k'>return</span> <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>hide</span><span class='p'>();</span>
-      <span class='p'>});</span>
-      <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-    <span class='p'>}</span>
-    <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='k'>this</span><span class='p'>.</span><span class='nx'>_active</span><span class='p'>)</span> <span class='k'>return</span> <span class='nx'>resolveSilently</span><span class='p'>();</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nv'>_active = </span><span class='kc'>false</span><span class='p'>;</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>_trigger</span><span class='p'>(</span><span class='s1'>&#39;hidestart&#39;</span><span class='p'>);</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nv'>_hideDefer = </span><span class='k'>this</span><span class='p'>.</span><span class='nx'>_hideOverlayEl</span><span class='p'>();</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>_hideDefer</span><span class='p'>.</span><span class='nx'>done</span><span class='p'>(</span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-      <span class='nv'>_this._hideDefer = </span><span class='kc'>null</span><span class='p'>;</span>
-      <span class='k'>return</span> <span class='nx'>_this</span><span class='p'>.</span><span class='nx'>_trigger</span><span class='p'>(</span><span class='s1'>&#39;hideend&#39;</span><span class='p'>);</span>
-    <span class='p'>});</span>
-    <span class='k'>return</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>_hideDefer</span><span class='p'>;</span>
-  <span class='p'>},</span>
-  <span class='nv'>hideSpinner: </span><span class='nx'>function</span><span class='p'>()</span> <span class='p'>{</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nv'>_spinning = </span><span class='kc'>false</span><span class='p'>;</span>
-    <span class='k'>this</span><span class='p'>.</span><span class='nx'>$spinner</span><span class='p'>.</span><span class='nx'>stop</span><span class='p'>().</span><span class='nx'>empty</span><span class='p'>().</span><span class='nx'>hide</span><span class='p'>();</span>
-    <span class='k'>return</span> <span class='k'>this</span><span class='p'>;</span>
-  <span class='p'>}</span>
-<span class='p'>});</span>
-<span class='nv'>$.ui.hideoverlay.create = </span><span class='nx'>function</span><span class='p'>(</span><span class='nx'>options</span><span class='p'>)</span> <span class='p'>{</span>
-  <span class='nx'>var</span> <span class='nx'>src</span><span class='p'>;</span>
-  <span class='nv'>src = </span><span class='s2'>&quot;&lt;div class=\&quot;ui-hideoverlay\&quot; id=\&quot;domwindow-hideoverlay\&quot;&gt;\n  &lt;div class=\&quot;ui-hideoverlay-bg\&quot;&gt;&lt;/div&gt;\n  &lt;div class=\&quot;ui-hideoverlay-spinner\&quot;&gt;&lt;/div&gt;\n&lt;/div&gt;&quot;</span><span class='p'>;</span>
-  <span class='k'>return</span> <span class='nx'>$</span><span class='p'>(</span><span class='nx'>src</span><span class='p'>).</span><span class='nx'>hideoverlay</span><span class='p'>(</span><span class='nx'>options</span><span class='p'>);</span>
-<span class='p'>};</span>
-<span class='nv'>$.ui.hideoverlay.destroy = </span><span class='nx'>function</span><span class='p'>(</span><span class='nx'>options</span><span class='p'>)</span> <span class='p'>{</span>
-  <span class='k'>if</span> <span class='p'>(</span><span class='o'>!</span><span class='nx'>widgets</span><span class='p'>.</span><span class='nx'>$overlay</span><span class='p'>)</span> <span class='k'>return</span> <span class='kc'>false</span><span class='p'>;</span>
-  <span class='nx'>widgets</span><span class='p'>.</span><span class='nx'>$overlay</span><span class='p'>.</span><span class='nx'>hideoverlay</span><span class='p'>(</span><span class='s1'>&#39;destroy&#39;</span><span class='p'>).</span><span class='nx'>remove</span><span class='p'>();</span>
-  <span class='nx'>widgets</span><span class='p'>.</span><span class='nv'>$overlay = </span><span class='kc'>null</span><span class='p'>;</span>
-  <span class='k'>return</span> <span class='kc'>true</span><span class='p'>;</span>
-<span class='p'>};</span>
-<span class='nv'>$.ui.hideoverlay.setup = </span><span class='nx'>function</span><span class='p'>(</span><span class='nx'>options</span><span class='p'>)</span> <span class='p'>{</span>
-  <span class='nx'>var</span> <span class='nx'>$overlay</span><span class='p'>;</span>
-  <span class='nx'>$</span><span class='p'>.</span><span class='nx'>ui</span><span class='p'>.</span><span class='nx'>hideoverlay</span><span class='p'>.</span><span class='nx'>destroy</span><span class='p'>();</span>
-  <span class='nv'>$overlay = </span><span class='nx'>$</span><span class='p'>.</span><span class='nx'>ui</span><span class='p'>.</span><span class='nx'>hideoverlay</span><span class='p'>.</span><span class='nx'>create</span><span class='p'>(</span><span class='nx'>options</span><span class='p'>).</span><span class='nx'>appendTo</span><span class='p'>(</span><span class='s1'>&#39;body&#39;</span><span class='p'>);</span>
-  <span class='nx'>widgets</span><span class='p'>.</span><span class='nv'>$overlay = </span><span class='nx'>$overlay</span><span class='p'>;</span>
-  <span class='k'>return</span> <span class='nx'>$overlay</span><span class='p'>;</span>
-<span class='p'>};</span>
+
+<p>if you do $.LazyJaxDavis(), all links and form submits are hijacked. Instead of location change, jQuery.LazyJaxDavis does pushState and fetch the target page using jQuery.ajax. You need to define what to do when - ajax was started - and,  ajax was done.</p>
+
+<p>After the ajax thing was done, you can rip the part of the fetched page using page.ript('content'). What does this rip from the page? It's the html source in the main area, of course. But, you need to add the comment to the html like below.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;mod-body&quot;</span><span class="o">&gt;</span>
+    <span class="nx">sidenav</span> <span class="nx">here</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;mod-main&quot;</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;lazyjaxdavisroot&quot;</span><span class="o">&gt;</span>
+            <span class="c">&lt;!--</span> <span class="nx">LazyJaxDavis</span> <span class="nx">start</span> <span class="o">--&gt;</span>
+
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;mod-article&quot;</span><span class="o">&gt;</span>
+                <span class="nx">main</span> <span class="nx">content</span> <span class="nx">blah</span> <span class="nx">blah</span> <span class="nx">blah</span>
+            <span class="o">&lt;</span><span class="err">/div&gt;</span>
+
+            <span class="c">&lt;!--</span> <span class="nx">LazyJaxDavis</span> <span class="nx">end</span> <span class="o">--&gt;</span>
+            <span class="o">&lt;</span><span class="err">/div&gt;</span>
+    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
 </code></pre>
 </div>
+
+
+<p>The source code between <code>&lt;!-- LazyJaxDavis start --&gt;</code> and <code>&lt;!-- LazyJaxDavis end --&gt;</code> are the result of <code>page.ript('content')</code> is what you want. then, update the page.</p>
+
+<p>Basically, that's what jQuery.LazyJaxDavis does.</p>
+
+<p>As you see, this demo site shows nowloading on the left top corner of the browser.  If you want to do the things like that, just add the code to the event handler <code>everyfetchstart</code> and <code>everyfetchend</code>.</p>
+
+<p>jQuery.LazyJaxDavis provides only the apis to do things like this. To know more, keep reading the other pages in this document.</p>
+
+<h3>Lazy links and no-lazy links</h3>
+
+
+<p>If you use LazyJaxDavis, All normal links' click invoke LazyJaxDavis's navigation behavior. LazyJaxDavis observes all links' click using jQuery's delegate. LazyJaxDavis hijacks all links as default. You should set "fetchstart" and "fetchend" events to make your site work.</p>
+
+
+<div class="mod-nolazytestnav">
+    <div class="mod-nolazytestnav-lazy">
+        <div class="h">Lazy links</div>
+        <div class="p">These links are normal links - just like &lt;a href=&quot;blahblah&quot;&gt;&lt;/a&gt;.<br>Click these to make sure that ajax navigation works.</div>
+        <ul>
+            <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Top page</a></li>
+            
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">TheLazyDog</a></li>
+            
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">JumpsOver</a></li>
+            
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/quickbrown.html">quickbrown</a></li>
+            
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">foobar</a></li>
+            
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">TheLazyDog</a></li>
+            
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">JumpsOver</a></li>
+            
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">quickbrown</a></li>
+            
+                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">foobar</a></li>
+            
+        </ul>
+    </div>
+    <div class="mod-nolazytestnav-nolazy">
+        <div class="h">No-lazy links</div>
+        <div class="p">These links are no-lazy links. Each of these anchors has "apply-nolazy" in its class attribute. All links with this class do not invoke LazyJaxDavis's navigation. That is to say, these links are just normal link we see every websites.</div>
+        <ul>
+            <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/">Top page</a></li>
+            
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">TheLazyDog</a></li>
+            
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">JumpsOver</a></li>
+            
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/quickbrown.html">quickbrown</a></li>
+            
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">foobar</a></li>
+            
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">TheLazyDog</a></li>
+            
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">JumpsOver</a></li>
+            
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">quickbrown</a></li>
+            
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">foobar</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
 			</div>
 
 			<!-- LazyJaxDavis end -->

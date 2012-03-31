@@ -107,7 +107,7 @@ $(function(){
       log('everyfetchend');
       $root.css('opacity', 1);
       loading.hide();
-      $newcontent = $(page.rip('content')).hide()
+      $newcontent = $(page.rip('content')).hide();
       $root.empty().append($newcontent);
       $newcontent.fadeIn();
     },

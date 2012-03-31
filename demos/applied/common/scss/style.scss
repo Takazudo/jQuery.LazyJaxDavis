@@ -11,9 +11,16 @@ $color_border: #666;
 // ===============================================================
 
 @mixin clearfix {
-	&.clearfix:before, .clearfix:after { content: ""; display: table; }
-	&.clearfix:after { clear: both; }
+	&:before, &:after { content: ""; display: table; }
+	&:after { clear: both; }
 	*zoom:1; /* ie */
+}
+@mixin inline-block {
+	display: inline-block;
+	vertical-align: baseline;
+	zoom: 1;
+	*display: inline;
+	*vertical-align: auto;
 }
 
 // ===============================================================
@@ -116,6 +123,47 @@ body {
 	p {
 		padding:0 0 20px;
 		max-width:800px;
+	}
+}
+
+.mod-nolazytestnav {
+	padding:0 0 20px;
+	margin:0 20px 0 0;
+	font-size:.8em;
+	.h {
+		font-weight:bold;
+		padding:0 0 4px;
+		font-size:1.2em;
+	}
+	.p {
+		padding:0 0 8px;
+	}
+	ul {
+		@include clearfix;
+		list-style-type:none;
+		li, a {
+			@include inline-block;
+		}
+		li {
+			padding:0 0 6px;
+			&:first-child {
+				padding-left:0;
+			}
+			a {
+				padding:4px 8px;
+				border:1px solid $color_border;
+			}
+		}
+	}
+	.mod-nolazytestnav-lazy,
+	.mod-nolazytestnav-nolazy {
+		border:1px solid $color_border;
+		padding:8px 10px 2px;
+	}
+	.mod-nolazytestnav-lazy {
+		margin:0 0 10px;
+	}
+	.mod-nolazytestnav-nolazy {
 	}
 }
 
