@@ -1,7 +1,7 @@
 var __slice = Array.prototype.slice;
 
 jQuery(function($) {
-  var Loading, Logger, loading, log, logger;
+  var $root, Loading, Logger, loading, log, logger;
   Logger = (function() {
 
     function Logger() {
@@ -54,7 +54,8 @@ jQuery(function($) {
 
   })();
   loading = new Loading;
-  return $.LazyJaxDavis([
+  $root = $('#lazyjaxdavis-root');
+  return window.jaxdavis = $.LazyJaxDavis([
     {
       path: '/jQuery.LazyJaxDavis/demos/applied/',
       fetchstart: function() {
@@ -62,12 +63,6 @@ jQuery(function($) {
       },
       fetchend: function() {
         return log('index.html fetchend');
-      },
-      afterrefresh: function() {
-        return log('index.html afterrefresh');
-      },
-      fetchfail: function() {
-        return log('index.html fetchfail');
       }
     }, {
       path: '/jQuery.LazyJaxDavis/demos/applied/1.html',
@@ -76,33 +71,24 @@ jQuery(function($) {
       },
       fetchend: function() {
         return log('1.html fetchend');
-      },
-      afterrefresh: function() {
-        return log('1.html afterrefresh');
-      },
-      fetchfail: function() {
-        return log('1.html fetchfail');
       }
     }
   ], {
-    root: $('#lazyjaxdavis-root'),
     everyfetchstart: function() {
       log('everyfetchstart');
       return loading.show();
     },
-    everyfetchend: function() {
+    everyfetchend: function(page) {
       log('everyfetchend');
-      return loading.hide();
-    },
-    everybeforerefresh: function() {
-      return log('everybeforerefresh');
-    },
-    everyafterrefresh: function($root) {
-      log('everyafterrefresh');
-      return $root.hide().fadeIn();
+      loading.hide();
+      return $root.html(page.rip('content'));
     },
     everyfetchfail: function() {
       return log('everyfetchfail');
     }
+  }, function() {
+    return this.get('/jQuery.LazyJaxDavis/demos/applied/2.html', function(req) {
+      return console.log('davis routing applied');
+    });
   });
 });

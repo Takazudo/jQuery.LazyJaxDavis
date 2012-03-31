@@ -9,7 +9,7 @@
 
   # reset router everytime
   QUnit.testDone ->
-    router?.destroy()
+    router?.stop()
     router = null
 
 
@@ -43,7 +43,7 @@
 
   test 'util filterStr title parse', ->
 
-    expr = ns.Router::options.exprTitle
+    expr = ns.Router::options.expr.title
     runTest = (html, shouldbe) ->
       equal (ns.filterStr html, expr), shouldbe, html
 
@@ -82,7 +82,7 @@
 
   test 'util filterStr content parse', ->
 
-    expr = ns.Router::options.exprContent
+    expr = ns.Router::options.expr.content
     runTest = (html, shouldbe) ->
       equal (ns.filterStr html, expr), shouldbe, html
 

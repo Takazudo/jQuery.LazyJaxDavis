@@ -159,15 +159,15 @@
 
     router: null
 
-    constructor: (@request, @config, @routed, @router) ->
+    constructor: (@request, @config, @routed, @router, @_expr) ->
       super
       $.each eventNames, (i, eventName) =>
         $.each @config, (key, val) =>
           if eventName isnt key then return true
           @bind eventName, val
-      @_eventify_anotherAageAnchor()
+      @_handleAnotherPageAnchor()
 
-    _eventify_anotherAageAnchor: ->
+    _handleAnotherPageAnchor: ->
       res = ns.tryParseAnotherPageAnchor @request.path
       if not res?.hash then return @
       @_hash = res.hash
@@ -177,19 +177,21 @@
 
     fetch: ->
       $.Deferred (defer) =>
-        @trigger 'fetchstart', @router.$root, @router
+        @trigger 'fetchstart', @
         (ns.fetchPage @request.path).then (text) =>
-          data =
-            wholetext: text
-            title: ns.filterStr text, @router.options.exprTitle
-            content: ns.filterStr text, @router.options.exprContent
-          @trigger 'fetchend', @router.$root, @router, data
-          defer.resolve data
+          @_text = text
+          @trigger 'fetchend', @
+          defer.resolve()
         , (aborted) =>
           if not aborted
-            @trigger 'fetchfail', @router.$root, @router
+            @trigger 'fetchfail', @
           defer.reject
             aborted: aborted
+
+    rip: (exprKey) ->
+      if not @_text then return null
+      if not exprKey then return @_text
+      ns.filterStr @_text, @_expr[exprKey]
 
 
   class ns.Router extends ns.Event
@@ -203,23 +205,27 @@
     ]
 
     options:
-      exprTitle: /<title[^>]*>([^<]*)<\/title>/
-      exprContent: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
-      linkSelector: 'a:not(.apply-nolazyjax)'
-      formSelector: 'form:not(.apply-nolazyjax)'
-      throwErrors: false
-      handleRouteNotFound: true
+      expr:
+        title: /<title[^>]*>([^<]*)<\/title>/
+        content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
+      davis:
+        linkSelector: 'a:not(.apply-nolazyjax)'
+        formSelector: 'form:not(.apply-nolazyjax)'
+        throwErrors: false
+        handleRouteNotFound: true
+      minwaittime: 0
 
-    constructor: (pages, options) ->
+    constructor: (pages, options, extraRoute) ->
 
       # handle instance creation wo new
       if not (@ instanceof arguments.callee)
-        return new ns.Router pages, options
+        return new ns.Router pages, options, extraRoute
 
       super
 
       @pages = pages or null
-      @options = $.extend {}, @options, options
+      @extraRoute = extraRoute or $.noop
+      @options = $.extend true, {}, @options, options
       @$root = @options.root or null
 
       @logger = new ns.HistoryLogger
@@ -233,6 +239,9 @@
           @bind eventName, val
       @
 
+    _createPage: (request, config, routed) ->
+      new ns.Page request, config, routed, @, @options.expr
+
     _setupDavis: ->
 
       if not $.support.pushstate then return
@@ -241,26 +250,27 @@
       @davis = new Davis ->
         davis = @
         if not self.pages then return
-        $.each self.pages, (i, pageInfo) ->
-          davis.get pageInfo.path, (request) ->
+        $.each self.pages, (i, pageConfig) ->
+          davis.get pageConfig.path, (request) ->
             if self.logger.isToSamePageRequst request then return
-            page = new ns.Page request, pageInfo, true, self
+            page = self._createPage request, pageConfig, true
             self.logger.log page
             self.updateContent page
           true
+        self.extraRoute.call davis
 
-      if @options.handleRouteNotFound
+      if @options.davis.handleRouteNotFound
         @davis.bind 'routeNotFound', (request) =>
           if ns.isToId request.path
             self.trigger 'toid', request.path
             return
           if self.logger.isToSamePageRequst request then return
-          page = new ns.Page request, {}, false, self
+          page = self._createPage request, {}, false
           self.logger.log page
           self.updateContent page
 
       @davis.configure (config) =>
-        $.each @options, (key, val) ->
+        $.each @options.davis, (key, val) ->
           config[key] = val
           true
 
@@ -274,21 +284,27 @@
 
     updateContent: (page) ->
       $.Deferred (defer) =>
-        @trigger 'everyfetchstart', @$root, @
-        page.fetch().then (data) =>
-          @trigger 'everyfetchend', @$root, @
-          page.trigger 'beforerefresh', @$root, @
-          @trigger 'everybeforerefresh', @$root, @
-          @$root.html data.content
-          page.trigger 'afterrefresh', @$root, @
-          @trigger 'everyafterrefresh', @$root, @
+        @trigger 'everyfetchstart', page
+        ($.when page.fetch(), (wait @options.minwaittime)).then =>
+          @trigger 'everyfetchend', page
           defer.resolve()
         , =>
-          @trigger 'everyfetchfail', @$root, @
+          @trigger 'everyfetchfail', page
       .promise()
 
-    destroy: ->
+    stop: ->
       @davis?.stop()
+      @
+
+    navigate: (path, method) ->
+      if @davis
+        request = new Davis.Request
+          method: method or 'get'
+          fullPath: path
+          title: ''
+        Davis.location.assign request
+      else
+        location.href = path
       @
 
 

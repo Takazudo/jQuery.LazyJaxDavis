@@ -5,7 +5,7 @@
   wait = ns.wait;
   router = null;
   QUnit.testDone(function() {
-    if (router != null) router.destroy();
+    if (router != null) router.stop();
     return router = null;
   });
   test('util isToId', function() {
@@ -32,7 +32,7 @@
   });
   test('util filterStr title parse', function() {
     var expr, html, runTest, shouldbe;
-    expr = ns.Router.prototype.options.exprTitle;
+    expr = ns.Router.prototype.options.expr.title;
     runTest = function(html, shouldbe) {
       return equal(ns.filterStr(html, expr), shouldbe, html);
     };
@@ -54,7 +54,7 @@
   });
   test('util filterStr content parse', function() {
     var expr, html, runTest, shouldbe;
-    expr = ns.Router.prototype.options.exprContent;
+    expr = ns.Router.prototype.options.expr.content;
     runTest = function(html, shouldbe) {
       return equal(ns.filterStr(html, expr), shouldbe, html);
     };

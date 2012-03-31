@@ -38,17 +38,15 @@ jQuery(($) ->
 
   # configure Router
 
-  $.LazyJaxDavis [
+  $root = $('#lazyjaxdavis-root')
+
+  window.jaxdavis = $.LazyJaxDavis [
     {
       path: '/jQuery.LazyJaxDavis/demos/applied/'
       fetchstart: ->
         log 'index.html fetchstart'
       fetchend: ->
         log 'index.html fetchend'
-      afterrefresh: ->
-        log 'index.html afterrefresh'
-      fetchfail: ->
-        log 'index.html fetchfail'
     }
     {
       path: '/jQuery.LazyJaxDavis/demos/applied/1.html'
@@ -56,25 +54,21 @@ jQuery(($) ->
         log '1.html fetchstart'
       fetchend: ->
         log '1.html fetchend'
-      afterrefresh: ->
-        log '1.html afterrefresh'
-      fetchfail: ->
-        log '1.html fetchfail'
     }
   ],
-    root: $('#lazyjaxdavis-root')
     everyfetchstart: ->
       log 'everyfetchstart'
       loading.show()
-    everyfetchend: ->
+    everyfetchend: (page) ->
       log 'everyfetchend'
       loading.hide()
-    everybeforerefresh: ->
-      log 'everybeforerefresh'
-    everyafterrefresh: ($root) ->
-      log 'everyafterrefresh'
-      $root.hide().fadeIn()
+      $root.html page.rip 'content'
     everyfetchfail: ->
       log 'everyfetchfail'
+  , ->
+    @get '/jQuery.LazyJaxDavis/demos/applied/2.html', (req) ->
+        console.log 'davis routing applied'
+
+
 )
 
