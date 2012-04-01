@@ -32,33 +32,43 @@ h1,h2,h3,h4,h5,h6,p,ul,li {
 	margin:0;
 }
 a {
-	color: #666;
 	text-decoration:underline;
-	&:hover, &:focus {
-		background:#666;
-		color:#fff;
+	&:link {
+		color: #666;
 	}
 	&:visited {
 		color: #666;
+	}
+	&:hover, &:active, &:focus {
+		background:#666;
+		color:#fff;
 	}
 }
 
 html {
 	background:#FDF6E3;
+	overflow-y:scroll;
 }
 body {
 	text-align:center;
 	color:#555;
 	font-size:1.2em;
-	overflow-y:scroll;
 	font-family:Helvetica, Arial, sans-serif;
 }
 .mod-all {
 	text-align:left;
 	.mod-header {
 		padding:60px 0 0 220px;
-		font-size:1.5em;
 		height:110px;
+		h1 {
+			font-size:60px;
+			a {
+				color:#333;
+				&:hover {
+					color:#fff;
+				}
+			}
+		}
 	}
 	.mod-body {
 		@include clearfix;
@@ -210,6 +220,16 @@ body {
 
 }
 
+.mod-githubribbon{
+	position:fixed;
+	_position:fixed;
+	left:0;
+	top:0;
+	a:hover{
+		background:none;
+		opacity:.8;
+	}
+}
 
 #logger {
 	position:fixed;
@@ -230,9 +250,10 @@ body {
 
 #loading {
 	position:fixed;
+	_position:absolute;
 	left:10px;
 	top:10px;
-	background:rgba(0,0,0,.8);
+	background:black;
 	color:#fff;
 	padding:10px 14px;
 	font-size:1.5em;

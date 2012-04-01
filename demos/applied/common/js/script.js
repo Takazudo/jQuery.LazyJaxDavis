@@ -166,7 +166,7 @@ $(function(){
       alert('ajax error!');
       $root.css('opacity', 1);
       loading.hide();
-    },
+    }
     //anchorhandler: function(hash){
     //  console.log(hash);
     //},
