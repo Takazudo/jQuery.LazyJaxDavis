@@ -19,14 +19,17 @@
 
 <div class="mod-body">
 	<div class="mod-side">
+	<!-- sidenav start -->
 	<ul class="mod-sidenav" id="sidenav">
 		<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Introduction</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">Davis.js</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/davis.html">Davis.js</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">setup</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/setup.html">Setup</a></li>
 		
 			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">URL routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/urlrouting.html">URL routing</a></li>
 		
 			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">Davis.js routing</a></li>
 		
@@ -39,6 +42,7 @@
 			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">Lazy Forms</a></li>
 		
 	</ul>
+	<!-- sidenav end -->
 </div>
 
 	<div class="mod-main" id="main">
@@ -64,9 +68,9 @@ It's... pushState, replaceState or something like that.</p>
 
 <h3>Hey, what about the old browser like IE</h3>
 
-<p>New browsers has no problem about history API. But, we need to support old browsers like Internet Explorer 9 or less, of course. So do we need to give up using history API? The answer is "No".</p>
+<p>New browsers has no problem about history API. But, we need to support old browsers like Internet Explorer 9 or less in most cases. So do we need to give up using history API? The answer is "No".</p>
 
-<p>jQuery.LazyJaxDavis does not provide features to the browsers which don't have history API features. This just ignores those browsers. And this bring cool features to the browsers which support history API.</p>
+<p>jQuery.LazyJaxDavis does not provide ajax features to the browsers which don't have history API features. But this works with old browsers gracefully.</p>
 
 <h3>How does it work?</h3>
 
@@ -115,12 +119,30 @@ In the case of this website, only the html source in this main area is different
 
 <p>if you do <code>$.LazyJaxDavis()</code>, all links and form submits are hijacked. Instead of normal location change, jQuery.LazyJaxDavis does pushState and fetch the target page using <code>$.ajax</code>. You need to define what to do when - ajax was started - and,  ajax was completed.</p>
 
-<p>After the ajax thing was done, you can rip the part of the fetched page using <code>page.ript('content')</code>. What does this rip from the page? It's the html source in the main area, of course.</p>
+<p>After the ajax thing was done, you can rip the part of the fetched page using <code>page.rip('content')</code>. What does this rip from the page? It's the html source in the main area, of course.</p>
 
 <p>But, who can know what the main content is?<br/>
 You need to add the comment to the html like below.</p>
 
-<p>The source code between <code>&lt;!-- LazyJaxDavis start --&gt;</code> and <code>&lt;!-- LazyJaxDavis end --&gt;</code> is the result of <code>page.ript('content')</code>. This is what we want. then, manually update the dom on the page.</p>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;mod-body&quot;</span><span class="nt">&gt;</span>
+  sidenav here
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;mod-main&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;lazyjaxdavisroot&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- LazyJaxDavis start --&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;mod-article&quot;</span><span class="nt">&gt;</span>
+        main content blah blah blah
+      <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- LazyJaxDavis end --&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+
+<p>The source code between <code>&lt;!-- LazyJaxDavis start --&gt;</code> and <code>&lt;!-- LazyJaxDavis end --&gt;</code> is the result of <code>page.rip('content')</code>. This is what we want. then, manually update the dom on the page.</p>
 
 <p>Basically, that's what jQuery.LazyJaxDavis does.</p>
 

@@ -1,0 +1,329 @@
+<!doctype html>
+<html class="no-js" lang="ja">
+<head>
+<meta charset="utf-8">
+<title>jQuery.LazyJaxDavis - Setup</title>
+<meta name="viewport" content="width=1000">
+<link rel="stylesheet" href="/jQuery.LazyJaxDavis/demos/applied/common/css/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="/jQuery.LazyJaxDavis/lib/davis.js"></script>
+<script src="/jQuery.LazyJaxDavis/jquery.lazyjaxdavis.js"></script>
+<script src="/jQuery.LazyJaxDavis/demos/applied/common/js/script.js"></script>
+</head>
+<body><div class="mod-all">
+
+<div class="mod-header">
+	<h1><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">jQuery.LazyJaxDavis</a></h1>
+</div>
+
+
+<div class="mod-body">
+	<div class="mod-side">
+	<!-- sidenav start -->
+	<ul class="mod-sidenav" id="sidenav">
+		<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Introduction</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/davis.html">Davis.js</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/setup.html">Setup</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">URL routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/urlrouting.html">URL routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">Davis.js routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">Davis.js routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/anchorhandling.html">Anchor handling</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">Lazy links</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">Lazy Forms</a></li>
+		
+	</ul>
+	<!-- sidenav end -->
+</div>
+
+	<div class="mod-main" id="main">
+			<div id="lazyjaxdavisroot">
+			<!-- LazyJaxDavis start -->
+
+			<div class="mod-article">
+				<h2>Setup</h2>
+
+<p>Here's how to setup jQuery.LazyJaxDavis.</p>
+
+<h3>Load dependencies</h3>
+
+<p>First, load <a href="http://jquery.com/">jQuery 1.7.2 (or later)</a>, <a href="http://davisjs.com/">Davis.js</a> and <a href="https://github.com/Takazudo/jQuery.LazyJaxDavis/blob/gh-pages/jquery.lazyjaxdavis.js">jquery.lazyjaxdavis.js</a>.</p>
+
+<h3>Call $.LazyJaxDavis()</h3>
+
+<p>Then, call <code>$.LazyJaxDavis()</code> with arguments like below.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">urlRoutings</span><span class="p">,</span> <span class="nx">extraDavisRoutings</span><span class="p">);</span>
+</code></pre>
+</div>
+
+
+<p><code>urlRoutings</code> and <code>extraDavisRoutings</code> are optional.<br/>
+I write about what you should define as <code>options</code> here.</p>
+
+<p>And, make sure that the comments I wrote in <a href="/jQuery.LazyJaxDavis/demos/applied/_site/">introduction</a> are in the html.</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;body&gt;</span>
+  blah blah blah
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- LazyJaxDavis start --&gt;</span>
+    Here&#39;s the maincontent!
+  <span class="c">&lt;!-- LazyJaxDavis end --&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  blah blah blah
+<span class="nt">&lt;/body&gt;</span>
+</code></pre>
+</div>
+
+
+<h3>init</h3>
+
+<p><code>init</code> will be fired when <code>$.LazyJaxDavis()</code> was called.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Let&#39;s start here!&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<p>This does nothing special. Just use this if you want to do imeediately.</p>
+
+<h3>everyfetchsuccess</h3>
+
+<p>jQuery.LazyJaxDavis hijacks all links in the page.<br/>
+Instead of location change, this fetches the target page. So, you need to define what to do after the ajax was successed.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+  <span class="nx">everyfetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">));</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span> <span class="c1">// don&#39;t forget this!</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<p>And, make sure that the comments I wrote in <a href="/jQuery.LazyJaxDavis/demos/applied/_site/">introduction</a> are in the html.</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;body&gt;</span>
+  blah blah blah
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- LazyJaxDavis start --&gt;</span>
+    Here&#39;s the maincontent!
+  <span class="c">&lt;!-- LazyJaxDavis end --&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  blah blah blah
+<span class="nt">&lt;/body&gt;</span>
+</code></pre>
+</div>
+
+
+<p>With only these codes above, every links invokes ajaxed location change.</p>
+
+<h3>everyfetchstart</h3>
+
+<p>If you like to show loading spinner or something while ajax was in progress, use <code>everyfetchstart</code>.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+  <span class="nx">everyfetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">loading</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">everyfetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+    <span class="nx">loading</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">));</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span> <span class="c1">// don&#39;t forget this!</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<p>The <code>loading</code> here is not what jQuery.LazyJaxDavis prepared. It's your code. <code>everyfatchstart</code> will be fired when page fetching ajax was satarted. You can tell users to know that it's loading with this.</p>
+
+<h3>everypageready</h3>
+
+<p>If you finished refreshing the main content of the page, there must be something you need to do. For example, imagine rollover. Generally, don't you apply rollover or something like below? I guess many jQuery plugin works like this.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.apply-rollover&#39;</span><span class="p">).</span><span class="nx">rollover</span><span class="p">();</span> <span class="c1">// initialize my widget!</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<p>Oh hey, but newly added doms in the main content area are not ready for this. Because it was not in the page when documentready. So, use <code>everypageready</code> event for this.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+  <span class="nx">everyfetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">loading</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">everyfetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+    <span class="nx">loading</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">));</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span> <span class="c1">// don&#39;t forget this!</span>
+  <span class="p">},</span>
+  <span class="nx">everypageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content .apply-rollover&#39;</span><span class="p">).</span><span class="nx">rollover</span><span class="p">();</span> <span class="c1">// apply rollover within the main content</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<p>With this, the rollover is ready for the newly added doms too.</p>
+
+<p>This <code>everypageready</code> event will be fired when you call <code>$.LazyJaxDavis()</code> too. And this also fired when the browser did not support history API. Use this event like documentready for the main content.</p>
+
+<p>If you don't want to run <code>everypageready</code> on startup, add <code>firereadyonstart: false</code> like below.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+  <span class="nx">firereadyonstart</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">everyfetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">loading</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">everyfetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+    <span class="nx">loading</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">));</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span> <span class="c1">// don&#39;t forget this!</span>
+  <span class="p">},</span>
+  <span class="nx">everypageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content .apply-rollover&#39;</span><span class="p">).</span><span class="nx">rollover</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<h3>everyfetchfail</h3>
+
+<p>If the page fetching ajax was failed, the visitor can't know that it was bugged. Because with the code above, there must be a loading indicator or something which tells it's still loading. To avoid this, use <code>everyfetchfail</code> event. This will be fired when ajax was failed.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+  <span class="nx">firereadyonstart</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">everyfetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">loading</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">everyfetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+    <span class="nx">loading</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">));</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span> <span class="c1">// don&#39;t forget this!</span>
+  <span class="p">},</span>
+  <span class="nx">everyfetchfail</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;got troubled!!!&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<p>The code above shows just a alert dialog. I think you should redirect to the 404 page or show something which tells the user that your website got troubled.</p>
+
+<p>Click the link below to confirm how this works.</p>
+
+<ul>
+<li><a href="/xxxxxxxxxxxxxx">Link to non-exist page</a></li>
+</ul>
+
+
+<h3>other options</h3>
+
+<p>The options listed below are also available.<br/>
+If you specify some, $.LazyJaxDavis will be started with the overridden options.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="p">{</span>
+  <span class="nx">ajaxoptions</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+    <span class="nx">cache</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">expr</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="sr">/&lt;title[^&gt;]*&gt;([^&lt;]*)&lt;\/title&gt;/</span><span class="p">,</span>
+    <span class="nx">content</span><span class="o">:</span> <span class="sr">/&lt;!-- LazyJaxDavis start --&gt;([\s\S]*)&lt;!-- LazyJaxDavis end --&gt;/</span>
+  <span class="p">},</span>
+  <span class="nx">davis</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">linkSelector</span><span class="o">:</span> <span class="s1">&#39;a:not([href^=#]):not(.apply-nolazy)&#39;</span><span class="p">,</span>
+    <span class="nx">formSelector</span><span class="o">:</span> <span class="s1">&#39;form:not(.apply-nolazy)&#39;</span><span class="p">,</span>
+    <span class="nx">throwErrors</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">handleRouteNotFound</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="nx">minwaittime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nx">updatetitle</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">firereadyonstart</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+
+<h4>ajaxoptions</h4>
+
+<p>Page fetching <code>$.ajax</code> options.<br/>
+<code>cahce: false</code> may be preferred sometimes.</p>
+
+<h4>expr</h4>
+
+<p>Page ripping regexp patterns.<br/>
+If you use <code>page.rip('content')</code> to rip the new content in <code>everyfetchsuccess</code> handler, jQuery.LazyJaxDavis rips the fetched html with <code>expr.content</code>. You can change this pattern. <code>expr.title</code> is to fetch the new page's title.</p>
+
+<p>In addition, you may want to rip the other html source of the fetched page. Then define your own pattern like below. Then <code>page.rip('keyYouDefined')</code> is also available.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+  <span class="nx">firereadyonstart</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">expr</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">sidenav</span><span class="o">:</span> <span class="sr">/&lt;!-- sidenav start --&gt;([\s\S]*)&lt;!-- sidenav end --&gt;/</span>
+  <span class="p">},</span>
+  <span class="nx">everyfetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">));</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sidenav&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;sidenav&#39;</span><span class="p">));</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<h4>davis</h4>
+
+<p>Davis.js options which jQuery.LazyJaxDavis uses.<br/>
+About <code>linkSelector</code> and <code>formSelector</code>, check the "Lazy link" and "Lazy form" in this document. About other options here, See <a href="http://davisjs.com/">Davis.js's document</a> for more info. But, don't change <code>handleRouteNotFound</code> to false.</p>
+
+<h4>minwaittime</h4>
+
+<p>Minimum wait time to make ajax complete.<br/>
+If you want to show something for loading, ajax may be completed before the loading spinner or something was revealed. Imagine full-Flash websites. They always show the loading indicator before the content was started. In such case, define milli seconds here.</p>
+
+<h4>updatetitle</h4>
+
+<p>Update document.title after page fetching or not.<br/>
+This uses <code>title</code> regexp pattern I wrote above.</p>
+
+<h4>firereadyonstart</h4>
+
+<p>Fires <code>everypageready</code> event on startup or not.<br/>
+This will be also applied to each url routings' <code>pageready</code> event too.</p>
+
+			</div>
+
+			<!-- LazyJaxDavis end -->
+			</div>
+	</div>
+</div>
+
+<div class="mod-footer">
+	This page is the demo of <a href="https://github.com/Takazudo/jQuery.LazyJaxDavis">jQuery.LazyJaxDavis</a>.
+</div>
+
+
+</div></body>
+</html>

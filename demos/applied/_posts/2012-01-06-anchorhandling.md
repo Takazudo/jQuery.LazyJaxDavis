@@ -5,7 +5,7 @@ title: Anchor handling
 
 ## {{ page.title }}
 
-Basically, you don't care about the anchor links.  
+Basically, you don't need to care about the anchor links.  
 jQuery.LazyJaxDavis handles them automatically.
 
 

@@ -19,14 +19,17 @@
 
 <div class="mod-body">
 	<div class="mod-side">
+	<!-- sidenav start -->
 	<ul class="mod-sidenav" id="sidenav">
 		<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Introduction</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">Davis.js</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/davis.html">Davis.js</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">setup</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/setup.html">Setup</a></li>
 		
 			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">URL routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/urlrouting.html">URL routing</a></li>
 		
 			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">Davis.js routing</a></li>
 		
@@ -39,6 +42,7 @@
 			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">Lazy Forms</a></li>
 		
 	</ul>
+	<!-- sidenav end -->
 </div>
 
 	<div class="mod-main" id="main">
@@ -48,15 +52,53 @@
 			<div class="mod-article">
 				<h2>URL routing</h2>
 
-<p>Here's how to setup url routing</p>
+<p>You can define custom events for specific urls using URL routing.</p>
 
-<h3>heading</h3>
+<h3>How to define URL routings</h3>
 
-<p>blha blah blah</p>
+<p>Pass the array of url routing items as the second argument like below.</p>
 
-<h3>heading</h3>
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/1.html&#39;</span><span class="p">,</span>
+    <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html fetchstart!&#39;</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html fetchsuccess!&#39;</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html pageready!&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/2.html&#39;</span><span class="p">,</span>
+    <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html fetchstart!&#39;</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html fetchsuccess!&#39;</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html pageready!&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+<span class="p">]);</span>
+</code></pre>
+</div>
 
-<p>blha blah blah</p>
+
+<p>With URL routing, you can set events for each specific URLs. These event handlers will be fired only if the path was matched. Events below are available for this.</p>
+
+<ul>
+<li>fetchstart</li>
+<li>fetchsuccess</li>
+<li>fetchfail</li>
+<li>pageready</li>
+</ul>
+
+
+<p>These are path pecific ones of every-foo event which you already know.</p>
 
 			</div>
 

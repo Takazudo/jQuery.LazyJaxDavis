@@ -7,7 +7,7 @@ var __slice = Array.prototype.slice,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
 (function($, window, document) {
-  var $document, ns, wait;
+  var $document, error, info, ns, wait;
   ns = {};
   $document = $(document);
   wait = ns.wait = function(time) {
@@ -47,6 +47,17 @@ var __slice = Array.prototype.slice,
     } else {
       return null;
     }
+  };
+  ns.logger = (new Davis.logger).logger;
+  ns.info = info = function() {
+    var args;
+    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    return ns.logger.info.apply(ns.logger, args);
+  };
+  ns.error = error = function() {
+    var args;
+    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    return ns.logger.error.apply(ns.logger, args);
   };
   ns.fetchPage = (function() {
     var current;
@@ -277,12 +288,14 @@ var __slice = Array.prototype.slice,
     };
 
     Page.prototype.rip = function(exprKey) {
-      var expr, _ref, _ref2;
+      var expr, res, _ref, _ref2;
       if (!this._text) return null;
       if (!exprKey) return this._text;
       expr = (_ref = this.options) != null ? (_ref2 = _ref.expr) != null ? _ref2[exprKey] : void 0 : void 0;
       if (!expr) return null;
-      return ns.filterStr(this._text, expr);
+      res = ns.filterStr(this._text, expr);
+      if (!res) error("ripper could not find the text for key: " + exprKey);
+      return res;
     };
 
     Page.prototype.updatetitle = function() {
@@ -334,7 +347,7 @@ var __slice = Array.prototype.slice,
       this.pages = pages;
       this.extraRoute = extraRoute;
       this.options = $.extend(true, {}, this.options, options);
-      this.logger = new ns.HistoryLogger;
+      this.history = new ns.HistoryLogger;
       this._eventify();
       this._setupDavis();
       if (this.options.init) this.options.init.call(this, this);
@@ -382,7 +395,7 @@ var __slice = Array.prototype.slice,
         page.bind('pageready', function() {
           return self.trigger('everypageready');
         });
-        self.logger.push(page.path);
+        self.history.push(page.path);
         return self.fetch(page);
       };
       this.davis = new Davis(function() {
@@ -394,7 +407,7 @@ var __slice = Array.prototype.slice,
           method = (pageConfig.method || 'get').toLowerCase();
           davis[method](pageConfig.path, function(request) {
             var page;
-            if (self.logger.isToSamePageRequst(request.path)) return;
+            if (self.history.isToSamePageRequst(request.path)) return;
             page = self._createPage(request, pageConfig, true);
             return completePage(page);
           });
@@ -412,7 +425,7 @@ var __slice = Array.prototype.slice,
           res = ns.tryParseAnotherPageAnchor(request.path);
           hash = res.hash || null;
           path = res.path || request.path;
-          if (self.logger.isToSamePageRequst(path)) return;
+          if (self.history.isToSamePageRequst(path)) return;
           config = (self._findPageWhosePathIs(path)) || null;
           routed = config ? true : false;
           page = self._createPage(request, config, routed, hash);
@@ -444,7 +457,7 @@ var __slice = Array.prototype.slice,
     };
 
     Router.prototype._tweakDavis = function() {
-      var info, warn,
+      var warn,
         _this = this;
       warn = this.davis.logger.warn;
       info = this.davis.logger.info;

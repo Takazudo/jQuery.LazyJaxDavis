@@ -11,10 +11,13 @@ $(function(){
       $('body').append(this.$el);
     }
     Logger.prototype.items = [];
-    Logger.prototype.log = function(msg) {
+    Logger.prototype.log = function(msg, cls) {
       var $item,
         _this = this;
       $item = $("<div>" + msg + "</div>");
+      if(cls){
+        $item.addClass(cls);
+      }
       this.$el.prepend($item);
       this.items.push($item);
       setTimeout(function() {
@@ -23,11 +26,15 @@ $(function(){
       if (this.items.length > 30) this.items[0].remove();
       return this;
     };
+    Logger.prototype.loglight = function(msg) {
+      this.log(msg, 'light');
+    };
     return Logger;
   })();
 
   logger = new Logger;
   log = function(msg) { logger.log(msg); };
+  loglight = function(msg) { logger.loglight(msg); };
 
 
   // tiny loading on top left
@@ -123,8 +130,6 @@ $(function(){
     });
   };
 
-  $('body').applyCommonThings();
-
 
   // do it
   //
@@ -158,12 +163,26 @@ $(function(){
       $root.applyCommonThings();
     },
     everyfetchfail: function() {
-      log('everyfetchfail');
+      alert('ajax error!');
+      $root.css('opacity', 1);
+      loading.hide();
     },
     //anchorhandler: function(hash){
     //  console.log(hash);
     //},
   },[
+    {
+      path: '/jQuery.LazyJaxDavis/demos/applied/_site/',
+      fetchstart: function(page){
+        loglight('fetchstart: ' + page.path);
+      },
+      fetchsuccess: function(page){
+        loglight('fetchsuccess: ' + page.path);
+      },
+      pageready: function(){
+        loglight('pageready: ' + document.title);
+      }
+    },
     {
       path: '/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html',
       method: 'POST'

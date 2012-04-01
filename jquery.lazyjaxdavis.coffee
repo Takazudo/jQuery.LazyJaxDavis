@@ -62,6 +62,16 @@
 
 
   # ============================================================
+  # logger
+  
+  ns.logger = (new Davis.logger).logger
+  ns.info = info = (args...) ->
+    ns.logger.info.apply ns.logger, args
+  ns.error = error = (args...) ->
+    ns.logger.error.apply ns.logger, args
+
+
+  # ============================================================
   # ajax callers
 
   ns.fetchPage = (->
@@ -246,7 +256,10 @@
       if not exprKey then return @_text
       expr = @options?.expr?[exprKey]
       if not expr then return null
-      ns.filterStr @_text, expr
+      res = ns.filterStr @_text, expr
+      if not res
+        error "ripper could not find the text for key: #{exprKey}"
+      res
 
     updatetitle: ->
       if not @options.updatetitle then return @
@@ -295,7 +308,7 @@
       @pages = pages
       @extraRoute = extraRoute
       @options = $.extend true, {}, @options, options
-      @logger = new ns.HistoryLogger
+      @history = new ns.HistoryLogger
       @_eventify()
       @_setupDavis()
       if @options.init then @options.init.call @, @
@@ -338,7 +351,7 @@
       completePage = (page) ->
         page.bind 'pageready', ->
           self.trigger 'everypageready'
-        self.logger.push page.path
+        self.history.push page.path
         self.fetch page
 
       @davis = new Davis ->
@@ -348,7 +361,7 @@
         $.each self.pages, (i, pageConfig) ->
           method = (pageConfig.method or 'get').toLowerCase()
           davis[method] pageConfig.path, (request) ->
-            if self.logger.isToSamePageRequst request.path then return
+            if self.history.isToSamePageRequst request.path then return
             page = self._createPage request, pageConfig, true
             completePage page
           true
@@ -368,7 +381,7 @@
           hash = res.hash or null
           path = res.path or request.path
 
-          if self.logger.isToSamePageRequst path then return
+          if self.history.isToSamePageRequst path then return
 
           config = (self._findPageWhosePathIs path) or null
           routed = if config then true else false

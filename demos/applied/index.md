@@ -21,9 +21,9 @@ jQuery.LazyJaxDavis provides nice APIs for static websites development.
 
 ### Hey, what about the old browser like IE
 
-New browsers has no problem about history API. But, we need to support old browsers like Internet Explorer 9 or less, of course. So do we need to give up using history API? The answer is "No".
+New browsers has no problem about history API. But, we need to support old browsers like Internet Explorer 9 or less in most cases. So do we need to give up using history API? The answer is "No".
 
-jQuery.LazyJaxDavis does not provide features to the browsers which don't have history API features. This just ignores those browsers. And this bring cool features to the browsers which support history API.
+jQuery.LazyJaxDavis does not provide ajax features to the browsers which don't have history API features. But this works with old browsers gracefully.
 
 ### How does it work?
 
@@ -71,29 +71,29 @@ $(function(){
 
 if you do `$.LazyJaxDavis()`, all links and form submits are hijacked. Instead of normal location change, jQuery.LazyJaxDavis does pushState and fetch the target page using `$.ajax`. You need to define what to do when - ajax was started - and,  ajax was completed.
 
-After the ajax thing was done, you can rip the part of the fetched page using `page.ript('content')`. What does this rip from the page? It's the html source in the main area, of course.
+After the ajax thing was done, you can rip the part of the fetched page using `page.rip('content')`. What does this rip from the page? It's the html source in the main area, of course.
 
 But, who can know what the main content is?  
 You need to add the comment to the html like below.
 
-{% highlight htl %}
+{% highlight html %}
 <div class="mod-body">
-	sidenav here
-	<div class="mod-main">
-			<div id="lazyjaxdavisroot">
-			<!-- LazyJaxDavis start -->
+  sidenav here
+  <div class="mod-main">
+    <div id="lazyjaxdavisroot">
+    <!-- LazyJaxDavis start -->
 
-				<div class="mod-article">
-					main content blah blah blah
-				</div>
+      <div class="mod-article">
+        main content blah blah blah
+      </div>
 
-			<!-- LazyJaxDavis end -->
-			</div>
-	</div>
+    <!-- LazyJaxDavis end -->
+    </div>
+  </div>
 </div>
 {% endhighlight %}
 
-The source code between `<!-- LazyJaxDavis start -->` and `<!-- LazyJaxDavis end -->` is the result of `page.ript('content')`. This is what we want. then, manually update the dom on the page.
+The source code between `<!-- LazyJaxDavis start -->` and `<!-- LazyJaxDavis end -->` is the result of `page.rip('content')`. This is what we want. then, manually update the dom on the page.
 
 Basically, that's what jQuery.LazyJaxDavis does.
 

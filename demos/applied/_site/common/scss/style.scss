@@ -123,6 +123,10 @@ body {
 		padding:0 0 10px;
 		font-size:1.5em;
 	}
+	h4 {
+		padding:0 0 8px;
+		font-size:1.2em;
+	}
 	p {
 		padding:0 0 20px;
 		max-width:800px;
@@ -212,11 +216,15 @@ body {
 	right:0;
 	top:0;
 	text-align:left;
+	font-size:12px;
 	div{
-		background:rgba(0,0,0,.5);
+		background:rgba(0,0,0,.6);
 		color:#fff;
 		margin:1px 0 0;
 		padding:3px 8px;
+		&.light {
+			background:rgba(0,0,0,.4);
+		}
 	}
 }
 

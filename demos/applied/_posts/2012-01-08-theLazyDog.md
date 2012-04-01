@@ -62,7 +62,7 @@ As lazy links, you can avoid the ajax behavior to add `apply-nolazy` to the form
 
 ### Make url routings for POST receivers
 
-If you handle with jQuery.LazyJaxDavis, you need to make url routings for POST receiver pages like below.
+If you handle form POST with jQuery.LazyJaxDavis, you need to make url routings for POST receiver pages like below.
 
 {% highlight javascript %}
 $.LazyJaxDavis({
