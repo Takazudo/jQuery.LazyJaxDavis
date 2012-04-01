@@ -261,20 +261,18 @@ foobar
     
     logger = new ns.HistoryLogger
     for i in [1..10]
-      logger.push {}
-    logger.push { foo: 'bar' }
+      logger.push 'foobar'
+    logger.push 'moomoo'
     equal logger.size(), 11
-    equal logger.last().foo, 'bar', "last item's prop foo is 'bar'"
+    equal logger.last(), 'moomoo'
 
   
   test 'HistoryLogger isToSamePageRequst', ->
     
     logger = new ns.HistoryLogger
     for i in [1..10]
-      logger.push
-        request:
-          path: "foobar#{i}"
-    ok (logger.isToSamePageRequst { path: "foobar10" }), 'was same request'
+      logger.push "foobar#{i}"
+    ok (logger.isToSamePageRequst "foobar10"), 'was same request'
 
 
   test 'Page', ->
@@ -290,29 +288,6 @@ foobar
     equal page.path, 'foobar', "path is #{page.path}"
 
     
-  test 'Page anotherPageAnchor handling', ->
-
-    request = { path: 'foobar.html#mewmew' }
-    config = null
-    routed = false
-    router = null
-    options = null
-
-    page = new ns.Page request, config, routed, router, options
-    equal page.path, 'foobar.html', "path is #{page.path}"
-    equal page._hash, '#mewmew', "hash val is #{page._hash}"
-
-    request = { path: '/somewhere/foobar.html#mewmewmew' }
-    page = new ns.Page request, config, routed, router, options
-    equal page.path, '/somewhere/foobar.html', "path is #{page.path}"
-    equal page._hash, '#mewmewmew', "hash val is #{page._hash}"
-    
-    request = { path: '/somewhere/foobar.html#mewmewmew/moo' }
-    page = new ns.Page request, config, routed, router, options
-    equal page.path, '/somewhere/foobar.html', "path is #{page.path}"
-    equal page._hash, '#mewmewmew/moo', "hash val is #{page._hash}"
-    
-
   asyncTest 'Page fetch', ->
 
     expect 2

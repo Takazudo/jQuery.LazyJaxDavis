@@ -128,19 +128,7 @@ $(function(){
 
   // do it
   
-  $.LazyJaxDavis(
-  //[
-  //  {
-  //    path: '/jQuery.LazyJaxDavis/demos/applied/_site/',
-  //    fetchstart: function() {
-  //      log('index.html fetchstart');
-  //    },
-  //    fetchsuccess: function() {
-  //      log('index.html fetchsuccess');
-  //    }
-  //  }
-  //],
-  {
+  $.LazyJaxDavis({
     everyfetchstart: function(page) {
       log('everyfetchstart');
       $root.css('opacity', 0.6);
@@ -156,12 +144,35 @@ $(function(){
       $newcontent = $(page.rip('content')).hide();
       $root.empty().append($newcontent);
       $newcontent.fadeIn();
+      page.trigger('pageready');
+    },
+    everypageready: function(){
+      log('everypageready');
       $root.applyCommonThings();
     },
     everyfetchfail: function() {
       log('everyfetchfail');
+    },
+    //anchorhandler: function(hash){
+    //  console.log(hash);
+    //},
+  },[
+    {
+      path: '/jQuery.LazyJaxDavis/demos/applied/_site/',
+      //anchorhandler: function(hash){
+      //  log('custom anchor handler');
+      //},
+      fetchstart: function() {
+        log('toppage fetchstart');
+      },
+      fetchsuccess: function() {
+        log('toppage fetchsuccess');
+      },
+      pageready: function(){
+        log('toppage pageready');
+      }
     }
-  });
+  ]);
 
 
 });

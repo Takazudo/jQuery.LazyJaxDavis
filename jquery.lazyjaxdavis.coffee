@@ -1,6 +1,7 @@
 (($, window, document) -> # encapsulate whole start
   
   ns = {}
+  $document = $(document)
 
   # ============================================================
   # tiny utils
@@ -138,10 +139,10 @@
     last: ->
       l = @_items.length
       return if l then @_items[l-1] else null
-    isToSamePageRequst: (request) ->
+    isToSamePageRequst: (path) ->
       last = @last()
       if not last then return false
-      if request.path is last.request.path
+      if path is last
         return true
       else
         return false
@@ -156,6 +157,8 @@
       'fetchsuccess'
       'fetchabort'
       'fetchfail'
+      'pageready'
+      'anchorhandler'
     ]
 
     options:
@@ -167,31 +170,32 @@
       title: null
 
     router: null
-    config: {}
+    config: null
     _text: null
 
-    constructor: (@request, config, @routed, @router, options) ->
+    constructor: (@request, config, @routed, @router, options, @hash) ->
 
       super
 
       @config = $.extend {}, @config, config
       @options = $.extend true, {}, @options, options
+      @path = @config.path or @request.path
 
       $.each eventNames, (i, eventName) =>
         $.each @config, (key, val) =>
           if eventName isnt key then return true
           @bind eventName, val
-      @_handleAnotherPageAnchor()
 
-    _handleAnotherPageAnchor: ->
-      res = ns.tryParseAnotherPageAnchor @request.path
-      if not res?.hash
-        @path = @request.path
-        return @
-      @_hash = res.hash
-      @path = res.path
-      @bind 'fetchsuccess', =>
-        location.href = @_hash
+      anchorhandler = @config?.anchorhandler or @options?.anchorhandler
+      if anchorhandler then @_anchorhandler = anchorhandler
+      @bind 'pageready', =>
+        if not @hash then return
+        @_anchorhandler.call @, @hash
+
+    _anchorhandler: (hash) ->
+      if not hash then return @
+      top = ($document.find hash).offset().top
+      window.scrollTo 0, top
       @
 
     fetch: ->
@@ -244,6 +248,7 @@
       'everyfetchstart'
       'everyfetchsuccess'
       'everyfetchfail'
+      'everypageready'
     ]
 
     options:
@@ -258,8 +263,9 @@
         handleRouteNotFound: true
       minwaittime: 0
       updatetitle: true
+      firereadyonstart: true
 
-    constructor: (options, @pages, @extraRoute) ->
+    constructor: (options, pages, extraRoute) ->
 
       # handle instance creation wo new
       if not (@ instanceof arguments.callee)
@@ -267,10 +273,13 @@
 
       super
 
+      @pages = pages
+      @extraRoute = extraRoute
       @options = $.extend true, {}, @options, options
       @logger = new ns.HistoryLogger
       @_eventify()
       @_setupDavis()
+      if @options.firereadyonstart then @fireready()
 
     _eventify: ->
       $.each eventNames, (i, eventName) =>
@@ -279,43 +288,69 @@
           @bind eventName, val
       @
 
-    _createPage: (request, config, routed) ->
+    _createPage: (request, config, routed, hash) ->
+
       options =
         expr: @options.expr
         updatetitle: @options.updatetitle
+
+      if @options.anchorhandler
+        options.anchorhandler = @options.anchorhandler
+
       if @options.ajaxoptions
         if config.ajaxoptions
           options.ajaxoptions = config.ajaxoptions
         else
           options.ajaxoptions = @options.ajaxoptions
-      new ns.Page request, config, routed, @, options
+
+      if not hash and request?.path
+        res = ns.tryParseAnotherPageAnchor request.path
+        hash = res.hash or null
+
+      new ns.Page request, config, routed, @, options, hash
 
     _setupDavis: ->
 
       if not $.support.pushstate then return
       self = @ # Davis needs "this" scope
 
+      completePage = (page) ->
+        page.bind 'pageready', ->
+          self.trigger 'everypageready'
+        self.logger.push page
+        self.fetch page
+
       @davis = new Davis ->
         davis = @
         if not self.pages then return
         $.each self.pages, (i, pageConfig) ->
           davis.get pageConfig.path, (request) ->
-            if self.logger.isToSamePageRequst request then return
+            if self.logger.isToSamePageRequst request.path then return
             page = self._createPage request, pageConfig, true
-            self.logger.push page
-            self.fetch page
+            completePage page
           true
-        self.extraRoute.call davis
+        self.extraRoute?.call davis
 
       if @options.davis.handleRouteNotFound
-        @davis.bind 'routeNotFound', (request) =>
+        @davis.bind 'routeNotFound', (request) ->
+
+          # if it was just an anchor to the same page, ignore
           if ns.isToId request.path
             self.trigger 'toid', request.path
             return
-          if self.logger.isToSamePageRequst request then return
-          page = self._createPage request, {}, false
-          self.logger.push page
-          self.fetch page
+
+          # check whether the request was another page with anchor.
+          # If was anchored, there may be config in @pages
+          res = ns.tryParseAnotherPageAnchor request.path
+          hash = res.hash or null
+          path = res.path
+
+          if self.logger.isToSamePageRequst path then return
+
+          config = (self._findPageWhosePathIs path) or null
+          routed = if config then true else false
+          page = self._createPage request, config, routed, hash
+          completePage page
 
       @davis.configure (config) =>
         $.each @options.davis, (key, val) ->
@@ -330,6 +365,16 @@
 
       @_tweakDavis()
       @
+
+    _findPageWhosePathIs: (path) ->
+      ret = null
+      $.each @pages, (i, config) ->
+        if config.path is path
+          ret = config
+          return false
+        else
+          return true
+      ret
 
     _tweakDavis: ->
       warn = @davis.logger.warn
@@ -365,6 +410,20 @@
         Davis.location.assign request
       else
         location.href = path
+      @
+
+    fireready: ->
+      if @pages?.length
+        $.each @pages, (i, pageConfig) =>
+          handleThis = false
+          if pageConfig.pathexpr
+            handleThis = pageConfig.pathexpr.test location.pathname
+          else
+            handleThis = pageConfig.path is location.pathname
+          if not handleThis then return true
+          pageConfig?.pageready()
+          return false
+      @trigger 'everypageready'
       @
 
 

@@ -7,8 +7,9 @@ var __slice = Array.prototype.slice,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
 (function($, window, document) {
-  var ns, wait;
+  var $document, ns, wait;
   ns = {};
+  $document = $(document);
   wait = ns.wait = function(time) {
     return $.Deferred(function(defer) {
       return setTimeout(function() {
@@ -153,11 +154,11 @@ var __slice = Array.prototype.slice,
       }
     };
 
-    HistoryLogger.prototype.isToSamePageRequst = function(request) {
+    HistoryLogger.prototype.isToSamePageRequst = function(path) {
       var last;
       last = this.last();
       if (!last) return false;
-      if (request.path === last.request.path) {
+      if (path === last) {
         return true;
       } else {
         return false;
@@ -176,7 +177,7 @@ var __slice = Array.prototype.slice,
 
     __extends(Page, _super);
 
-    eventNames = ['fetchstart', 'fetchsuccess', 'fetchabort', 'fetchfail'];
+    eventNames = ['fetchstart', 'fetchsuccess', 'fetchabort', 'fetchfail', 'pageready', 'anchorhandler'];
 
     Page.prototype.options = {
       ajxoptions: {
@@ -190,40 +191,40 @@ var __slice = Array.prototype.slice,
 
     Page.prototype.router = null;
 
-    Page.prototype.config = {};
+    Page.prototype.config = null;
 
     Page.prototype._text = null;
 
-    function Page(request, config, routed, router, options) {
-      var _this = this;
+    function Page(request, config, routed, router, options, hash) {
+      var anchorhandler, _ref, _ref2,
+        _this = this;
       this.request = request;
       this.routed = routed;
       this.router = router;
+      this.hash = hash;
       Page.__super__.constructor.apply(this, arguments);
       this.config = $.extend({}, this.config, config);
       this.options = $.extend(true, {}, this.options, options);
+      this.path = this.config.path || this.request.path;
       $.each(eventNames, function(i, eventName) {
         return $.each(_this.config, function(key, val) {
           if (eventName !== key) return true;
           return _this.bind(eventName, val);
         });
       });
-      this._handleAnotherPageAnchor();
+      anchorhandler = ((_ref = this.config) != null ? _ref.anchorhandler : void 0) || ((_ref2 = this.options) != null ? _ref2.anchorhandler : void 0);
+      if (anchorhandler) this._anchorhandler = anchorhandler;
+      this.bind('pageready', function() {
+        if (!_this.hash) return;
+        return _this._anchorhandler.call(_this, _this.hash);
+      });
     }
 
-    Page.prototype._handleAnotherPageAnchor = function() {
-      var res,
-        _this = this;
-      res = ns.tryParseAnotherPageAnchor(this.request.path);
-      if (!(res != null ? res.hash : void 0)) {
-        this.path = this.request.path;
-        return this;
-      }
-      this._hash = res.hash;
-      this.path = res.path;
-      this.bind('fetchsuccess', function() {
-        return location.href = _this._hash;
-      });
+    Page.prototype._anchorhandler = function(hash) {
+      var top;
+      if (!hash) return this;
+      top = ($document.find(hash)).offset().top;
+      window.scrollTo(0, top);
       return this;
     };
 
@@ -292,7 +293,7 @@ var __slice = Array.prototype.slice,
 
     __extends(Router, _super);
 
-    eventNames = ['everyfetchstart', 'everyfetchsuccess', 'everyfetchfail'];
+    eventNames = ['everyfetchstart', 'everyfetchsuccess', 'everyfetchfail', 'everypageready'];
 
     Router.prototype.options = {
       ajaxoptions: null,
@@ -307,20 +308,22 @@ var __slice = Array.prototype.slice,
         handleRouteNotFound: true
       },
       minwaittime: 0,
-      updatetitle: true
+      updatetitle: true,
+      firereadyonstart: true
     };
 
     function Router(options, pages, extraRoute) {
-      this.pages = pages;
-      this.extraRoute = extraRoute;
       if (!(this instanceof arguments.callee)) {
         return new ns.Router(options, pages, extraRoute);
       }
       Router.__super__.constructor.apply(this, arguments);
+      this.pages = pages;
+      this.extraRoute = extraRoute;
       this.options = $.extend(true, {}, this.options, options);
       this.logger = new ns.HistoryLogger;
       this._eventify();
       this._setupDavis();
+      if (this.options.firereadyonstart) this.fireready();
     }
 
     Router.prototype._eventify = function() {
@@ -334,12 +337,15 @@ var __slice = Array.prototype.slice,
       return this;
     };
 
-    Router.prototype._createPage = function(request, config, routed) {
-      var options;
+    Router.prototype._createPage = function(request, config, routed, hash) {
+      var options, res;
       options = {
         expr: this.options.expr,
         updatetitle: this.options.updatetitle
       };
+      if (this.options.anchorhandler) {
+        options.anchorhandler = this.options.anchorhandler;
+      }
       if (this.options.ajaxoptions) {
         if (config.ajaxoptions) {
           options.ajaxoptions = config.ajaxoptions;
@@ -347,41 +353,55 @@ var __slice = Array.prototype.slice,
           options.ajaxoptions = this.options.ajaxoptions;
         }
       }
-      return new ns.Page(request, config, routed, this, options);
+      if (!hash && (request != null ? request.path : void 0)) {
+        res = ns.tryParseAnotherPageAnchor(request.path);
+        hash = res.hash || null;
+      }
+      return new ns.Page(request, config, routed, this, options, hash);
     };
 
     Router.prototype._setupDavis = function() {
-      var self,
+      var completePage, self,
         _this = this;
       if (!$.support.pushstate) return;
       self = this;
+      completePage = function(page) {
+        page.bind('pageready', function() {
+          return self.trigger('everypageready');
+        });
+        self.logger.push(page);
+        return self.fetch(page);
+      };
       this.davis = new Davis(function() {
-        var davis;
+        var davis, _ref;
         davis = this;
         if (!self.pages) return;
         $.each(self.pages, function(i, pageConfig) {
           davis.get(pageConfig.path, function(request) {
             var page;
-            if (self.logger.isToSamePageRequst(request)) return;
+            if (self.logger.isToSamePageRequst(request.path)) return;
             page = self._createPage(request, pageConfig, true);
-            self.logger.push(page);
-            return self.fetch(page);
+            return completePage(page);
           });
           return true;
         });
-        return self.extraRoute.call(davis);
+        return (_ref = self.extraRoute) != null ? _ref.call(davis) : void 0;
       });
       if (this.options.davis.handleRouteNotFound) {
         this.davis.bind('routeNotFound', function(request) {
-          var page;
+          var config, hash, page, path, res, routed;
           if (ns.isToId(request.path)) {
             self.trigger('toid', request.path);
             return;
           }
-          if (self.logger.isToSamePageRequst(request)) return;
-          page = self._createPage(request, {}, false);
-          self.logger.push(page);
-          return self.fetch(page);
+          res = ns.tryParseAnotherPageAnchor(request.path);
+          hash = res.hash || null;
+          path = res.path;
+          if (self.logger.isToSamePageRequst(path)) return;
+          config = (self._findPageWhosePathIs(path)) || null;
+          routed = config ? true : false;
+          page = self._createPage(request, config, routed, hash);
+          return completePage(page);
         });
       }
       this.davis.configure(function(config) {
@@ -399,6 +419,20 @@ var __slice = Array.prototype.slice,
       });
       this._tweakDavis();
       return this;
+    };
+
+    Router.prototype._findPageWhosePathIs = function(path) {
+      var ret;
+      ret = null;
+      $.each(this.pages, function(i, config) {
+        if (config.path === path) {
+          ret = config;
+          return false;
+        } else {
+          return true;
+        }
+      });
+      return ret;
     };
 
     Router.prototype._tweakDavis = function() {
@@ -450,6 +484,27 @@ var __slice = Array.prototype.slice,
       } else {
         location.href = path;
       }
+      return this;
+    };
+
+    Router.prototype.fireready = function() {
+      var _ref,
+        _this = this;
+      if ((_ref = this.pages) != null ? _ref.length : void 0) {
+        $.each(this.pages, function(i, pageConfig) {
+          var handleThis;
+          handleThis = false;
+          if (pageConfig.pathexpr) {
+            handleThis = pageConfig.pathexpr.test(location.pathname);
+          } else {
+            handleThis = pageConfig.path === location.pathname;
+          }
+          if (!handleThis) return true;
+          if (pageConfig != null) pageConfig.pageready();
+          return false;
+        });
+      }
+      this.trigger('everypageready');
       return this;
     };
 

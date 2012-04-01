@@ -181,27 +181,19 @@
     var i, logger;
     logger = new ns.HistoryLogger;
     for (i = 1; i <= 10; i++) {
-      logger.push({});
+      logger.push('foobar');
     }
-    logger.push({
-      foo: 'bar'
-    });
+    logger.push('moomoo');
     equal(logger.size(), 11);
-    return equal(logger.last().foo, 'bar', "last item's prop foo is 'bar'");
+    return equal(logger.last(), 'moomoo');
   });
   test('HistoryLogger isToSamePageRequst', function() {
     var i, logger;
     logger = new ns.HistoryLogger;
     for (i = 1; i <= 10; i++) {
-      logger.push({
-        request: {
-          path: "foobar" + i
-        }
-      });
+      logger.push("foobar" + i);
     }
-    return ok(logger.isToSamePageRequst({
-      path: "foobar10"
-    }), 'was same request');
+    return ok(logger.isToSamePageRequst("foobar10"), 'was same request');
   });
   test('Page', function() {
     var config, options, page, request, routed;
@@ -215,31 +207,6 @@
     page = new ns.Page(request, config, routed, router, options);
     ok(page, 'instance creation successed');
     return equal(page.path, 'foobar', "path is " + page.path);
-  });
-  test('Page anotherPageAnchor handling', function() {
-    var config, options, page, request, routed;
-    request = {
-      path: 'foobar.html#mewmew'
-    };
-    config = null;
-    routed = false;
-    router = null;
-    options = null;
-    page = new ns.Page(request, config, routed, router, options);
-    equal(page.path, 'foobar.html', "path is " + page.path);
-    equal(page._hash, '#mewmew', "hash val is " + page._hash);
-    request = {
-      path: '/somewhere/foobar.html#mewmewmew'
-    };
-    page = new ns.Page(request, config, routed, router, options);
-    equal(page.path, '/somewhere/foobar.html', "path is " + page.path);
-    equal(page._hash, '#mewmewmew', "hash val is " + page._hash);
-    request = {
-      path: '/somewhere/foobar.html#mewmewmew/moo'
-    };
-    page = new ns.Page(request, config, routed, router, options);
-    equal(page.path, '/somewhere/foobar.html', "path is " + page.path);
-    return equal(page._hash, '#mewmewmew/moo', "hash val is " + page._hash);
   });
   asyncTest('Page fetch', function() {
     var config, options, page, request, routed;

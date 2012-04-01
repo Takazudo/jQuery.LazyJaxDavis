@@ -338,7 +338,9 @@ html {
 body {
   text-align: center;
   color: #555;
-  font-size: 1.2em; }
+  font-size: 1.2em;
+  overflow-y: scroll;
+  font-family: Helvetica, Arial, sans-serif; }
 
 .mod-all {
   text-align: left; }
@@ -402,6 +404,12 @@ body {
 .mod-article p {
   padding: 0 0 20px;
   max-width: 800px; }
+.mod-article ul {
+  padding: 0 0 15px; }
+  .mod-article ul li {
+    list-style-type: disc;
+    padding: 0 0 5px 0;
+    margin: 0 0 0 30px; }
 .mod-article blockquote {
   border-left: 1px solid #666666;
   padding: 0 0 0 20px;
