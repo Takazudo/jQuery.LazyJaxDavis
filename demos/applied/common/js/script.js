@@ -135,8 +135,8 @@ $(function(){
   //    fetchstart: function() {
   //      log('index.html fetchstart');
   //    },
-  //    fetchend: function() {
-  //      log('index.html fetchend');
+  //    fetchsuccess: function() {
+  //      log('index.html fetchsuccess');
   //    }
   //  }
   //],
@@ -148,9 +148,9 @@ $(function(){
       loading.show();
       sidenav.currentify(page.path);
     },
-    everyfetchend: function(page) {
+    everyfetchsuccess: function(page) {
       var $newcontent;
-      log('everyfetchend');
+      log('everyfetchsuccess');
       $root.css('opacity', 1);
       loading.hide();
       $newcontent = $(page.rip('content')).hide();

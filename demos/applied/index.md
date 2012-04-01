@@ -58,7 +58,7 @@ $(function(){
       window.scrollTo(0, 0);
       $root.css('opacity', 0.6);
     },
-    everyfetchend: function(page) {
+    everyfetchsuccess: function(page) {
       var $newcontent = $(page.rip('content')).hide();
       $root.css('opacity', 1).empty().append($newcontent);
       $newcontent.fadeIn();
@@ -100,7 +100,7 @@ As you see, this demo site shows nowloading on the left top corner of the browse
 
 <button id="whattheloading">Let me know what you mean</button>
 
-If you want to do the things like that, just add the code to the event handler `everyfetchstart` and `everyfetchend`.
+If you want to do the things like that, just add the code to the event handler `everyfetchstart` and `everyfetchsuccess`.
 
 jQuery.LazyJaxDavis provides only the apis to do things like this.  
 So if you want to implement the things like nice loading, it's what you need to code by yourself. To learn more, keep reading the other pages in this document.

@@ -6,7 +6,7 @@ var __slice = Array.prototype.slice,
   __hasProp = Object.prototype.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
-(function($, win, doc) {
+(function($, window, document) {
   var ns, wait;
   ns = {};
   wait = ns.wait = function(time) {
@@ -47,16 +47,13 @@ var __slice = Array.prototype.slice,
   ns.fetchPage = (function() {
     var current;
     current = null;
-    return function(url) {
+    return function(url, options) {
       var ret;
       ret = $.Deferred(function(defer) {
-        var options;
         if (current) current.abort();
-        options = {
-          url: url,
-          dataType: 'text',
-          cache: true
-        };
+        options = $.extend({
+          url: url
+        }, options);
         return current = ($.ajax(options)).then(function(res) {
           current = null;
           return defer.resolve(res);
@@ -141,7 +138,7 @@ var __slice = Array.prototype.slice,
       this._items = [];
     }
 
-    HistoryLogger.prototype.log = function(obj) {
+    HistoryLogger.prototype.push = function(obj) {
       this._items.push(obj);
       return this;
     };
@@ -167,6 +164,10 @@ var __slice = Array.prototype.slice,
       }
     };
 
+    HistoryLogger.prototype.size = function() {
+      return this._items.length;
+    };
+
     return HistoryLogger;
 
   })();
@@ -175,18 +176,32 @@ var __slice = Array.prototype.slice,
 
     __extends(Page, _super);
 
-    eventNames = ['fetchstart', 'fetchend', 'afterrefresh', 'fetchfail'];
+    eventNames = ['fetchstart', 'fetchsuccess', 'fetchabort', 'fetchfail'];
+
+    Page.prototype.options = {
+      ajxoptions: {
+        dataType: 'text',
+        cache: true
+      },
+      expr: null,
+      updatetitle: true,
+      title: null
+    };
 
     Page.prototype.router = null;
 
-    function Page(request, config, routed, router, _expr) {
+    Page.prototype.config = {};
+
+    Page.prototype._text = null;
+
+    function Page(request, config, routed, router, options) {
       var _this = this;
       this.request = request;
-      this.config = config;
       this.routed = routed;
       this.router = router;
-      this._expr = _expr;
       Page.__super__.constructor.apply(this, arguments);
+      this.config = $.extend({}, this.config, config);
+      this.options = $.extend(true, {}, this.options, options);
       $.each(eventNames, function(i, eventName) {
         return $.each(_this.config, function(key, val) {
           if (eventName !== key) return true;
@@ -206,33 +221,67 @@ var __slice = Array.prototype.slice,
       }
       this._hash = res.hash;
       this.path = res.path;
-      this.bind('fetchend', function() {
+      this.bind('fetchsuccess', function() {
         return location.href = _this._hash;
       });
       return this;
     };
 
     Page.prototype.fetch = function() {
-      var _this = this;
-      return $.Deferred(function(defer) {
+      var ajaxoptions, currentFetch, path,
+        _this = this;
+      currentFetch = null;
+      path = this.request.path;
+      ajaxoptions = this.options.ajaxoptions;
+      this._fetchDefer = $.Deferred(function(defer) {
         _this.trigger('fetchstart', _this);
-        return (ns.fetchPage(_this.request.path)).then(function(text) {
+        return currentFetch = (ns.fetchPage(path, ajaxoptions)).then(function(text) {
           _this._text = text;
-          _this.trigger('fetchend', _this);
-          return defer.resolve();
+          _this.trigger('fetchsuccess', _this);
+          defer.resolve();
+          return _this.updatetitle();
         }, function(aborted) {
-          if (!aborted) _this.trigger('fetchfail', _this);
+          if (aborted) {
+            _this.trigger('fetchabort', _this);
+          } else {
+            _this.trigger('fetchfail', _this);
+          }
           return defer.reject({
             aborted: aborted
           });
+        }).always(function() {
+          return _this._fetchDefer = null;
         });
       });
+      this._fetchDefer.abort = function() {
+        return currentFetch.abort();
+      };
+      return this._fetchDefer;
+    };
+
+    Page.prototype.abort = function() {
+      var _ref;
+      if ((_ref = this._fetchDefer) != null) _ref.abort();
+      return this;
     };
 
     Page.prototype.rip = function(exprKey) {
+      var expr, _ref, _ref2;
       if (!this._text) return null;
       if (!exprKey) return this._text;
-      return ns.filterStr(this._text, this._expr[exprKey]);
+      expr = (_ref = this.options) != null ? (_ref2 = _ref.expr) != null ? _ref2[exprKey] : void 0 : void 0;
+      if (!expr) return null;
+      return ns.filterStr(this._text, expr);
+    };
+
+    Page.prototype.updatetitle = function() {
+      var title;
+      if (!this.options.updatetitle) return this;
+      title = null;
+      if (!title && this._text) title = this.rip('title');
+      if (!title) return this;
+      document.title = title;
+      return this;
     };
 
     return Page;
@@ -243,9 +292,10 @@ var __slice = Array.prototype.slice,
 
     __extends(Router, _super);
 
-    eventNames = ['everyfetchstart', 'everyfetchend', 'everybeforerefresh', 'everyafterrefresh', 'everyfetchfail'];
+    eventNames = ['everyfetchstart', 'everyfetchsuccess', 'everyfetchfail'];
 
     Router.prototype.options = {
+      ajaxoptions: null,
       expr: {
         title: /<title[^>]*>([^<]*)<\/title>/,
         content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
@@ -260,20 +310,14 @@ var __slice = Array.prototype.slice,
       updatetitle: true
     };
 
-    function Router(pages, options, extraRoute) {
-      if (!(this instanceof arguments.callee)) {
-        return new ns.Router(pages, options, extraRoute);
-      }
-      if (!$.isArray(pages)) {
-        extraRoute = options;
-        options = pages;
-        pages = null;
-      }
+    function Router(options, pages, extraRoute) {
       this.pages = pages;
+      this.extraRoute = extraRoute;
+      if (!(this instanceof arguments.callee)) {
+        return new ns.Router(options, pages, extraRoute);
+      }
       Router.__super__.constructor.apply(this, arguments);
-      this.extraRoute = extraRoute || $.noop;
       this.options = $.extend(true, {}, this.options, options);
-      this.$root = this.options.root || null;
       this.logger = new ns.HistoryLogger;
       this._eventify();
       this._setupDavis();
@@ -291,7 +335,19 @@ var __slice = Array.prototype.slice,
     };
 
     Router.prototype._createPage = function(request, config, routed) {
-      return new ns.Page(request, config, routed, this, this.options.expr);
+      var options;
+      options = {
+        expr: this.options.expr,
+        updatetitle: this.options.updatetitle
+      };
+      if (this.options.ajaxoptions) {
+        if (config.ajaxoptions) {
+          options.ajaxoptions = config.ajaxoptions;
+        } else {
+          options.ajaxoptions = this.options.ajaxoptions;
+        }
+      }
+      return new ns.Page(request, config, routed, this, options);
     };
 
     Router.prototype._setupDavis = function() {
@@ -308,7 +364,7 @@ var __slice = Array.prototype.slice,
             var page;
             if (self.logger.isToSamePageRequst(request)) return;
             page = self._createPage(request, pageConfig, true);
-            self.logger.log(page);
+            self.logger.push(page);
             return self.fetch(page);
           });
           return true;
@@ -324,7 +380,7 @@ var __slice = Array.prototype.slice,
           }
           if (self.logger.isToSamePageRequst(request)) return;
           page = self._createPage(request, {}, false);
-          self.logger.log(page);
+          self.logger.push(page);
           return self.fetch(page);
         });
       }
@@ -368,8 +424,7 @@ var __slice = Array.prototype.slice,
       return $.Deferred(function(defer) {
         _this.trigger('everyfetchstart', page);
         return ($.when(page.fetch(), wait(_this.options.minwaittime))).then(function() {
-          _this.trigger('everyfetchend', page);
-          if (_this.options.updatetitle) document.title = page.rip('title');
+          _this.trigger('everyfetchsuccess', page);
           return defer.resolve();
         }, function() {
           return _this.trigger('everyfetchfail', page);

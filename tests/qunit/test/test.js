@@ -1,5 +1,5 @@
 
-(function($, win) {
+(function($, window, document) {
   var ns, router, wait;
   ns = $.LazyJaxDavisNs;
   wait = ns.wait;
@@ -177,5 +177,290 @@
       return start();
     });
   });
-  return $(function() {});
-})(jQuery, this);
+  test('HistoryLogger', function() {
+    var i, logger;
+    logger = new ns.HistoryLogger;
+    for (i = 1; i <= 10; i++) {
+      logger.push({});
+    }
+    logger.push({
+      foo: 'bar'
+    });
+    equal(logger.size(), 11);
+    return equal(logger.last().foo, 'bar', "last item's prop foo is 'bar'");
+  });
+  test('HistoryLogger isToSamePageRequst', function() {
+    var i, logger;
+    logger = new ns.HistoryLogger;
+    for (i = 1; i <= 10; i++) {
+      logger.push({
+        request: {
+          path: "foobar" + i
+        }
+      });
+    }
+    return ok(logger.isToSamePageRequst({
+      path: "foobar10"
+    }), 'was same request');
+  });
+  test('Page', function() {
+    var config, options, page, request, routed;
+    request = {
+      path: 'foobar'
+    };
+    config = null;
+    routed = false;
+    router = null;
+    options = null;
+    page = new ns.Page(request, config, routed, router, options);
+    ok(page, 'instance creation successed');
+    return equal(page.path, 'foobar', "path is " + page.path);
+  });
+  test('Page anotherPageAnchor handling', function() {
+    var config, options, page, request, routed;
+    request = {
+      path: 'foobar.html#mewmew'
+    };
+    config = null;
+    routed = false;
+    router = null;
+    options = null;
+    page = new ns.Page(request, config, routed, router, options);
+    equal(page.path, 'foobar.html', "path is " + page.path);
+    equal(page._hash, '#mewmew', "hash val is " + page._hash);
+    request = {
+      path: '/somewhere/foobar.html#mewmewmew'
+    };
+    page = new ns.Page(request, config, routed, router, options);
+    equal(page.path, '/somewhere/foobar.html', "path is " + page.path);
+    equal(page._hash, '#mewmewmew', "hash val is " + page._hash);
+    request = {
+      path: '/somewhere/foobar.html#mewmewmew/moo'
+    };
+    page = new ns.Page(request, config, routed, router, options);
+    equal(page.path, '/somewhere/foobar.html', "path is " + page.path);
+    return equal(page._hash, '#mewmewmew/moo', "hash val is " + page._hash);
+  });
+  asyncTest('Page fetch', function() {
+    var config, options, page, request, routed;
+    expect(2);
+    request = {
+      path: 'dummy.html'
+    };
+    config = null;
+    routed = false;
+    router = null;
+    options = null;
+    page = new ns.Page(request, config, routed, router, options);
+    return page.fetch().done(function() {
+      ok(true, 'ajax completed');
+      return equal($.trim(page._text), 'DUMMY', 'fetched text was what I expected.');
+    }).always(function() {
+      return start();
+    });
+  });
+  asyncTest('Page fetch events', function() {
+    var config, options, page, request, routed;
+    expect(4);
+    request = {
+      path: 'dummy.html'
+    };
+    config = {
+      fetchstart: function() {
+        return ok(true, 'fetchstart fired');
+      },
+      fetchsuccess: function() {
+        return ok(true, 'fetchsuccess fired');
+      },
+      fetchabort: function() {
+        return ok(false, 'fetchabort fired');
+      },
+      fetchfail: function() {
+        return ok(false, 'fetchfail fired');
+      }
+    };
+    routed = false;
+    router = null;
+    options = null;
+    page = new ns.Page(request, config, routed, router, options);
+    return page.fetch().done(function() {
+      return page.fetch().done(function() {
+        return start();
+      });
+    });
+  });
+  asyncTest('Page fetch events via bind method', function() {
+    var config, options, page, request, routed;
+    expect(4);
+    request = {
+      path: 'dummy.html'
+    };
+    config = null;
+    routed = false;
+    router = null;
+    options = null;
+    page = new ns.Page(request, config, routed, router, options);
+    page.bind('fetchstart', function() {
+      return ok(true, 'fetchstart fired');
+    });
+    page.bind('fetchsuccess', function() {
+      return ok(true, 'fetchsuccess fired');
+    });
+    page.bind('fetchabort', function() {
+      return ok(false, 'fetchabort fired');
+    });
+    page.bind('fetchfail', function() {
+      return ok(false, 'fetchfail fired');
+    });
+    return page.fetch().done(function() {
+      return page.fetch().done(function() {
+        return start();
+      });
+    });
+  });
+  asyncTest('Page fetch events abort', function() {
+    var config, options, page, request, routed;
+    expect(2);
+    request = {
+      path: 'dummy.html'
+    };
+    config = {
+      fetchstart: function() {
+        return ok(true, 'fetchstart fired');
+      },
+      fetchsuccess: function() {
+        return ok(false, 'fetchsuccess fired');
+      },
+      fetchabort: function() {
+        return ok(true, 'fetchabort fired');
+      },
+      fetchfail: function() {
+        return ok(false, 'fetchfail fired');
+      }
+    };
+    routed = false;
+    router = null;
+    options = null;
+    page = new ns.Page(request, config, routed, router, options);
+    page.fetch().always(function() {
+      return start();
+    });
+    return page.abort();
+  });
+  asyncTest('Page fetch events abort 2nd page fetching make 1st abort', function() {
+    var config, options, page1, page2, request, routed;
+    expect(4);
+    request = {
+      path: 'dummy.html'
+    };
+    routed = false;
+    router = null;
+    options = null;
+    config = {
+      fetchstart: function() {
+        return ok(true, '1st fetchstart fired');
+      },
+      fetchsuccess: function() {
+        return ok(false, '1st fetchsuccess fired');
+      },
+      fetchabort: function() {
+        return ok(true, '1st fetchabort fired');
+      },
+      fetchfail: function() {
+        return ok(false, '1st fetchfail fired');
+      }
+    };
+    page1 = new ns.Page(request, config, routed, router, options);
+    config = {
+      fetchstart: function() {
+        return ok(true, '2nd fetchstart fired');
+      },
+      fetchsuccess: function() {
+        return ok(true, '2nd fetchsuccess fired');
+      },
+      fetchabort: function() {
+        return ok(false, '2nd fetchabort fired');
+      },
+      fetchfail: function() {
+        return ok(false, '2nd fetchfail fired');
+      }
+    };
+    page2 = new ns.Page(request, config, routed, router, options);
+    page1.fetch();
+    return page2.fetch().always(function() {
+      return start();
+    });
+  });
+  asyncTest('Page fetch events fail', function() {
+    var config, options, page, request, routed;
+    expect(2);
+    request = {
+      path: 'nothinghere.html'
+    };
+    config = {
+      fetchstart: function() {
+        return ok(true, '1st fetchstart fired');
+      },
+      fetchsuccess: function() {
+        return ok(false, '1st fetchsuccess fired');
+      },
+      fetchabort: function() {
+        return ok(false, '1st fetchabort fired');
+      },
+      fetchfail: function() {
+        return ok(true, '1st fetchfail fired');
+      }
+    };
+    routed = false;
+    router = null;
+    options = null;
+    page = new ns.Page(request, config, routed, router, options);
+    return page.fetch().always(function() {
+      return start();
+    });
+  });
+  asyncTest('Page rip', function() {
+    var config, options, page, request, routed;
+    expect(3);
+    request = {
+      path: 'dummy2.html'
+    };
+    config = null;
+    routed = false;
+    router = null;
+    options = {
+      expr: {
+        title: /<title[^>]*>([^<]*)<\/title>/,
+        content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
+      }
+    };
+    page = new ns.Page(request, config, routed, router, options);
+    return page.fetch().done(function() {
+      var expected;
+      expected = "foobar\nfoobar\n<title>changed title</title>\nfoobar\n<!-- LazyJaxDavis start -->\ncontent here\ncontent here\ncontent here\ncontent here\n<!-- LazyJaxDavis end -->\nbooboo";
+      equal($.trim(page.rip()), expected, expected);
+      expected = "changed title";
+      equal(page.rip('title'), expected, expected);
+      expected = "content here\ncontent here\ncontent here\ncontent here";
+      return equal(page.rip('content'), expected, expected);
+    }).always(function() {
+      return start();
+    });
+  });
+  return test('Page rip fail', function() {
+    var config, options, page, request, routed;
+    expect(2);
+    request = {
+      path: 'dummy2.html'
+    };
+    config = null;
+    routed = false;
+    router = null;
+    options = {
+      expr: null
+    };
+    page = new ns.Page(request, config, routed, router, options);
+    equal(page.rip('thisKeyDoesNotExist'), null, 'requested key was not defined');
+    return equal(page.rip(), null, 'notfetched yet so rip returns null');
+  });
+})(jQuery, this, this.document);

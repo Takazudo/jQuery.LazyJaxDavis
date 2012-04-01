@@ -1,4 +1,4 @@
-(($, win, doc) -> # encapsulate whole start
+(($, window, document) -> # encapsulate whole start
   
   ns = {}
 
@@ -60,13 +60,12 @@
 
   ns.fetchPage = (->
     current = null
-    (url) ->
+    (url, options) ->
       ret = $.Deferred (defer) ->
         if current then current.abort()
-        options = 
+        options = $.extend
           url: url
-          dataType: 'text'
-          cache: true
+        , options
         current = ($.ajax options).then (res) ->
           current = null
           defer.resolve res
@@ -133,7 +132,7 @@
   class ns.HistoryLogger
     constructor: ->
       @_items = []
-    log: (obj) ->
+    push: (obj) ->
       @_items.push obj
       @
     last: ->
@@ -146,21 +145,38 @@
         return true
       else
         return false
+    size: ->
+      @_items.length
 
   
   class ns.Page extends ns.Event
 
     eventNames = [
       'fetchstart'
-      'fetchend'
-      'afterrefresh'
+      'fetchsuccess'
+      'fetchabort'
       'fetchfail'
     ]
 
-    router: null
+    options:
+      ajxoptions:
+        dataType: 'text'
+        cache: true
+      expr: null
+      updatetitle: true
+      title: null
 
-    constructor: (@request, @config, @routed, @router, @_expr) ->
+    router: null
+    config: {}
+    _text: null
+
+    constructor: (@request, config, @routed, @router, options) ->
+
       super
+
+      @config = $.extend {}, @config, config
+      @options = $.extend true, {}, @options, options
+
       $.each eventNames, (i, eventName) =>
         $.each @config, (key, val) =>
           if eventName isnt key then return true
@@ -174,40 +190,64 @@
         return @
       @_hash = res.hash
       @path = res.path
-      @bind 'fetchend', =>
+      @bind 'fetchsuccess', =>
         location.href = @_hash
       @
 
     fetch: ->
-      $.Deferred (defer) =>
+      currentFetch = null
+      path = @request.path
+      ajaxoptions = @options.ajaxoptions
+      @_fetchDefer = $.Deferred (defer) =>
         @trigger 'fetchstart', @
-        (ns.fetchPage @request.path).then (text) =>
+        currentFetch = (ns.fetchPage path, ajaxoptions).then (text) =>
           @_text = text
-          @trigger 'fetchend', @
+          @trigger 'fetchsuccess', @
           defer.resolve()
+          @updatetitle()
         , (aborted) =>
-          if not aborted
+          if aborted
+            @trigger 'fetchabort', @
+          else
             @trigger 'fetchfail', @
           defer.reject
             aborted: aborted
+        .always =>
+          @_fetchDefer = null
+      @_fetchDefer.abort = -> currentFetch.abort()
+      @_fetchDefer
+    
+    abort: ->
+      @_fetchDefer?.abort()
+      @
 
     rip: (exprKey) ->
       if not @_text then return null
       if not exprKey then return @_text
-      ns.filterStr @_text, @_expr[exprKey]
+      expr = @options?.expr?[exprKey]
+      if not expr then return null
+      ns.filterStr @_text, expr
+
+    updatetitle: ->
+      if not @options.updatetitle then return @
+      title = null
+      if not title and @_text
+        title = @rip('title')
+      if not title then return @
+      document.title = title
+      @
 
 
   class ns.Router extends ns.Event
 
     eventNames = [
       'everyfetchstart'
-      'everyfetchend'
-      'everybeforerefresh'
-      'everyafterrefresh'
+      'everyfetchsuccess'
       'everyfetchfail'
     ]
 
     options:
+      ajaxoptions: null
       expr:
         title: /<title[^>]*>([^<]*)<\/title>/
         content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
@@ -219,25 +259,15 @@
       minwaittime: 0
       updatetitle: true
 
-    constructor: (pages, options, extraRoute) ->
+    constructor: (options, @pages, @extraRoute) ->
 
       # handle instance creation wo new
       if not (@ instanceof arguments.callee)
-        return new ns.Router pages, options, extraRoute
-
-      # pages can be skipped
-      if not $.isArray(pages)
-        extraRoute = options
-        options = pages
-        pages = null
-      @pages = pages
+        return new ns.Router options, pages, extraRoute
 
       super
 
-      @extraRoute = extraRoute or $.noop
       @options = $.extend true, {}, @options, options
-      @$root = @options.root or null
-
       @logger = new ns.HistoryLogger
       @_eventify()
       @_setupDavis()
@@ -250,7 +280,15 @@
       @
 
     _createPage: (request, config, routed) ->
-      new ns.Page request, config, routed, @, @options.expr
+      options =
+        expr: @options.expr
+        updatetitle: @options.updatetitle
+      if @options.ajaxoptions
+        if config.ajaxoptions
+          options.ajaxoptions = config.ajaxoptions
+        else
+          options.ajaxoptions = @options.ajaxoptions
+      new ns.Page request, config, routed, @, options
 
     _setupDavis: ->
 
@@ -264,7 +302,7 @@
           davis.get pageConfig.path, (request) ->
             if self.logger.isToSamePageRequst request then return
             page = self._createPage request, pageConfig, true
-            self.logger.log page
+            self.logger.push page
             self.fetch page
           true
         self.extraRoute.call davis
@@ -276,7 +314,7 @@
             return
           if self.logger.isToSamePageRequst request then return
           page = self._createPage request, {}, false
-          self.logger.log page
+          self.logger.push page
           self.fetch page
 
       @davis.configure (config) =>
@@ -308,9 +346,7 @@
       $.Deferred (defer) =>
         @trigger 'everyfetchstart', page
         ($.when page.fetch(), (wait @options.minwaittime)).then =>
-          @trigger 'everyfetchend', page
-          if @options.updatetitle
-            document.title = page.rip('title')
+          @trigger 'everyfetchsuccess', page
           defer.resolve()
         , =>
           @trigger 'everyfetchfail', page

@@ -2,7 +2,7 @@
 <html class="no-js" lang="ja">
 <head>
 <meta charset="utf-8">
-<title>jQuery.LazyJaxDavis</title>
+<title>jQuery.LazyJaxDavis - Davis.js</title>
 <meta name="viewport" content="width=1000">
 <link rel="stylesheet" href="/jQuery.LazyJaxDavis/demos/applied/common/css/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -111,7 +111,7 @@ In web apps, you almost need to assign what to do to urls. For example, if the u
       <span class="c1">// before ajax was started, you can do something here.</span>
 
     <span class="p">},</span>
-    <span class="nx">everyfetchend</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">everyfetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
 
       <span class="c1">// When ajax was done, you can do something here</span>
 
@@ -128,7 +128,7 @@ In web apps, you almost need to assign what to do to urls. For example, if the u
 
 <p>The main design pattern of jQuery.LazyJaxDavis is - fetch the part of the page - then refresh somewhere on the page. jQuery.LazyJaxDavis provides some APIs to do this easily.</p>
 
-<p>The main part of jQuery.LazyJaxDavis is the events above - <code>everyfetchstart</code> and <code>everyfetchend</code>. These are mostly for unrouted urls. This is why I call this script "lazy".</p>
+<p>The main part of jQuery.LazyJaxDavis is the events above - <code>everyfetchstart</code> and <code>everyfetchsuccess</code>. These are mostly for unrouted urls. This is why I call this script "lazy".</p>
 
 <p>But, jQuery.LazyJaxDavis also provides url routing features too.<br/>
 Keep reaing to learn more about those.</p>
