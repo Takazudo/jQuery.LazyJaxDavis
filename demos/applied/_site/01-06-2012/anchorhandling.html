@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="no-js" lang="ja">
+<head>
+<meta charset="utf-8">
+<title>jQuery.LazyJaxDavis - Anchor handling</title>
+<meta name="viewport" content="width=1000">
+<link rel="stylesheet" href="/jQuery.LazyJaxDavis/demos/applied/common/css/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="/jQuery.LazyJaxDavis/lib/davis.js"></script>
+<script src="/jQuery.LazyJaxDavis/jquery.lazyjaxdavis.js"></script>
+<script src="/jQuery.LazyJaxDavis/demos/applied/common/js/script.js"></script>
+</head>
+<body><div class="mod-all">
+
+<div class="mod-header">
+	<h1><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">jQuery.LazyJaxDavis</a></h1>
+</div>
+
+
+<div class="mod-body">
+	<div class="mod-side">
+	<ul class="mod-sidenav" id="sidenav">
+		<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Introduction</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">Davis.js</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">setup</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">URL routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">Davis.js routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">Davis.js routing</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/anchorhandling.html">Anchor handling</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">Lazy links</a></li>
+		
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">Lazy Forms</a></li>
+		
+	</ul>
+</div>
+
+	<div class="mod-main" id="main">
+			<div id="lazyjaxdavisroot">
+			<!-- LazyJaxDavis start -->
+
+			<div class="mod-article">
+				<h2>Anchor handling</h2>
+
+<p>Basically, you don't care about the anchor links.<br/>
+jQuery.LazyJaxDavis handles them automatically.</p>
+
+<h3>Anchor to the id on the same page</h3>
+
+<p>jQuery.LazyJaxDavis doesn't handle the anchor click like below.<br/>
+These are just the anchor link.</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#main&quot;</span><span class="nt">&gt;</span>link to the id on the same page<span class="nt">&lt;/a&gt;</span>
+</code></pre>
+</div>
+
+
+<p>Click the link below to confirm.</p>
+
+<ul>
+<li><a href="#main">#main</a></li>
+</ul>
+
+
+<h3>Anchor to the id on another page</h3>
+
+<p>This is a little tricky thing.<br/>
+Because without jQuery.LazyJaxDavis the browser invokes full page redraw. Then it automatically scroll to the element.</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;somewhere.html#main&quot;</span><span class="nt">&gt;</span>link to the id on another page<span class="nt">&lt;/a&gt;</span>
+</code></pre>
+</div>
+
+
+<p>But with jQuery.LazyJaxDavis, the browser does not do the scrolling because there is not the specified element in the page. It will be on the page after the refresh was complete. To handle this, jQuery.LazyJaxDavis does scrolling like below as default.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">Page</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_anchorhandler</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hash</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">top</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">hash</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="nx">top</span> <span class="o">=</span> <span class="p">(</span><span class="nx">$document</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">hash</span><span class="p">)).</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">top</span><span class="p">);</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre>
+</div>
+
+
+<p>Click the links below to confirm this.</p>
+
+<ul>
+    <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/#main">/jQuery.LazyJaxDavis/demos/applied/_site/#main</a></li>
+    
+        <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html#main">/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html#main</a></li>
+    
+        <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html#main">/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html#main</a></li>
+    
+        <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/anchorhandling.html#main">/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/anchorhandling.html#main</a></li>
+    
+        <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html#main">/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html#main</a></li>
+    
+        <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html#main">/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html#main</a></li>
+    
+        <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html#main">/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html#main</a></li>
+    
+        <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html#main">/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html#main</a></li>
+    
+        <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html#main">/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html#main</a></li>
+    
+</ul>
+
+
+<p>This anchor handing method will be called after the 'pageready' event automatically. This means that jQuery.LazyJaxDavis does scrolling manually after the page refresh was done.</p>
+
+<h3>Override anchorhandler</h3>
+
+<p>If you don't like this behavior, you can override this anchorhandler with the code like below.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+
+  <span class="c1">// do other initial setups here</span>
+
+  <span class="nx">anchorhandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hash</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hash</span><span class="p">);</span> <span class="c1">// #main</span>
+    <span class="nx">doMySmoothScrollTo</span><span class="p">(</span><span class="nx">hash</span><span class="p">);</span> <span class="c1">// do your own scrolling</span>
+  <span class="p">}</span>
+
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<p>You can use smoothcroll library or something with the code like above.</p>
+
+<p>This feature is available within url routing too.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+
+  <span class="c1">// do initial setups here</span>
+
+<span class="p">},[</span>
+  <span class="p">{</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/foobar.html&#39;</span><span class="p">,</span>
+    <span class="nx">anchorhandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hash</span><span class="p">){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hash</span><span class="p">);</span> <span class="c1">// #main</span>
+      <span class="nx">doMySmoothScrollTo</span><span class="p">(</span><span class="nx">hash</span><span class="p">);</span> <span class="c1">// do your own scrolling</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]);</span>
+</code></pre>
+</div>
+
+
+<p>With the code above, the anchorhandler will be overridden only if the url was <code>/somewhere/foobar.html</code>.</p>
+
+			</div>
+
+			<!-- LazyJaxDavis end -->
+			</div>
+	</div>
+</div>
+
+<div class="mod-footer">
+	This page is the demo of <a href="https://github.com/Takazudo/jQuery.LazyJaxDavis">jQuery.LazyJaxDavis</a>.
+</div>
+
+
+</div></body>
+</html>

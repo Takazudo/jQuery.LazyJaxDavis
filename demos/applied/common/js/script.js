@@ -127,8 +127,15 @@ $(function(){
 
 
   // do it
+  //
+  //$(document).on('click', $.LazyJaxDavis.prototype.options.davis.linkSelector, function(){
+  //  console.log('this is!!!');
+  //});
   
-  $.LazyJaxDavis({
+  window.d = $.LazyJaxDavis({
+    init: function(){
+      log('init');
+    },
     everyfetchstart: function(page) {
       log('everyfetchstart');
       $root.css('opacity', 0.6);
@@ -158,20 +165,29 @@ $(function(){
     //},
   },[
     {
-      path: '/jQuery.LazyJaxDavis/demos/applied/_site/',
-      //anchorhandler: function(hash){
-      //  log('custom anchor handler');
-      //},
-      fetchstart: function() {
-        log('toppage fetchstart');
-      },
-      fetchsuccess: function() {
-        log('toppage fetchsuccess');
-      },
-      pageready: function(){
-        log('toppage pageready');
-      }
+      path: '/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html',
+      method: 'POST'
+    },
+    {
+      path: '/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html',
+      method: 'GET'
     }
+    //{
+    //  //anchorhandler: function(hash){
+    //  //  log('custom anchor handler');
+    //  //},
+    //  path: '/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html',
+    //  method: 'POST',
+    //  //fetchstart: function() {
+    //  //  log('toppage fetchstart');
+    //  //},
+    //  //fetchsuccess: function() {
+    //  //  log('toppage fetchsuccess');
+    //  //},
+    //  //pageready: function(){
+    //  //  log('toppage pageready');
+    //  //}
+    //}
   ]);
 
 

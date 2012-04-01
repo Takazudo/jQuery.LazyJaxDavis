@@ -1,4 +1,4 @@
-/*! jQuery.LazyJaxDavis - v0.0.0 -  4/1/2012
+/*! jQuery.LazyJaxDavis - v0.0.0 -  4/2/2012
  * https://github.com/Takazudo/jQuery.LazyJaxDavix
  * Copyright (c) 2012 "Takazudo" Takeshi Takatsudo; Licensed MIT */
 
@@ -24,6 +24,9 @@ var __slice = Array.prototype.slice,
     } else {
       return false;
     }
+  };
+  ns.trimGetVals = function(path) {
+    return path.replace(/\?.*/, '');
   };
   ns.tryParseAnotherPageAnchor = function(path) {
     var res, ret;
@@ -137,6 +140,7 @@ var __slice = Array.prototype.slice,
 
     function HistoryLogger() {
       this._items = [];
+      this._items.push(location.pathname.replace(/#.*/, ''));
     }
 
     HistoryLogger.prototype.push = function(obj) {
@@ -229,14 +233,20 @@ var __slice = Array.prototype.slice,
     };
 
     Page.prototype.fetch = function() {
-      var ajaxoptions, currentFetch, path,
+      var currentFetch, o, path, _ref, _ref2, _ref3,
         _this = this;
       currentFetch = null;
       path = this.request.path;
-      ajaxoptions = this.options.ajaxoptions;
+      o = ((_ref = this.options) != null ? _ref.ajaxoptions : void 0) || {};
+      if ((_ref2 = this.config) != null ? _ref2.method : void 0) {
+        o.type = this.config.method;
+      }
+      if ((_ref3 = this.request) != null ? _ref3.params : void 0) {
+        o.data = $.extend(true, {}, o.data, this.request.params);
+      }
       this._fetchDefer = $.Deferred(function(defer) {
         _this.trigger('fetchstart', _this);
-        return currentFetch = (ns.fetchPage(path, ajaxoptions)).then(function(text) {
+        return currentFetch = (ns.fetchPage(path, o)).then(function(text) {
           _this._text = text;
           _this.trigger('fetchsuccess', _this);
           defer.resolve();
@@ -296,13 +306,17 @@ var __slice = Array.prototype.slice,
     eventNames = ['everyfetchstart', 'everyfetchsuccess', 'everyfetchfail', 'everypageready'];
 
     Router.prototype.options = {
-      ajaxoptions: null,
+      ajaxoptions: {
+        dataType: 'text',
+        cache: true,
+        type: 'GET'
+      },
       expr: {
         title: /<title[^>]*>([^<]*)<\/title>/,
         content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
       },
       davis: {
-        linkSelector: 'a:not(.apply-nolazy)',
+        linkSelector: 'a:not([href^=#]):not(.apply-nolazy)',
         formSelector: 'form:not(.apply-nolazy)',
         throwErrors: false,
         handleRouteNotFound: true
@@ -323,6 +337,7 @@ var __slice = Array.prototype.slice,
       this.logger = new ns.HistoryLogger;
       this._eventify();
       this._setupDavis();
+      if (this.options.init) this.options.init.call(this, this);
       if (this.options.firereadyonstart) this.fireready();
     }
 
@@ -338,26 +353,24 @@ var __slice = Array.prototype.slice,
     };
 
     Router.prototype._createPage = function(request, config, routed, hash) {
-      var options, res;
-      options = {
+      var o, res;
+      o = {
         expr: this.options.expr,
         updatetitle: this.options.updatetitle
       };
-      if (this.options.anchorhandler) {
-        options.anchorhandler = this.options.anchorhandler;
-      }
+      if (this.options.anchorhandler) o.anchorhandler = this.options.anchorhandler;
       if (this.options.ajaxoptions) {
-        if (config.ajaxoptions) {
-          options.ajaxoptions = config.ajaxoptions;
+        if (config != null ? config.ajaxoptions : void 0) {
+          o.ajaxoptions = config.ajaxoptions;
         } else {
-          options.ajaxoptions = this.options.ajaxoptions;
+          o.ajaxoptions = this.options.ajaxoptions;
         }
       }
       if (!hash && (request != null ? request.path : void 0)) {
         res = ns.tryParseAnotherPageAnchor(request.path);
         hash = res.hash || null;
       }
-      return new ns.Page(request, config, routed, this, options, hash);
+      return new ns.Page(request, config, routed, this, o, hash);
     };
 
     Router.prototype._setupDavis = function() {
@@ -369,7 +382,7 @@ var __slice = Array.prototype.slice,
         page.bind('pageready', function() {
           return self.trigger('everypageready');
         });
-        self.logger.push(page);
+        self.logger.push(page.path);
         return self.fetch(page);
       };
       this.davis = new Davis(function() {
@@ -377,7 +390,9 @@ var __slice = Array.prototype.slice,
         davis = this;
         if (!self.pages) return;
         $.each(self.pages, function(i, pageConfig) {
-          davis.get(pageConfig.path, function(request) {
+          var method;
+          method = (pageConfig.method || 'get').toLowerCase();
+          davis[method](pageConfig.path, function(request) {
             var page;
             if (self.logger.isToSamePageRequst(request.path)) return;
             page = self._createPage(request, pageConfig, true);
@@ -396,7 +411,7 @@ var __slice = Array.prototype.slice,
           }
           res = ns.tryParseAnotherPageAnchor(request.path);
           hash = res.hash || null;
-          path = res.path;
+          path = res.path || request.path;
           if (self.logger.isToSamePageRequst(path)) return;
           config = (self._findPageWhosePathIs(path)) || null;
           routed = config ? true : false;
@@ -409,13 +424,6 @@ var __slice = Array.prototype.slice,
           config[key] = val;
           return true;
         });
-      });
-      this.bind('toid', function(hash) {
-        if (_this.options.toid) {
-          return _this.options.toid.call(_this, request.path);
-        } else {
-          return location.href = hash;
-        }
       });
       this._tweakDavis();
       return this;
@@ -500,7 +508,7 @@ var __slice = Array.prototype.slice,
             handleThis = pageConfig.path === location.pathname;
           }
           if (!handleThis) return true;
-          if (pageConfig != null) pageConfig.pageready();
+          if (typeof pageConfig.pageready === "function") pageConfig.pageready();
           return false;
         });
       }

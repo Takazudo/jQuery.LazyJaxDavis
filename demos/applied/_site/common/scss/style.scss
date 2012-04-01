@@ -113,6 +113,7 @@ body {
 	}
 }
 .mod-article {
+
 	h2 {
 		padding:10px 0 20px;
 		font-size:2.2em;
@@ -125,6 +126,11 @@ body {
 	p {
 		padding:0 0 20px;
 		max-width:800px;
+		code {
+			border:1px solid $color_border;
+			margin:0 3px;
+			padding:0 7px;
+		}
 	}
 	ul {
 		padding:0 0 15px;
@@ -146,48 +152,60 @@ body {
 			}
 		}
 	}
+
+	.mod-forms {
+		padding:5px 0 10px;
+		.h {
+			padding:0 0 4px;
+		}
+		form {
+			padding:0 0 15px;
+		}
+	}
+
+	.mod-nolazytestnav {
+		padding:0 0 20px;
+		margin:0 20px 0 0;
+		.h {
+			font-weight:bold;
+			padding:0 0 4px;
+		}
+		.p {
+			padding:0 0 8px;
+		}
+		ul {
+			@include clearfix;
+			padding:0;
+			list-style-type:none;
+			li, a {
+				@include inline-block;
+			}
+			li {
+				padding:0 0 6px;
+				margin:0;
+				&:first-child {
+					padding-left:0;
+				}
+				a {
+					padding:4px 8px;
+					border:1px solid $color_border;
+				}
+			}
+		}
+		.mod-nolazytestnav-lazy,
+		.mod-nolazytestnav-nolazy {
+			border:1px solid $color_border;
+			padding:8px 10px 2px;
+		}
+		.mod-nolazytestnav-lazy {
+			margin:0 0 10px;
+		}
+		.mod-nolazytestnav-nolazy {
+		}
+	}
+
 }
 
-.mod-nolazytestnav {
-	padding:0 0 20px;
-	margin:0 20px 0 0;
-	font-size:.8em;
-	.h {
-		font-weight:bold;
-		padding:0 0 4px;
-		font-size:1.2em;
-	}
-	.p {
-		padding:0 0 8px;
-	}
-	ul {
-		@include clearfix;
-		list-style-type:none;
-		li, a {
-			@include inline-block;
-		}
-		li {
-			padding:0 0 6px;
-			&:first-child {
-				padding-left:0;
-			}
-			a {
-				padding:4px 8px;
-				border:1px solid $color_border;
-			}
-		}
-	}
-	.mod-nolazytestnav-lazy,
-	.mod-nolazytestnav-nolazy {
-		border:1px solid $color_border;
-		padding:8px 10px 2px;
-	}
-	.mod-nolazytestnav-lazy {
-		margin:0 0 10px;
-	}
-	.mod-nolazytestnav-nolazy {
-	}
-}
 
 #logger {
 	position:fixed;

@@ -2,7 +2,7 @@
 <html class="no-js" lang="ja">
 <head>
 <meta charset="utf-8">
-<title>jQuery.LazyJaxDavis - TheLazyDog</title>
+<title>jQuery.LazyJaxDavis - Lazy Forms</title>
 <meta name="viewport" content="width=1000">
 <link rel="stylesheet" href="/jQuery.LazyJaxDavis/demos/applied/common/css/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -32,11 +32,11 @@
 		
 			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">Davis.js routing</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/quickbrown.html">handle anchors</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/anchorhandling.html">Anchor handling</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">JumpsOver</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">Lazy links</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">TheLazyDog</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">Lazy Forms</a></li>
 		
 	</ul>
 </div>
@@ -46,261 +46,100 @@
 			<!-- LazyJaxDavis start -->
 
 			<div class="mod-article">
-				<h2>TheLazyDog content</h2>
+				<h2>Lazy Forms</h2>
 
-<p>This page is the test of jQuery.LazyJaxDavis.</p>
+<p>"Lazy forms" mean the forms which jQuery.LazyJaxDavis hijacks.</p>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis dui diam, at hendrerit nulla. Etiam sodales, erat ut tempor venenatis, nisi nunc bibendum felis, eget fermentum lorem magna et ipsum. Etiam ac neque odio. Aenean et mi nec leo tincidunt consequat et semper turpis. Cras auctor orci sed lorem venenatis et lobortis tellus tristique. Ut id porta turpis. Nullam velit nunc, porta vitae interdum nec, elementum ut leo. Vestibulum eget lacus ut magna venenatis lacinia. Integer rutrum ligula et sapien ultricies et lobortis nisl pretium. Ut ac lacus eget justo condimentum scelerisque eu in eros. Nunc sit amet justo vel turpis volutpat ullamcorper quis ac lectus. Sed interdum pretium risus hendrerit pretium. Nunc aliquet vestibulum ipsum et condimentum. Maecenas id enim a tellus facilisis gravida. Nam porttitor felis vitae libero iaculis ut mattis lacus eleifend. Duis id purus et mauris dignissim vestibulum et at est.</p>
+<h3>All forms are lazy-forms</h3>
 
-<h3>TheLazyDog heading</h3>
+<p>As lazy links, jQuery.LazyJaxDavis also hijacks all forms' submit.<br/>
+jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to confirm those works.</p>
 
-<p>Curabitur lobortis, lectus quis pulvinar suscipit, lacus tellus sollicitudin nisl, vel adipiscing metus erat in sem. Phasellus viverra, turpis eget euismod dapibus, diam lacus mollis mauris, malesuada luctus elit orci vitae lectus. Donec fermentum ultricies volutpat. Aliquam in gravida ante. Fusce sed turpis justo, placerat interdum ante. Duis tempor vulputate aliquam. Aliquam eget libero nec mi mollis imperdiet eu porta lorem. Ut mollis, ligula vel pharetra pharetra, odio mauris accumsan mi, id tempor lectus lacus et nunc. Vestibulum sapien nibh, laoreet in tempus rutrum, dictum a ipsum. Maecenas sed mauris nibh, in porttitor magna. Mauris sapien purus, facilisis consequat venenatis id, volutpat non ligula.</p>
+<div class="mod-forms">
+    <div class="h">GET</div>
+    <form action="/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html" method="get">
+        <input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
+    </form>
+    <div class="h">POST</div>
+    <form action="/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html" method="post">
+        <input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
+    </form>
+</div>
 
-<p>Nam pretium porta posuere. Morbi volutpat aliquam dictum. Suspendisse tincidunt tellus vitae eros venenatis aliquam. Sed condimentum justo quis magna fringilla in placerat sapien interdum. Vestibulum nisi orci, dictum sed aliquam venenatis, faucibus vel elit. Sed magna nisl, suscipit ut dapibus ullamcorper, aliquet sit amet ligula. Donec ultricies leo sed ligula sagittis rutrum. Donec mattis facilisis dui, in elementum felis porta quis. Suspendisse condimentum, lectus vel auctor consectetur, tortor lorem dignissim erat, eu vulputate orci nisi porttitor justo. In eleifend magna ac purus malesuada vel interdum diam accumsan. Nulla quis dui nisl. Proin nisl est, scelerisque vitae dapibus ac, congue sed massa. Phasellus diam libero, malesuada ut facilisis ultricies, egestas id magna.</p>
 
-<p>Vivamus nec quam lorem, tincidunt gravida nunc. Donec ante dolor, consequat non fringilla nec, pulvinar cursus metus. Sed sit amet turpis velit. Pellentesque sed est lectus, nec mollis dolor. Suspendisse lectus lacus, adipiscing id pretium eget, porttitor vitae ante. Vestibulum pellentesque ligula diam. Praesent ipsum lectus, consequat vitae facilisis in, interdum at nibh. Vivamus libero purus, pharetra eu fermentum sit amet, dignissim quis urna. Suspendisse ut nisi tortor, quis bibendum ipsum. Etiam elit tellus, accumsan et feugiat non, rhoncus in velit. Donec arcu turpis, laoreet vitae fermentum vitae, placerat sit amet augue. Sed hendrerit sagittis mattis. Phasellus nec diam eros, sed bibendum nulla.</p>
 
-<h3>TheLazyDog heading</h3>
 
-<p>Curabitur lobortis, lectus quis pulvinar suscipit, lacus tellus sollicitudin nisl, vel adipiscing metus erat in sem. Phasellus viverra, turpis eget euismod dapibus, diam lacus mollis mauris, malesuada luctus elit orci vitae lectus. Donec fermentum ultricies volutpat. Aliquam in gravida ante. Fusce sed turpis justo, placerat interdum ante. Duis tempor vulputate aliquam. Aliquam eget libero nec mi mollis imperdiet eu porta lorem. Ut mollis, ligula vel pharetra pharetra, odio mauris accumsan mi, id tempor lectus lacus et nunc. Vestibulum sapien nibh, laoreet in tempus rutrum, dictum a ipsum. Maecenas sed mauris nibh, in porttitor magna. Mauris sapien purus, facilisis consequat venenatis id, volutpat non ligula.</p>
-
-<p>Nam pretium porta posuere. Morbi volutpat aliquam dictum. Suspendisse tincidunt tellus vitae eros venenatis aliquam. Sed condimentum justo quis magna fringilla in placerat sapien interdum. Vestibulum nisi orci, dictum sed aliquam venenatis, faucibus vel elit. Sed magna nisl, suscipit ut dapibus ullamcorper, aliquet sit amet ligula. Donec ultricies leo sed ligula sagittis rutrum. Donec mattis facilisis dui, in elementum felis porta quis. Suspendisse condimentum, lectus vel auctor consectetur, tortor lorem dignissim erat, eu vulputate orci nisi porttitor justo. In eleifend magna ac purus malesuada vel interdum diam accumsan. Nulla quis dui nisl. Proin nisl est, scelerisque vitae dapibus ac, congue sed massa. Phasellus diam libero, malesuada ut facilisis ultricies, egestas id magna.</p>
-
-<h3>TheLazyDog code snipet test CoffeeScript</h3>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis dui diam, at hendrerit nulla. Etiam sodales, erat ut tempor venenatis, nisi nunc bibendum felis, eget fermentum lorem magna et ipsum. Etiam ac neque odio. Aenean et mi nec leo tincidunt consequat et semper turpis. Cras auctor orci sed lorem venenatis et lobortis tellus tristique. Ut id porta turpis. Nullam velit nunc, porta vitae interdum nec, elementum ut leo. Vestibulum eget lacus ut magna venenatis lacinia. Integer rutrum ligula et sapien ultricies et lobortis nisl pretium. Ut ac lacus eget justo condimentum scelerisque eu in eros. Nunc sit amet justo vel turpis volutpat ullamcorper quis ac lectus. Sed interdum pretium risus hendrerit pretium. Nunc aliquet vestibulum ipsum et condimentum. Maecenas id enim a tellus facilisis gravida. Nam porttitor felis vitae libero iaculis ut mattis lacus eleifend. Duis id purus et mauris dignissim vestibulum et at est.</p>
-
-<div class="highlight"><pre><code class="coffeescript"><span class="k">class</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">BasicLoader</span> <span class="k">extends</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">Event</span>
-  <span class="nv">constructor: </span><span class="o">-&gt;</span>
-    <span class="k">super</span>
-    <span class="vi">@items = </span><span class="p">[]</span>
-
-  <span class="nv">add: </span><span class="nf">(loaderItem) -&gt;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">type</span> <span class="nx">loaderItem</span><span class="p">)</span> <span class="o">is</span> <span class="s1">&#39;string&#39;</span>
-      <span class="nv">src = </span><span class="nx">loaderItem</span>
-      <span class="nv">loaderItem = </span><span class="k">new</span> <span class="nx">ns</span><span class="p">.</span><span class="nx">LoaderItem</span> <span class="nx">src</span>
-    <span class="nx">@items</span><span class="p">.</span><span class="nx">push</span> <span class="nx">loaderItem</span>
-    <span class="nx">loaderItem</span>
-
-  <span class="nv">load: </span><span class="o">-&gt;</span>
-    <span class="nv">count = </span><span class="mi">0</span>
-    <span class="nv">laodDeferreds = </span><span class="nx">$</span><span class="p">.</span><span class="nx">map</span> <span class="nx">@items</span><span class="p">,</span> <span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="o">=&gt;</span>
-      <span class="nx">item</span><span class="p">.</span><span class="nx">bind</span> <span class="s1">&#39;complete&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">$img</span><span class="p">)</span> <span class="o">=&gt;</span>
-        <span class="nx">@trigger</span> <span class="s1">&#39;itemload&#39;</span><span class="p">,</span> <span class="nx">$img</span><span class="p">,</span> <span class="nx">count</span>
-        <span class="nx">count</span><span class="o">++</span>
-      <span class="p">.</span><span class="nx">load</span><span class="p">()</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">Deferred</span> <span class="p">(</span><span class="nx">defer</span><span class="p">)</span> <span class="o">=&gt;</span>
-      <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="k">when</span><span class="p">.</span><span class="nx">apply</span> <span class="err">@</span><span class="p">,</span> <span class="nx">laodDeferreds</span><span class="p">).</span><span class="nx">always</span> <span class="p">(</span><span class="nx">imgs</span><span class="p">...)</span> <span class="o">=&gt;</span>
-        <span class="nv">$imgs = </span><span class="nx">$</span><span class="p">(</span><span class="nx">imgs</span><span class="p">)</span>
-        <span class="nx">@trigger</span> <span class="s1">&#39;allload&#39;</span><span class="p">,</span> <span class="nx">$imgs</span>
-        <span class="nx">defer</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">$imgs</span>
-
-  <span class="nv">kill: </span><span class="o">-&gt;</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">each</span> <span class="nx">@items</span><span class="p">,</span> <span class="nf">(i, item) -&gt;</span>
-      <span class="nx">item</span><span class="p">.</span><span class="nx">unbind</span><span class="p">()</span>
-    <span class="nx">@trigger</span> <span class="s1">&#39;kill&#39;</span>
-    <span class="nx">@unbind</span><span class="p">()</span>
-    <span class="err">@</span>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;getformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;getval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
 </code></pre>
 </div>
 
 
-<h3>TheLazyDog code snipet test JavaScript</h3>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis dui diam, at hendrerit nulla. Etiam sodales, erat ut tempor venenatis, nisi nunc bibendum felis, eget fermentum lorem magna et ipsum. Etiam ac neque odio. Aenean et mi nec leo tincidunt consequat et semper turpis. Cras auctor orci sed lorem venenatis et lobortis tellus tristique. Ut id porta turpis. Nullam velit nunc, porta vitae interdum nec, elementum ut leo. Vestibulum eget lacus ut magna venenatis lacinia. Integer rutrum ligula et sapien ultricies et lobortis nisl pretium. Ut ac lacus eget justo condimentum scelerisque eu in eros. Nunc sit amet justo vel turpis volutpat ullamcorper quis ac lectus. Sed interdum pretium risus hendrerit pretium. Nunc aliquet vestibulum ipsum et condimentum. Maecenas id enim a tellus facilisis gravida. Nam porttitor felis vitae libero iaculis ut mattis lacus eleifend. Duis id purus et mauris dignissim vestibulum et at est.</p>
 
-<div class="highlight"><pre><code class="coffeescript"><span class="nx">$</span><span class="p">.</span><span class="nx">widget</span><span class="p">(</span><span class="s1">&#39;ui.hideoverlay&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nv">options: </span><span class="p">{</span>
-    <span class="nv">overlayfade: </span><span class="kc">true</span><span class="p">,</span>
-    <span class="nv">spinnersrc: </span><span class="kc">null</span><span class="p">,</span>
-    <span class="nv">maxopacity: </span><span class="mf">0.8</span><span class="p">,</span>
-    <span class="nv">bgiframe: </span><span class="kc">false</span><span class="p">,</span>
-    <span class="nv">spinjs: </span><span class="kc">false</span><span class="p">,</span>
-    <span class="nv">spinjs_options: </span><span class="p">{</span>
-      <span class="nv">color: </span><span class="s1">&#39;#fff&#39;</span><span class="p">,</span>
-      <span class="nv">lines: </span><span class="mi">15</span><span class="p">,</span>
-      <span class="nv">length: </span><span class="mi">22</span><span class="p">,</span>
-      <span class="nv">radius: </span><span class="mi">40</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nv">widgetEventPrefix: </span><span class="s1">&#39;hideoverlay.&#39;</span><span class="p">,</span>
-  <span class="nv">_active: </span><span class="kc">false</span><span class="p">,</span>
-  <span class="nv">_create: </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nv">$el = </span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nv">$spinner = </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.ui-hideoverlay-spinner&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">spinjs</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;background&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nv">$bg = </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.ui-hideoverlay-bg&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_preloadSpinner</span><span class="p">();</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_eventify</span><span class="p">();</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_handleIE6</span><span class="p">();</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="nv">_attachSpinjs: </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">_showDefer</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">_spinning</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Spinner</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">spinjs_options</span><span class="p">)).</span><span class="nx">spin</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-  <span class="p">},</span>
-  <span class="nv">_handleIE6: </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ie6</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_resize</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">bgiframe</span> <span class="o">&amp;&amp;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">bgiframe</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">bgiframe</span><span class="p">();</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="nv">_resize: </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">var</span> <span class="nx">h</span><span class="p">,</span> <span class="nx">w</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ie6</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-    <span class="nv">w = </span><span class="nx">$win</span><span class="p">.</span><span class="nx">width</span><span class="p">();</span>
-    <span class="nv">h = </span><span class="nx">$win</span><span class="p">.</span><span class="nx">height</span><span class="p">();</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
-      <span class="nv">width: </span><span class="nx">w</span><span class="p">,</span>
-      <span class="nv">height: </span><span class="nx">h</span><span class="p">,</span>
-      <span class="nv">top: </span><span class="nx">$win</span><span class="p">.</span><span class="nx">scrollTop</span><span class="p">(),</span>
-      <span class="nv">left: </span><span class="nx">$win</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="p">()</span>
-    <span class="p">});</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">$bg</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
-      <span class="nv">width: </span><span class="nx">w</span><span class="p">,</span>
-      <span class="nv">height: </span><span class="nx">h</span>
-    <span class="p">});</span>
-  <span class="p">},</span>
-  <span class="nv">_eventify: </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">var</span> <span class="nv">_this = </span><span class="k">this</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">ie6</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-    <span class="nx">$win</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;resize scroll&#39;</span><span class="p">,</span> <span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">_resize</span><span class="p">();</span>
-    <span class="p">});</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="nv">_showOverlayEl: </span><span class="nx">function</span><span class="p">(</span><span class="nx">woSpinner</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">var</span> <span class="nv">_this = </span><span class="k">this</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">(</span><span class="nx">function</span><span class="p">(</span><span class="nx">defer</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">var</span> <span class="nx">animTo</span><span class="p">,</span> <span class="nx">cssTo</span><span class="p">;</span>
-      <span class="nx">_this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
-      <span class="nx">_this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">,</span> <span class="s1">&#39;block&#39;</span><span class="p">);</span>
-      <span class="nv">cssTo = </span><span class="p">{</span>
-        <span class="nv">opacity: </span><span class="mi">0</span>
-      <span class="p">};</span>
-      <span class="nv">animTo = </span><span class="p">{</span>
-        <span class="nv">opacity: </span><span class="nx">_this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxopacity</span>
-      <span class="p">};</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">_this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">overlayfade</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="k">when</span><span class="p">(</span><span class="nx">_this</span><span class="p">.</span><span class="nx">$bg</span><span class="p">.</span><span class="nx">stop</span><span class="p">().</span><span class="nx">css</span><span class="p">(</span><span class="nx">cssTo</span><span class="p">).</span><span class="nx">animate</span><span class="p">(</span><span class="nx">animTo</span><span class="p">,</span> <span class="mi">200</span><span class="p">))).</span><span class="nx">done</span><span class="p">(</span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">woSpinner</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">_this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">spinjs</span><span class="p">)</span> <span class="p">{</span>
-              <span class="nx">_this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
-              <span class="nx">_this</span><span class="p">.</span><span class="nx">_attachSpinjs</span><span class="p">();</span>
-            <span class="p">}</span>
-            <span class="nx">_this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">.</span><span class="nx">hide</span><span class="p">().</span><span class="nx">fadeIn</span><span class="p">();</span>
-          <span class="p">}</span>
-          <span class="k">return</span> <span class="nx">defer</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
-        <span class="p">});</span>
-      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">_this</span><span class="p">.</span><span class="nx">$bg</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="nx">animTo</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">woSpinner</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">if</span> <span class="p">(</span><span class="nx">_this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">spinjs</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">_this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
-            <span class="nx">_this</span><span class="p">.</span><span class="nx">_attachSpinjs</span><span class="p">();</span>
-          <span class="p">}</span>
-          <span class="nx">_this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="nx">defer</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
-      <span class="p">}</span>
-    <span class="p">}).</span><span class="nx">promise</span><span class="p">();</span>
-  <span class="p">},</span>
-  <span class="nv">_hideOverlayEl: </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">var</span> <span class="nv">_this = </span><span class="k">this</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">(</span><span class="nx">function</span><span class="p">(</span><span class="nx">defer</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">var</span> <span class="nx">animTo</span><span class="p">,</span> <span class="nx">done</span><span class="p">;</span>
-      <span class="nv">animTo = </span><span class="p">{</span>
-        <span class="nv">opacity: </span><span class="mi">0</span>
-      <span class="p">};</span>
-      <span class="nv">done = </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">_this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">);</span>
-        <span class="nx">_this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
-        <span class="k">return</span> <span class="nx">defer</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
-      <span class="p">};</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">_this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">overlayfade</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="k">when</span><span class="p">(</span><span class="nx">_this</span><span class="p">.</span><span class="nx">$bg</span><span class="p">.</span><span class="nx">stop</span><span class="p">().</span><span class="nx">animate</span><span class="p">(</span><span class="nx">animTo</span><span class="p">,</span> <span class="mi">100</span><span class="p">))).</span><span class="nx">done</span><span class="p">(</span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="nx">done</span><span class="p">();</span>
-        <span class="p">});</span>
-      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">_this</span><span class="p">.</span><span class="nx">$bg</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="nx">animTo</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nx">done</span><span class="p">();</span>
-      <span class="p">}</span>
-    <span class="p">}).</span><span class="nx">promise</span><span class="p">();</span>
-  <span class="p">},</span>
-  <span class="nv">_preloadSpinner: </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">var</span> <span class="nx">src</span><span class="p">;</span>
-    <span class="nv">src = </span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">spinnersrc</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">src</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-    <span class="p">(</span><span class="k">new</span> <span class="nx">Image</span><span class="p">).</span><span class="nv">src = </span><span class="nx">src</span><span class="p">;</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="nv">show: </span><span class="nx">function</span><span class="p">(</span><span class="nx">woSpinner</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">var</span> <span class="nv">_this = </span><span class="k">this</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_showDefer</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_showDefer</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_active</span><span class="p">)</span> <span class="k">return</span> <span class="nx">resolveSilently</span><span class="p">();</span>
-    <span class="k">this</span><span class="p">.</span><span class="nv">_active = </span><span class="kc">true</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">woSpinner</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">hideSpinner</span><span class="p">();</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nv">_spinning = </span><span class="kc">true</span><span class="p">;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_trigger</span><span class="p">(</span><span class="s1">&#39;showstart&#39;</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nv">_showDefer = </span><span class="k">this</span><span class="p">.</span><span class="nx">_showOverlayEl</span><span class="p">(</span><span class="nx">woSpinner</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_showDefer</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nv">_this._showDefer = </span><span class="kc">null</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">_trigger</span><span class="p">(</span><span class="s1">&#39;showend&#39;</span><span class="p">);</span>
-    <span class="p">});</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_showDefer</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="nv">hide: </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">var</span> <span class="nv">_this = </span><span class="k">this</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_showDefer</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">_showDefer</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
-      <span class="p">});</span>
-      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">_active</span><span class="p">)</span> <span class="k">return</span> <span class="nx">resolveSilently</span><span class="p">();</span>
-    <span class="k">this</span><span class="p">.</span><span class="nv">_active = </span><span class="kc">false</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_trigger</span><span class="p">(</span><span class="s1">&#39;hidestart&#39;</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nv">_hideDefer = </span><span class="k">this</span><span class="p">.</span><span class="nx">_hideOverlayEl</span><span class="p">();</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_hideDefer</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nv">_this._hideDefer = </span><span class="kc">null</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">_trigger</span><span class="p">(</span><span class="s1">&#39;hideend&#39;</span><span class="p">);</span>
-    <span class="p">});</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_hideDefer</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="nv">hideSpinner: </span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nv">_spinning = </span><span class="kc">false</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">$spinner</span><span class="p">.</span><span class="nx">stop</span><span class="p">().</span><span class="nx">empty</span><span class="p">().</span><span class="nx">hide</span><span class="p">();</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;postformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;postval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre>
+</div>
+
+
+<h3>No-lazy forms</h3>
+
+<p>As lazy links, you can avoid the ajax behavior to add <code>apply-nolazy</code> to the form's class attributes.</p>
+
+<div class="mod-forms">
+    <div class="h">GET (no-lazy)</div>
+    <form action="/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html" method="get" class="apply-nolazy">
+        <input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
+    </form>
+    <div class="h">POST (no-lazy)</div>
+    <form action="/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html" method="post" class="apply-nolazy">
+        <input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
+    </form>
+</div>
+
+
+
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">class=</span><span class="s">&quot;apply-nolazy&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;getformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;getval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre>
+</div>
+
+
+
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">class=</span><span class="s">&quot;apply-nolazy&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;postformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;postval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre>
+</div>
+
+
+<h3>Make url routings for POST receivers</h3>
+
+<p>If you handle with jQuery.LazyJaxDavis, you need to make url routings for POST receiver pages like below.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
+  <span class="c1">// do setup things here</span>
+<span class="p">},[</span>
+  <span class="p">{</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html&#39;</span><span class="p">,</span>
+    <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span>
   <span class="p">}</span>
-<span class="p">});</span>
-<span class="nv">$.ui.hideoverlay.create = </span><span class="nx">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">var</span> <span class="nx">src</span><span class="p">;</span>
-  <span class="nv">src = </span><span class="s2">&quot;&lt;div class=\&quot;ui-hideoverlay\&quot; id=\&quot;domwindow-hideoverlay\&quot;&gt;\n  &lt;div class=\&quot;ui-hideoverlay-bg\&quot;&gt;&lt;/div&gt;\n  &lt;div class=\&quot;ui-hideoverlay-spinner\&quot;&gt;&lt;/div&gt;\n&lt;/div&gt;&quot;</span><span class="p">;</span>
-  <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="nx">src</span><span class="p">).</span><span class="nx">hideoverlay</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-<span class="p">};</span>
-<span class="nv">$.ui.hideoverlay.destroy = </span><span class="nx">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">widgets</span><span class="p">.</span><span class="nx">$overlay</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-  <span class="nx">widgets</span><span class="p">.</span><span class="nx">$overlay</span><span class="p">.</span><span class="nx">hideoverlay</span><span class="p">(</span><span class="s1">&#39;destroy&#39;</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-  <span class="nx">widgets</span><span class="p">.</span><span class="nv">$overlay = </span><span class="kc">null</span><span class="p">;</span>
-  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="nv">$.ui.hideoverlay.setup = </span><span class="nx">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">var</span> <span class="nx">$overlay</span><span class="p">;</span>
-  <span class="nx">$</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">hideoverlay</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
-  <span class="nv">$overlay = </span><span class="nx">$</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">hideoverlay</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">options</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">);</span>
-  <span class="nx">widgets</span><span class="p">.</span><span class="nv">$overlay = </span><span class="nx">$overlay</span><span class="p">;</span>
-  <span class="k">return</span> <span class="nx">$overlay</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="p">]);</span>
 </code></pre>
 </div>
 
 
+<p>As default jQuery.LazyJaxDavis handles all incoming requests as GET. You need to override this to add <code>method: 'POST'</code> to url routing.</p>
 
+<h3>POST submit doesn't change url</h3>
+
+<p>If you submit with lazy forms as above, the url displayed in the location bar is still unchanged. This is why Davis.js works like this. I think this doesn't make any trouble. But please keep in mind about this.</p>
 
 			</div>
 

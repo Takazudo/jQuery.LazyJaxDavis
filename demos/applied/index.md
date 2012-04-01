@@ -62,6 +62,7 @@ $(function(){
       var $newcontent = $(page.rip('content')).hide();
       $root.css('opacity', 1).empty().append($newcontent);
       $newcontent.fadeIn();
+      page.trigger('pageready');
     }
   });
 
@@ -75,7 +76,7 @@ After the ajax thing was done, you can rip the part of the fetched page using `p
 But, who can know what the main content is?  
 You need to add the comment to the html like below.
 
-{% highlight javascript %}
+{% highlight htl %}
 <div class="mod-body">
 	sidenav here
 	<div class="mod-main">
@@ -104,6 +105,3 @@ If you want to do the things like that, just add the code to the event handler `
 
 jQuery.LazyJaxDavis provides only the apis to do things like this.  
 So if you want to implement the things like nice loading, it's what you need to code by yourself. To learn more, keep reading the other pages in this document.
-
-{% include nolazytestnav.html %}
-

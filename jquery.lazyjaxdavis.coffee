@@ -30,6 +30,11 @@
       return true
     else
       return false
+
+  # "page.html?foo=bar" -> "page.html"
+
+  ns.trimGetVals = (path) ->
+    path.replace /\?.*/, ''
     
   # "/somewhere/foo.html#bar" will be parsed to...
   # { path: "/somewhere/foo.html", hash: "#bar" }
@@ -133,6 +138,8 @@
   class ns.HistoryLogger
     constructor: ->
       @_items = []
+      # push first page
+      @_items.push (location.pathname.replace /#.*/, '')
     push: (obj) ->
       @_items.push obj
       @
@@ -199,12 +206,20 @@
       @
 
     fetch: ->
+
       currentFetch = null
       path = @request.path
-      ajaxoptions = @options.ajaxoptions
+
+      # prepare ajax options
+      o = @options?.ajaxoptions or {}
+      if @config?.method
+        o.type = @config.method
+      if @request?.params
+        o.data = $.extend true, {}, o.data, @request.params
+
       @_fetchDefer = $.Deferred (defer) =>
         @trigger 'fetchstart', @
-        currentFetch = (ns.fetchPage path, ajaxoptions).then (text) =>
+        currentFetch = (ns.fetchPage path, o).then (text) =>
           @_text = text
           @trigger 'fetchsuccess', @
           defer.resolve()
@@ -218,6 +233,7 @@
             aborted: aborted
         .always =>
           @_fetchDefer = null
+
       @_fetchDefer.abort = -> currentFetch.abort()
       @_fetchDefer
     
@@ -252,12 +268,15 @@
     ]
 
     options:
-      ajaxoptions: null
+      ajaxoptions:
+        dataType: 'text'
+        cache: true
+        type: 'GET'
       expr:
         title: /<title[^>]*>([^<]*)<\/title>/
         content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
       davis:
-        linkSelector: 'a:not(.apply-nolazy)'
+        linkSelector: 'a:not([href^=#]):not(.apply-nolazy)'
         formSelector: 'form:not(.apply-nolazy)'
         throwErrors: false
         handleRouteNotFound: true
@@ -279,6 +298,7 @@
       @logger = new ns.HistoryLogger
       @_eventify()
       @_setupDavis()
+      if @options.init then @options.init.call @, @
       if @options.firereadyonstart then @fireready()
 
     _eventify: ->
@@ -290,24 +310,25 @@
 
     _createPage: (request, config, routed, hash) ->
 
-      options =
+      # prepare option for Page
+      o =
         expr: @options.expr
         updatetitle: @options.updatetitle
 
       if @options.anchorhandler
-        options.anchorhandler = @options.anchorhandler
+        o.anchorhandler = @options.anchorhandler
 
       if @options.ajaxoptions
-        if config.ajaxoptions
-          options.ajaxoptions = config.ajaxoptions
+        if config?.ajaxoptions
+          o.ajaxoptions = config.ajaxoptions
         else
-          options.ajaxoptions = @options.ajaxoptions
+          o.ajaxoptions = @options.ajaxoptions
 
       if not hash and request?.path
         res = ns.tryParseAnotherPageAnchor request.path
         hash = res.hash or null
 
-      new ns.Page request, config, routed, @, options, hash
+      new ns.Page request, config, routed, @, o, hash
 
     _setupDavis: ->
 
@@ -317,14 +338,16 @@
       completePage = (page) ->
         page.bind 'pageready', ->
           self.trigger 'everypageready'
-        self.logger.push page
+        self.logger.push page.path
         self.fetch page
 
       @davis = new Davis ->
+
         davis = @
         if not self.pages then return
         $.each self.pages, (i, pageConfig) ->
-          davis.get pageConfig.path, (request) ->
+          method = (pageConfig.method or 'get').toLowerCase()
+          davis[method] pageConfig.path, (request) ->
             if self.logger.isToSamePageRequst request.path then return
             page = self._createPage request, pageConfig, true
             completePage page
@@ -343,7 +366,7 @@
           # If was anchored, there may be config in @pages
           res = ns.tryParseAnotherPageAnchor request.path
           hash = res.hash or null
-          path = res.path
+          path = res.path or request.path
 
           if self.logger.isToSamePageRequst path then return
 
@@ -356,12 +379,6 @@
         $.each @options.davis, (key, val) ->
           config[key] = val
           true
-
-      @bind 'toid', (hash) =>
-        if @options.toid
-          @options.toid.call @, request.path
-        else
-          location.href = hash
 
       @_tweakDavis()
       @
@@ -421,7 +438,7 @@
           else
             handleThis = pageConfig.path is location.pathname
           if not handleThis then return true
-          pageConfig?.pageready()
+          pageConfig.pageready?()
           return false
       @trigger 'everypageready'
       @

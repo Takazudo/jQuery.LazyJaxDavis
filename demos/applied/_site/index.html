@@ -32,11 +32,11 @@
 		
 			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">Davis.js routing</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/quickbrown.html">handle anchors</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/anchorhandling.html">Anchor handling</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">JumpsOver</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">Lazy links</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">TheLazyDog</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">Lazy Forms</a></li>
 		
 	</ul>
 </div>
@@ -104,6 +104,7 @@ In the case of this website, only the html source in this main area is different
       <span class="kd">var</span> <span class="nx">$newcontent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)).</span><span class="nx">hide</span><span class="p">();</span>
       <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">).</span><span class="nx">empty</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">$newcontent</span><span class="p">);</span>
       <span class="nx">$newcontent</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">();</span>
+      <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">});</span>
 
@@ -119,24 +120,6 @@ In the case of this website, only the html source in this main area is different
 <p>But, who can know what the main content is?<br/>
 You need to add the comment to the html like below.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;mod-body&quot;</span><span class="o">&gt;</span>
-    <span class="nx">sidenav</span> <span class="nx">here</span>
-    <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;mod-main&quot;</span><span class="o">&gt;</span>
-            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;lazyjaxdavisroot&quot;</span><span class="o">&gt;</span>
-            <span class="c">&lt;!--</span> <span class="nx">LazyJaxDavis</span> <span class="nx">start</span> <span class="o">--&gt;</span>
-
-                <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;mod-article&quot;</span><span class="o">&gt;</span>
-                    <span class="nx">main</span> <span class="nx">content</span> <span class="nx">blah</span> <span class="nx">blah</span> <span class="nx">blah</span>
-                <span class="o">&lt;</span><span class="err">/div&gt;</span>
-
-            <span class="c">&lt;!--</span> <span class="nx">LazyJaxDavis</span> <span class="nx">end</span> <span class="o">--&gt;</span>
-            <span class="o">&lt;</span><span class="err">/div&gt;</span>
-    <span class="o">&lt;</span><span class="err">/div&gt;</span>
-<span class="o">&lt;</span><span class="err">/div&gt;</span>
-</code></pre>
-</div>
-
-
 <p>The source code between <code>&lt;!-- LazyJaxDavis start --&gt;</code> and <code>&lt;!-- LazyJaxDavis end --&gt;</code> is the result of <code>page.ript('content')</code>. This is what we want. then, manually update the dom on the page.</p>
 
 <p>Basically, that's what jQuery.LazyJaxDavis does.</p>
@@ -149,66 +132,6 @@ You need to add the comment to the html like below.</p>
 
 <p>jQuery.LazyJaxDavis provides only the apis to do things like this.<br/>
 So if you want to implement the things like nice loading, it's what you need to code by yourself. To learn more, keep reading the other pages in this document.</p>
-
-<h3>Lazy links and no-lazy links</h3>
-
-
-<p>If you use LazyJaxDavis, All normal links' click invoke LazyJaxDavis's navigation behavior. LazyJaxDavis observes all links' click using jQuery's delegate. LazyJaxDavis hijacks all links as default. You should set "fetchstart" and "fetchsuccess" events to make your site work.</p>
-
-
-<div class="mod-nolazytestnav">
-    <div class="mod-nolazytestnav-lazy">
-        <div class="h">Lazy links</div>
-        <div class="p">These links are normal links - just like &lt;a href=&quot;blahblah&quot;&gt;&lt;/a&gt;.<br>Click these to make sure that ajax navigation works.</div>
-        <ul>
-            <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Top page</a></li>
-            
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">TheLazyDog</a></li>
-            
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">JumpsOver</a></li>
-            
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/quickbrown.html">handle anchors</a></li>
-            
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">Davis.js routing</a></li>
-            
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">Davis.js routing</a></li>
-            
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">URL routing</a></li>
-            
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">setup</a></li>
-            
-                <li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">Davis.js</a></li>
-            
-        </ul>
-    </div>
-    <div class="mod-nolazytestnav-nolazy">
-        <div class="h">No-lazy links</div>
-        <div class="p">These links are no-lazy links. Each of these anchors has "apply-nolazy" in its class attribute. All links with this class do not invoke LazyJaxDavis's navigation. That is to say, these links are just normal link we see every websites.</div>
-        <ul>
-            <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/">Top page</a></li>
-            
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-08-2012/theLazyDog.html">TheLazyDog</a></li>
-            
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-07-2012/jumpsover.html">JumpsOver</a></li>
-            
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-06-2012/quickbrown.html">handle anchors</a></li>
-            
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-05-2012/foobar.html">Davis.js routing</a></li>
-            
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-04-2012/theLazyDog.html">Davis.js routing</a></li>
-            
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-03-2012/jumpsover.html">URL routing</a></li>
-            
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-02-2012/quickbrown.html">setup</a></li>
-            
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/demos/applied/_site/01-01-2012/foobar.html">Davis.js</a></li>
-            
-        </ul>
-    </div>
-</div>
-
-
-
 
 			</div>
 

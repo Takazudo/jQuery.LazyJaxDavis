@@ -404,6 +404,10 @@ body {
 .mod-article p {
   padding: 0 0 20px;
   max-width: 800px; }
+  .mod-article p code {
+    border: 1px solid #666666;
+    margin: 0 3px;
+    padding: 0 7px; }
 .mod-article ul {
   padding: 0 0 15px; }
   .mod-article ul li {
@@ -419,44 +423,49 @@ body {
     padding: 10px 0 0; }
     .mod-article blockquote p:first-child {
       padding-top: 0; }
-
-.mod-nolazytestnav {
+.mod-article .mod-forms {
+  padding: 5px 0 10px; }
+  .mod-article .mod-forms .h {
+    padding: 0 0 4px; }
+  .mod-article .mod-forms form {
+    padding: 0 0 15px; }
+.mod-article .mod-nolazytestnav {
   padding: 0 0 20px;
-  margin: 0 20px 0 0;
-  font-size: .8em; }
-  .mod-nolazytestnav .h {
+  margin: 0 20px 0 0; }
+  .mod-article .mod-nolazytestnav .h {
     font-weight: bold;
-    padding: 0 0 4px;
-    font-size: 1.2em; }
-  .mod-nolazytestnav .p {
+    padding: 0 0 4px; }
+  .mod-article .mod-nolazytestnav .p {
     padding: 0 0 8px; }
-  .mod-nolazytestnav ul {
+  .mod-article .mod-nolazytestnav ul {
     *zoom: 1;
     /* ie */
+    padding: 0;
     list-style-type: none; }
-    .mod-nolazytestnav ul:before, .mod-nolazytestnav ul:after {
+    .mod-article .mod-nolazytestnav ul:before, .mod-article .mod-nolazytestnav ul:after {
       content: "";
       display: table; }
-    .mod-nolazytestnav ul:after {
+    .mod-article .mod-nolazytestnav ul:after {
       clear: both; }
-    .mod-nolazytestnav ul li, .mod-nolazytestnav ul a {
+    .mod-article .mod-nolazytestnav ul li, .mod-article .mod-nolazytestnav ul a {
       display: inline-block;
       vertical-align: baseline;
       zoom: 1;
       *display: inline;
       *vertical-align: auto; }
-    .mod-nolazytestnav ul li {
-      padding: 0 0 6px; }
-      .mod-nolazytestnav ul li:first-child {
+    .mod-article .mod-nolazytestnav ul li {
+      padding: 0 0 6px;
+      margin: 0; }
+      .mod-article .mod-nolazytestnav ul li:first-child {
         padding-left: 0; }
-      .mod-nolazytestnav ul li a {
+      .mod-article .mod-nolazytestnav ul li a {
         padding: 4px 8px;
         border: 1px solid #666666; }
-  .mod-nolazytestnav .mod-nolazytestnav-lazy,
-  .mod-nolazytestnav .mod-nolazytestnav-nolazy {
+  .mod-article .mod-nolazytestnav .mod-nolazytestnav-lazy,
+  .mod-article .mod-nolazytestnav .mod-nolazytestnav-nolazy {
     border: 1px solid #666666;
     padding: 8px 10px 2px; }
-  .mod-nolazytestnav .mod-nolazytestnav-lazy {
+  .mod-article .mod-nolazytestnav .mod-nolazytestnav-lazy {
     margin: 0 0 10px; }
 
 #logger {

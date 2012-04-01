@@ -180,11 +180,12 @@
   test('HistoryLogger', function() {
     var i, logger;
     logger = new ns.HistoryLogger;
+    equal(logger.size(), 1, 'first url will be added automatically');
     for (i = 1; i <= 10; i++) {
       logger.push('foobar');
     }
     logger.push('moomoo');
-    equal(logger.size(), 11);
+    equal(logger.size(), 12, logger._items);
     return equal(logger.last(), 'moomoo');
   });
   test('HistoryLogger isToSamePageRequst', function() {
