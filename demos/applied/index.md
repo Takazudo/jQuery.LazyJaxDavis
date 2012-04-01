@@ -23,7 +23,7 @@ jQuery.LazyJaxDavis provides nice APIs for static websites development.
 
 New browsers has no problem about history API. But, we need to support old browsers like Internet Explorer 9 or less in most cases. So do we need to give up using history API? The answer is "No".
 
-jQuery.LazyJaxDavis does not provide ajax features to the browsers which don't have history API features. But this works with old browsers gracefully.
+jQuery.LazyJaxDavis does not provide ajax features to the browsers which don't have history API spoort. But this works with old browsers gracefully.
 
 ### How does it work?
 

@@ -43,7 +43,7 @@ kramdown:
     coderay_css: style
 
 # For more see: https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink: /:month-:day-:year/:title.html
+permalink: /pages/:title.html
 
 # all variables can be refered in templates
 title : jQuery.LazyJaxDavis
