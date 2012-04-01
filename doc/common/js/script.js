@@ -172,7 +172,7 @@ $(function(){
     //},
   },[
     {
-      path: '/jQuery.LazyJaxDavis/demos/applied/_site/',
+      path: '/jQuery.LazyJaxDavis/doc/',
       fetchstart: function(page){
         loglight('fetchstart: ' + page.path);
       },
@@ -184,18 +184,18 @@ $(function(){
       }
     },
     {
-      path: '/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html',
+      path: '/jQuery.LazyJaxDavis/doc/',
       method: 'POST'
     },
     {
-      path: '/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html',
+      path: '/jQuery.LazyJaxDavis/doc/',
       method: 'GET'
     }
     //{
     //  //anchorhandler: function(hash){
     //  //  log('custom anchor handler');
     //  //},
-    //  path: '/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html',
+    //  path: '/jQuery.LazyJaxDavis/doc/',
     //  method: 'POST',
     //  //fetchstart: function() {
     //  //  log('toppage fetchstart');

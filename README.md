@@ -1,4 +1,4 @@
-Under dev.
+# NOTE: STILL UNDER DEV!
 
 # jQuery.LazyJaxDavis
 
@@ -6,7 +6,7 @@ Url router for static websites.
 
 ## demos
 
-* [demo](http://takazudo.github.com/jQuery.LazyJaxDavis/demos/applied/_site/)
+* [demo](http://takazudo.github.com/jQuery.LazyJaxDavis/doc/)
 
 ## Usage
 

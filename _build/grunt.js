@@ -22,7 +22,7 @@ module.exports = function(grunt){
       files: [
         '../jquery.lazyjaxdavis.coffee',
         '../tests/qunit/test/test.coffee',
-        '../demos/applied/common/scss/*.scss'
+        '../_sitesrc/common/scss/*.scss'
       ],
       tasks: 'coffee sass concat notifyOK'
     },
@@ -34,7 +34,7 @@ module.exports = function(grunt){
       '../tests/qunit/test/test.js' : [ '../tests/qunit/test/test.coffee' ]
     },
     sass: {
-      '../demos/applied/common/css/style.css': '../demos/applied/common/scss/style.scss'
+      '../_sitesrc/common/css/style.css': '../_sitesrc/common/scss/style.scss'
     }
   });
 

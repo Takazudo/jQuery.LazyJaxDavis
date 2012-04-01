@@ -62,11 +62,9 @@ body {
 		height:110px;
 		h1 {
 			font-size:60px;
+			text-shadow:5px 5px 0 rgba(200,200,200,.9);
 			a {
-				color:#333;
-				&:hover {
-					color:#fff;
-				}
+				text-decoration:none;
 			}
 		}
 	}
@@ -125,10 +123,12 @@ body {
 .mod-article {
 
 	h2 {
+		text-shadow:3px 3px 0 rgba(200,200,200,.5);
 		padding:10px 0 20px;
 		font-size:2.2em;
 	}
 	h3 {
+		text-shadow:2px 2px 0 rgba(200,200,200,.5);
 		margin-top:20px;
 		padding:0 0 10px;
 		font-size:1.5em;
@@ -227,7 +227,7 @@ body {
 	top:0;
 	a:hover{
 		background:none;
-		opacity:.8;
+		opacity:.5;
 	}
 }
 
@@ -258,6 +258,8 @@ body {
 	padding:10px 14px;
 	font-size:1.5em;
 }
+
+// pygments 
 
 pre {
 	padding:20px 0 20px 20px;

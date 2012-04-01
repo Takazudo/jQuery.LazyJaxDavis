@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <title>jQuery.LazyJaxDavis - Davis.js</title>
 <meta name="viewport" content="width=1000">
-<link rel="stylesheet" href="/jQuery.LazyJaxDavis/demos/applied/common/css/style.css">
+<link rel="stylesheet" href="/jQuery.LazyJaxDavis/doc/common/css/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="/jQuery.LazyJaxDavis/lib/davis.js"></script>
 <script src="/jQuery.LazyJaxDavis/jquery.lazyjaxdavis.js"></script>
-<script src="/jQuery.LazyJaxDavis/demos/applied/common/js/script.js"></script>
+<script src="/jQuery.LazyJaxDavis/doc/common/js/script.js"></script>
 </head>
 <body><div class="mod-all">
 
 <div class="mod-header">
-	<h1><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">jQuery.LazyJaxDavis</a></h1>
+	<h1><a href="/jQuery.LazyJaxDavis/doc/">jQuery.LazyJaxDavis</a></h1>
 </div>
 
 
@@ -21,19 +21,19 @@
 	<div class="mod-side">
 	<!-- sidenav start -->
 	<ul class="mod-sidenav" id="sidenav">
-		<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Introduction</a></li>
+		<li><a href="/jQuery.LazyJaxDavis/doc/">Introduction</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/setup.html">Setup</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/setup.html">Setup</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/lazylinks.html">Lazy links</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/lazyforms.html">Lazy Forms</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/lazyforms.html">Lazy Forms</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/anchorhandling.html">Anchor handling</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/anchorhandling.html">Anchor handling</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/urlrouting.html">URL routing</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/urlrouting.html">URL routing</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/davis.html">Davis.js</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/davis.html">Davis.js</a></li>
 		
 	</ul>
 	<!-- sidenav end -->
@@ -98,38 +98,36 @@ In web apps, you almost need to assign what to do to urls. For example, if the u
 
 <p>This is very useful to develop web apps. But, imagine that you create your own blog. It is ok if you have a few posts on it. But, generally you will have many many posts on your blog. So it is almost impossible to handle all urls of the pages you created.</p>
 
-<p>So, I focused on the <code>routeNotFound</code> event of Davis.js. This event is fired when the requested page was not routed. jQuery.LazyJaxDavis does ajax to the requested page even if it was unrouted. Then you can handle the ajax events like below.</p>
+<p>So, I focused on the <code>routeNotFound</code> event of Davis.js. This event is fired when the requested page was not routed. jQuery.LazyJaxDavis does ajax to the requested page even if it was unrouted.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<h3>Use Davis.js's routing with jQuery.LazyJaxDavis</h3>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
-    <span class="nx">everyfetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+<p>JQuery.LazyJaxDavis has its own url routing features as I wrote on "URL routing". But, if you want to use Davis.js's routing directly, you can use it like below.</p>
 
-      <span class="c1">// When the url was changed, this fetches the page</span>
-      <span class="c1">// before ajax was started, you can do something here.</span>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">lazyJaxDavis</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">urlRoutings</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
 
-    <span class="p">},</span>
-    <span class="nx">everyfetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
-
-      <span class="c1">// When ajax was done, you can do something here</span>
-
-      <span class="kd">var</span> <span class="nx">ripped</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">);</span> <span class="c1">// you can rip the html source of fetched page</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#somewhere&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">ripped</span><span class="p">);</span> <span class="c1">// then update the page with it</span>
-
-    <span class="p">}</span>
-  <span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// do something when url was changed to &#39;/&#39;</span>
+  <span class="p">})</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/user/:name&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something when url was changed to &#39;/user/*&#39;</span>
+    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span> <span class="c1">// you can get the value of &#39;:name&#39; in url</span>
+  <span class="p">})</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/help&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something when url was changed to &#39;/help&#39;</span>
+  <span class="p">})</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/update&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something when url was changed to &#39;/update&#39;</span>
+  <span class="p">})</span>
 
 <span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">lazyJaxDavis</span><span class="p">.</span><span class="nx">davis</span><span class="p">);</span> <span class="c1">// davis&#39;s instance here</span>
 </code></pre>
 </div>
 
 
-<p>The main design pattern of jQuery.LazyJaxDavis is - fetch the part of the page - then refresh somewhere on the page. jQuery.LazyJaxDavis provides some APIs to do this easily.</p>
-
-<p>The main part of jQuery.LazyJaxDavis is the events above - <code>everyfetchstart</code> and <code>everyfetchsuccess</code>. These are mostly for unrouted urls. This is why I call this script "lazy".</p>
-
-<p>But, jQuery.LazyJaxDavis also provides url routing features too.<br/>
-Keep reaing to learn more about those.</p>
+<p>If the 3rd argument of <code>$.LazyJaxDavis</code> was passed, <code>$.LazyJaxDavis</code> call it when it creates the Davis instance in it. So you can use the original Davis.js's routing here.</p>
 
 			</div>
 
@@ -139,7 +137,7 @@ Keep reaing to learn more about those.</p>
 </div>
 
 <div class="mod-footer">
-	This page is the demo of <a href="https://github.com/Takazudo/jQuery.LazyJaxDavis">jQuery.LazyJaxDavis</a>.
+	<small>Copyright (c) 2012 "Takazudo" Takeshi Takatsudo</small>
 </div>
 
 

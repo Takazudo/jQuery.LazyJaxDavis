@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <title>jQuery.LazyJaxDavis - Lazy Forms</title>
 <meta name="viewport" content="width=1000">
-<link rel="stylesheet" href="/jQuery.LazyJaxDavis/demos/applied/common/css/style.css">
+<link rel="stylesheet" href="/jQuery.LazyJaxDavis/doc/common/css/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="/jQuery.LazyJaxDavis/lib/davis.js"></script>
 <script src="/jQuery.LazyJaxDavis/jquery.lazyjaxdavis.js"></script>
-<script src="/jQuery.LazyJaxDavis/demos/applied/common/js/script.js"></script>
+<script src="/jQuery.LazyJaxDavis/doc/common/js/script.js"></script>
 </head>
 <body><div class="mod-all">
 
 <div class="mod-header">
-	<h1><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">jQuery.LazyJaxDavis</a></h1>
+	<h1><a href="/jQuery.LazyJaxDavis/doc/">jQuery.LazyJaxDavis</a></h1>
 </div>
 
 
@@ -21,19 +21,19 @@
 	<div class="mod-side">
 	<!-- sidenav start -->
 	<ul class="mod-sidenav" id="sidenav">
-		<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/">Introduction</a></li>
+		<li><a href="/jQuery.LazyJaxDavis/doc/">Introduction</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/setup.html">Setup</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/setup.html">Setup</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/lazylinks.html">Lazy links</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/lazyforms.html">Lazy Forms</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/lazyforms.html">Lazy Forms</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/anchorhandling.html">Anchor handling</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/anchorhandling.html">Anchor handling</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/urlrouting.html">URL routing</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/urlrouting.html">URL routing</a></li>
 		
-			<li><a href="/jQuery.LazyJaxDavis/demos/applied/_site/pages/davis.html">Davis.js</a></li>
+			<li><a href="/jQuery.LazyJaxDavis/doc/pages/davis.html">Davis.js</a></li>
 		
 	</ul>
 	<!-- sidenav end -->
@@ -55,11 +55,11 @@ jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to conf
 
 <div class="mod-forms">
     <div class="h">GET</div>
-    <form action="/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html" method="get">
+    <form action="/jQuery.LazyJaxDavis/doc/gettest.html" method="get">
         <input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
     </form>
     <div class="h">POST</div>
-    <form action="/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html" method="post">
+    <form action="/jQuery.LazyJaxDavis/doc/posttest.html" method="post">
         <input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
     </form>
 </div>
@@ -67,7 +67,7 @@ jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to conf
 
 
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/doc/gettest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;getformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;getval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/form&gt;</span>
 </code></pre>
@@ -76,7 +76,7 @@ jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to conf
 
 
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/doc/posttest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;postformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;postval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/form&gt;</span>
 </code></pre>
@@ -89,11 +89,11 @@ jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to conf
 
 <div class="mod-forms">
     <div class="h">GET (no-lazy)</div>
-    <form action="/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html" method="get" class="apply-nolazy">
+    <form action="/jQuery.LazyJaxDavis/doc/gettest.html" method="get" class="apply-nolazy">
         <input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
     </form>
     <div class="h">POST (no-lazy)</div>
-    <form action="/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html" method="post" class="apply-nolazy">
+    <form action="/jQuery.LazyJaxDavis/doc/posttest.html" method="post" class="apply-nolazy">
         <input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
     </form>
 </div>
@@ -101,7 +101,7 @@ jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to conf
 
 
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/demos/applied/_site/gettest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">class=</span><span class="s">&quot;apply-nolazy&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/doc/gettest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">class=</span><span class="s">&quot;apply-nolazy&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;getformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;getval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/form&gt;</span>
 </code></pre>
@@ -110,7 +110,7 @@ jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to conf
 
 
 
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">class=</span><span class="s">&quot;apply-nolazy&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/doc/posttest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">class=</span><span class="s">&quot;apply-nolazy&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;postformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;postval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/form&gt;</span>
 </code></pre>
@@ -125,7 +125,7 @@ jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to conf
   <span class="c1">// do setup things here</span>
 <span class="p">},[</span>
   <span class="p">{</span>
-    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/jQuery.LazyJaxDavis/demos/applied/_site/posttest.html&#39;</span><span class="p">,</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/jQuery.LazyJaxDavis/doc/posttest.html&#39;</span><span class="p">,</span>
     <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span>
   <span class="p">}</span>
 <span class="p">]);</span>
@@ -147,7 +147,7 @@ jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to conf
 </div>
 
 <div class="mod-footer">
-	This page is the demo of <a href="https://github.com/Takazudo/jQuery.LazyJaxDavis">jQuery.LazyJaxDavis</a>.
+	<small>Copyright (c) 2012 "Takazudo" Takeshi Takatsudo</small>
 </div>
 
 
