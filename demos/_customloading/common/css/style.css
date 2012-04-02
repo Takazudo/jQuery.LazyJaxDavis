@@ -1,0 +1,61 @@
+html {
+	background: #fdf6e3;
+	overflow-y: scroll;
+	margin:0;
+	padding:0;
+}
+
+body {
+	text-align: center;
+	color: #555;
+	font-size: 1.2em;
+	line-height: 1.55;
+	font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+	margin:0;
+}
+
+.mod-all {
+	padding:20px;
+}
+
+.mod-header {
+	border:1px solid #666;
+	padding:0 0 20px;
+	margin:0;
+}
+.mod-header h1 {
+	padding:30px 0 4px;
+	margin:0;
+}
+.mod-header p {
+	padding:0;
+	margin:0;
+}
+.mod-main {
+	text-align:left;
+	margin:20px 0 0;
+	border:1px solid #666;
+	padding:20px;
+}
+h2 {
+	border:1px solid #666;
+	overflow:hidden;
+	*zoom:1; /* ie */
+	margin:0 0 20px;
+	padding:10px;
+}
+.mod-side {
+	float:right;
+	width:200px;
+	text-align:left;
+	border:1px solid #666;
+	margin:0 0 20px 20px;
+}
+.mod-footer {
+	border:1px solid #666;
+	margin:20px 0 20px;
+	padding:10px 0;
+}
+
+
+
