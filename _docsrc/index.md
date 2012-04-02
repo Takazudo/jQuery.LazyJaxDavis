@@ -6,6 +6,8 @@ titleoverride: jQuery.LazyJaxDavis
 
 ## Introduction
 
+<p style="background:red; color:#fff; padding:10px; margin:0 0 20px">NOTE! THIS PROJECT IS STILL UNDER DEV.<br>WAIT FOR THE v.0.1 RELEASE.</p>
+
 JQuery.LazyJaxDavis brings the power of history.pushState to static websites.  
 This changes all location changes to dynamic - ajax based.  
 URL routing feature is also available.
