@@ -307,6 +307,7 @@
       super
 
       @history = new ns.HistoryLogger
+      @pages = null
       initializer.call @, @
       #@_eventify()
       @_setupDavis()
@@ -397,6 +398,7 @@
       @
 
     _findPageWhosePathIs: (path) ->
+      if not @pages then return null
       ret = null
       $.each @pages, (i, config) ->
         if config.path is path

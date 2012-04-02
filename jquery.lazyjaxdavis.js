@@ -343,6 +343,7 @@ var __slice = Array.prototype.slice,
       if (!(this instanceof arguments.callee)) return new ns.Router(initializer);
       Router.__super__.constructor.apply(this, arguments);
       this.history = new ns.HistoryLogger;
+      this.pages = null;
       initializer.call(this, this);
       this._setupDavis();
       if (this.options.firereadyonstart) this.fireready();
@@ -438,6 +439,7 @@ var __slice = Array.prototype.slice,
 
     Router.prototype._findPageWhosePathIs = function(path) {
       var ret;
+      if (!this.pages) return null;
       ret = null;
       $.each(this.pages, function(i, config) {
         if (config.path === path) {
