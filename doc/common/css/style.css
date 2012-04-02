@@ -334,14 +334,15 @@ a {
     color: #fff; }
 
 html {
-  background: #FDF6E3;
+  background: #fdf6e3 url(/jQuery.LazyJaxDavis/doc/common/img/noise.png);
   overflow-y: scroll; }
 
 body {
   text-align: center;
   color: #555;
   font-size: 1.2em;
-  font-family: Helvetica, Arial, sans-serif; }
+  line-height: 1.55;
+  font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif; }
 
 .mod-all {
   text-align: left; }
@@ -350,7 +351,7 @@ body {
     height: 110px; }
     .mod-all .mod-header h1 {
       font-size: 60px;
-      text-shadow: 5px 5px 0 rgba(200, 200, 200, 0.9); }
+      text-shadow: 2px 2px 0 rgba(200, 200, 200, 0.9); }
       .mod-all .mod-header h1 a {
         text-decoration: none; }
     .mod-all .mod-header ul {
@@ -392,24 +393,32 @@ body {
   left: 0;
   top: 170px;
   width: 200px;
-  list-style-type: none;
-  border-top: 5px solid #666666; }
-  .mod-sidenav li {
-    border-bottom: 1px solid #666666; }
-    .mod-sidenav li a, .mod-sidenav li span {
-      padding: 6px 0 5px;
-      display: block; }
-    .mod-sidenav li.current {
-      background: #FCD080; }
-    .mod-sidenav li:first-child a, .mod-sidenav li:first-child span {
-      padding-top: 15px; }
+  border-top: 3px solid #666666;
+  border-bottom: 2px solid #666666;
+  line-height: 18px; }
+  .mod-sidenav ul {
+    border-top: 2px solid #666666;
+    list-style-type: none; }
+    .mod-sidenav ul li {
+      border-bottom: 1px solid #666666; }
+      .mod-sidenav ul li a {
+        padding: 11px 0 10px;
+        display: block;
+        text-decoration: none; }
+        .mod-sidenav ul li a span {
+          font-weight: bold;
+          font-size: 1.3em; }
+      .mod-sidenav ul li.current {
+        background: #FCD080; }
+      .mod-sidenav ul li:first-child a {
+        padding-top: 18px; }
+      .mod-sidenav ul li:last-child a {
+        padding-bottom: 19px; }
 
 .mod-article h2 {
-  text-shadow: 3px 3px 0 rgba(200, 200, 200, 0.5);
   padding: 10px 0 20px;
   font-size: 2.2em; }
 .mod-article h3 {
-  text-shadow: 2px 2px 0 rgba(200, 200, 200, 0.5);
   margin-top: 20px;
   padding: 0 0 10px;
   font-size: 1.5em; }
@@ -479,6 +488,7 @@ body {
   .mod-article .mod-nolazytestnav .mod-nolazytestnav-lazy,
   .mod-article .mod-nolazytestnav .mod-nolazytestnav-nolazy {
     border: 1px solid #666666;
+    background: #fdf6e3;
     padding: 8px 10px 2px; }
   .mod-article .mod-nolazytestnav .mod-nolazytestnav-lazy {
     margin: 0 0 10px; }
@@ -523,7 +533,10 @@ pre {
   border-bottom: 1px solid #999;
   margin: 0 0 25px;
   font-size: 16px;
-  line-height: 1.4; }
+  line-height: 1.4;
+  background: #fdf6e3; }
+  pre code {
+    font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace; }
 
 pre .c {
   color: #586E75; }

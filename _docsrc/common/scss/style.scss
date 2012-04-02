@@ -5,6 +5,12 @@
 // ===============================================================
 
 $color_border: #666;
+$color_bodybg: #FDF6E3;
+$georgia: Georgia, Cambria, "Times New Roman", Times, serif;
+$helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$lucida-grande: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+$monospace: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+$verdana: Verdana, Geneva, sans-serif;
 
 // ===============================================================
 // mixins
@@ -46,14 +52,15 @@ a {
 }
 
 html {
-	background:#FDF6E3;
+	background:$color_bodybg url(/jQuery.LazyJaxDavis/doc/common/img/noise.png);
 	overflow-y:scroll;
 }
 body {
 	text-align:center;
 	color:#555;
 	font-size:1.2em;
-	font-family:Helvetica, Arial, sans-serif;
+	line-height:1.55;
+	font-family:$lucida-grande;
 }
 .mod-all {
 	text-align:left;
@@ -62,7 +69,7 @@ body {
 		height:110px;
 		h1 {
 			font-size:60px;
-			text-shadow:5px 5px 0 rgba(200,200,200,.9);
+			text-shadow:2px 2px 0 rgba(200,200,200,.9);
 			a {
 				text-decoration:none;
 			}
@@ -109,36 +116,51 @@ body {
 	left:0;
 	top:170px;
 	width:200px;
-	list-style-type:none;
-	border-top:5px solid $color_border;
-	li {
-		border-bottom:1px solid $color_border;
-		a, span {
-			padding:6px 0 5px;
-			display:block;
+	border-top:3px solid $color_border;
+	border-bottom:2px solid $color_border;
+	line-height:18px;
+	ul {
+		border-top:2px solid $color_border;
+		list-style-type:none;
+		li {
+			border-bottom:1px solid $color_border;
+			a {
+				padding:11px 0 10px;
+				display:block;
+				text-decoration:none;
+				span {
+					font-weight:bold;
+					font-size:1.3em;
+				}
+			}
+			&.current {
+				background:#FCD080;
+			}
+			//&:last-child a,
+			//&:last-child span {
+			//}
+			&:first-child {
+				a {
+					padding-top:18px;
+				}
+			}
+			&:last-child {
+				a {
+					padding-bottom:19px;
+				}
+			}
 		}
-		&.current {
-			background:#FCD080;
+		&:first-child a {
 		}
-		&:first-child a,
-		&:first-child span {
-			padding-top:15px;
-		}
-		//&:last-child a,
-		//&:last-child span {
-		//	padding-bottom:15px;
-		//}
 	}
 }
 .mod-article {
 
 	h2 {
-		text-shadow:3px 3px 0 rgba(200,200,200,.5);
 		padding:10px 0 20px;
 		font-size:2.2em;
 	}
 	h3 {
-		text-shadow:2px 2px 0 rgba(200,200,200,.5);
 		margin-top:20px;
 		padding:0 0 10px;
 		font-size:1.5em;
@@ -219,6 +241,7 @@ body {
 		.mod-nolazytestnav-lazy,
 		.mod-nolazytestnav-nolazy {
 			border:1px solid $color_border;
+			background: $color_bodybg;
 			padding:8px 10px 2px;
 		}
 		.mod-nolazytestnav-lazy {
@@ -279,6 +302,10 @@ pre {
 	margin:0 0 25px;
 	font-size:16px;
 	line-height:1.4;
+	background:$color_bodybg;
+	code {
+		font-family:$monospace;
+	}
 }
 pre .c { color: #586E75 } /* Comment */
 pre .err { color: #93A1A1 } /* Error */
