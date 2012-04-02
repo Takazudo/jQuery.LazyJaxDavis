@@ -65,14 +65,14 @@ As lazy links, you can avoid the ajax behavior to add `apply-nolazy` to the form
 If you handle form POST with jQuery.LazyJaxDavis, you need to make url routings for POST receiver pages like below.
 
 {% highlight javascript %}
-$.LazyJaxDavis({
-  // do setup things here
-},[
-  {
-    path: '{{ site.basedir }}/posttest.html',
-    method: 'POST'
-  }
-]);
+$.LazyJaxDavis(function(router){
+	router.route([
+		{
+			path: '{{ site.basedir }}/posttest.html',
+			method: 'POST'
+		}
+	]);
+});
 {% endhighlight %}
 
 As default jQuery.LazyJaxDavis handles all incoming requests as GET. You need to override this to add `method: 'POST'` to url routing.

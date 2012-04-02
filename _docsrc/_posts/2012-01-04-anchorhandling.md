@@ -38,7 +38,7 @@ But with jQuery.LazyJaxDavis, the browser does not do the scrolling because ther
 Page.prototype._anchorhandler = function(hash) {
   var top;
   if (!hash) return this;
-  top = ($document.find(hash)).offset().top;
+  top = ($(document).find(hash)).offset().top;
   window.scrollTo(0, top);
   return this;
 };
@@ -60,14 +60,14 @@ This anchor handing method will be called after the 'pageready' event automatica
 If you don't like this behavior, you can override this anchorhandler with the code like below.
 
 {% highlight javascript %}
-$.LazyJaxDavis({
+$.LazyJaxDavis(function(router){
 
-  // do other initial setups here
-
-  anchorhandler: function(hash){
-    console.log(hash); // #main
-    doMySmoothScrollTo(hash); // do your own scrolling
-  }
+  router.option({
+    anchorhandler: function(hash){
+      console.log(hash); // "#main"
+      doMySmoothScrollTo(hash); // do your own scrolling
+    }
+  });
 
 });
 {% endhighlight %}
@@ -77,18 +77,16 @@ You can use smoothcroll library or something with the code like above.
 This feature is available within url routing too.
 
 {% highlight javascript %}
-$.LazyJaxDavis({
+$.LazyJaxDavis(function(router){
 
-  // do initial setups here
-
-},[
-  {
+  router.route({
     path: '/somewhere/foobar.html',
     anchorhandler: function(hash){
       console.log(hash); // #main
       doMySmoothScrollTo(hash); // do your own scrolling
     }
-  }
+  });
+
 ]);
 {% endhighlight %}
 

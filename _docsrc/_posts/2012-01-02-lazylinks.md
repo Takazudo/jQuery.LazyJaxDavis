@@ -49,14 +49,12 @@ Click the links below to confirm this.
 You can define what elements to be hijacked like below.  
 
 {% highlight javascript %}
-$.LazyJaxDavis({
-
-  // do other initial setups here
-
-  davis: {
-    linkSelector: 'a:not([href^=#]):not(.apply-nolazy)'
-  }
-
+$.LazyJaxDavis(function(router){
+  router.option({
+    davis: {
+      linkSelector: 'a:not([href^=#]):not(.apply-nolazy)'
+    }
+  });
 });
 {% endhighlight %}
 

@@ -50,34 +50,24 @@
 
 <h3>How to define URL routings</h3>
 
-<p>Pass the array of url routing items as the second argument like below.</p>
+<p>Pass the array of URL routing configs to the <code>route</code> method like below.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/1.html&#39;</span><span class="p">,</span>
-    <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
-      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html fetchstart!&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="nx">router</span><span class="p">.</span><span class="nx">route</span><span class="p">([</span>
+    <span class="p">{</span>
+      <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/1.html&#39;</span><span class="p">,</span>
+      <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html fetchstart!&#39;</span><span class="p">);</span> <span class="p">},</span>
+      <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html fetchsuccess!&#39;</span><span class="p">);</span> <span class="p">},</span>
+      <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html pageready!&#39;</span><span class="p">);</span> <span class="p">}</span>
     <span class="p">},</span>
-    <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
-      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html fetchsuccess!&#39;</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html pageready!&#39;</span><span class="p">);</span>
+    <span class="p">{</span>
+      <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/2.html&#39;</span><span class="p">,</span>
+      <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html fetchstart!&#39;</span><span class="p">);</span> <span class="p">},</span>
+      <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html fetchsuccess!&#39;</span><span class="p">);</span> <span class="p">},</span>
+      <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html pageready!&#39;</span><span class="p">);</span> <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/2.html&#39;</span><span class="p">,</span>
-    <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
-      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html fetchstart!&#39;</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
-      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html fetchsuccess!&#39;</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html pageready!&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-<span class="p">]);</span>
+  <span class="p">]);</span>
+<span class="p">});</span>
 </code></pre>
 </div>
 
@@ -92,7 +82,7 @@
 </ul>
 
 
-<p>These are path pecific ones of every-foo event which you already know.</p>
+<p>These are path-pecific ones of every-foo event which you already know.</p>
 
 			</div>
 

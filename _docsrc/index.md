@@ -5,39 +5,40 @@ title: Introduction
 
 ## Introduction
 
-jQuery.LazyJaxDavis is a url router for static websites.  
-This makes location changes dynamic using htlm5's history API.
+JQuery.LazyJaxDavis brings the power of history.pushState to static websites.  
+This changes all location changes to dynamic - ajax based.  
+URL routing feature is also available.
 
-### What jQuery.LazyJaxDavis is for?
+### HTML5 history API and us
 
 Do you usually use history API?  
 It's... pushState, replaceState or something like that.  
 
-If you are a developer of JavaScript web applications - and the web apps which you work in are challenging, the answer may be "Yes". But in most of the cases it must be "No" because we need to support old browsers which do not support history API yet. And, when you create static websites which are like - for example, a corporate site, a weblog, or something which is not a web app, it is pretty rare to use history API, I guess.
+If you are a developer of JavaScript web app - and the web apps which you work in are challenging, the answer may be "Yes". But in most of the cases it must be "No" because we need to support old browsers which do not support history API yet. And, when you create static websites which are like - for example, a corporate site, a weblog, or something which is not a web app, it is pretty rare to use history API, I guess.
+
+### jQuery.LazyJaxDavis stands on history API
 
 But, don't you want to make your websites more dynamic and better for user experience with history API? It sounds hard. But I want to say that it's easy! - if you use jQuery.LazyJaxDavis. jQuery.LazyJaxDavis gives you simple API to make it possible.
 
 jQuery.LazyJaxDavis provides nice APIs for static websites development.
 
-### Hey, what about the old browser like IE
+### About the old browsers like IE
 
 New browsers has no problem about history API. But, we need to support old browsers like Internet Explorer 9 or less in most cases. So do we need to give up using history API? The answer is "No".
 
 jQuery.LazyJaxDavis does not provide ajax features to the browsers which don't have history API spoort. But this works with old browsers gracefully.
 
-### How does it work?
+### Tell me what does jQuery.LazyJaxDavis do
 
-This website is a document of jQuery.LazyJaxDavis but also its demo.  
-Try clicking left navigations in this page. You'll see what jQuery.LazyJaxDavis does if you use a browser which supports history API.
+The basic feature of jQuery.LazyJaxDavis is "change all location changes to dynamic - ajax based". This website is a document of jQuery.LazyJaxDavis but also its demo. Try clicking left navigations in this page. You'll see what jQuery.LazyJaxDavis does if you use a browser which supports history API.
 
-If your browser does not support the history API, nothing happens. Just a location change occurs.
+If your browser does not support the history API, nothing happens. Just a normal location change occurs.
 
-### How can I use this?
+### Short explanation about this website
 
-This demo site is a good example to understand how jQuery.LazyJaxDavis works.
-
-First, this website has main content area.  
-Click the button below to confirm it.
+I'll explain how this website works.  
+First, this website has main content area. Click the button below.  
+Scroll up to the top. Then scroll down to the bottom. You can understand what the main content is.
 
 <button id="whatthemaincontent">Let me know what you mean</button>
 
@@ -46,24 +47,37 @@ In the case of this website, only the html source in this main area is different
 
 So what we should do when the location was changed is - replace the html source in the main area. We don't need to change the source about header, footer and sidenav.
 
-With jQuery.LazyJaxDavis, do like below.
+With jQuery.LazyJaxDavis, do like below on documentready.
 
 {% highlight javascript %}
-$(function(){
+$.LazyJaxDavis(function(router){
 
-  var $root = $('#lazyjaxdavisroot');
+  var $root = $('#lazyjaxdavisroot'); // main content wrapper
 
-  $.LazyJaxDavis({
-    everyfetchstart: function(page) {
-      window.scrollTo(0, 0);
-      $root.css('opacity', 0.6);
-    },
-    everyfetchsuccess: function(page) {
-      var $newcontent = $(page.rip('content')).hide();
-      $root.css('opacity', 1).empty().append($newcontent);
-      $newcontent.fadeIn();
-      page.trigger('pageready');
-    }
+  // do this when page fetching was started
+  router.bind('everyfetchstart', function(page) {
+
+    // scrollup
+    window.scrollTo(0, 0);
+    // add a little transparency for loading
+    $root.css('opacity', 0.6);
+
+  });
+
+  // do this when page fetching was successed
+  router.bind('everyfetchsuccess', function(page) {
+    
+    // rip new content
+    var newcontent = page.rip('content');
+    // hide it on the fly
+    var $newcontent = $(newcontent).hide();
+    // replace with it
+    $root.css('opacity', 1).empty().append($newcontent); 
+    // show the new content
+    $newcontent.fadeIn();
+    // tell jQuery.LazyJaxDavis that the page is ready now
+    page.trigger('pageready');
+
   });
 
 });
@@ -73,7 +87,7 @@ if you do `$.LazyJaxDavis()`, all links and form submits are hijacked. Instead o
 
 After the ajax thing was done, you can rip the part of the fetched page using `page.rip('content')`. What does this rip from the page? It's the html source in the main area, of course.
 
-But, who can know what the main content is?  
+But, how can it know what the main content is?  
 You need to add the comment to the html like below.
 
 {% highlight html %}
@@ -93,9 +107,9 @@ You need to add the comment to the html like below.
 </div>
 {% endhighlight %}
 
-The source code between `<!-- LazyJaxDavis start -->` and `<!-- LazyJaxDavis end -->` is the result of `page.rip('content')`. This is what we want. then, manually update the dom on the page.
+The source code between `<!-- LazyJaxDavis start -->` and `<!-- LazyJaxDavis end -->` is the result of `page.rip('content')`. This is what we want. Then, add the code to update the dom on the page.
 
-Basically, that's what jQuery.LazyJaxDavis does.
+Basically, that's what jQuery.LazyJaxDavis does.  
 
 As you see, this demo site shows nowloading on the left top corner of the browser.
 

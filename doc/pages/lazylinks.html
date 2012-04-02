@@ -111,14 +111,12 @@
 
 <p>You can define what elements to be hijacked like below.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
-
-  <span class="c1">// do other initial setups here</span>
-
-  <span class="nx">davis</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">linkSelector</span><span class="o">:</span> <span class="s1">&#39;a:not([href^=#]):not(.apply-nolazy)&#39;</span>
-  <span class="p">}</span>
-
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
+    <span class="nx">davis</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">linkSelector</span><span class="o">:</span> <span class="s1">&#39;a:not([href^=#]):not(.apply-nolazy)&#39;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
 <span class="p">});</span>
 </code></pre>
 </div>

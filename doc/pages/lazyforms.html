@@ -121,14 +121,14 @@ jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to conf
 
 <p>If you handle form POST with jQuery.LazyJaxDavis, you need to make url routings for POST receiver pages like below.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
-  <span class="c1">// do setup things here</span>
-<span class="p">},[</span>
-  <span class="p">{</span>
-    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/jQuery.LazyJaxDavis/doc/posttest.html&#39;</span><span class="p">,</span>
-    <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span>
-  <span class="p">}</span>
-<span class="p">]);</span>
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nx">route</span><span class="p">([</span>
+        <span class="p">{</span>
+            <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/jQuery.LazyJaxDavis/doc/posttest.html&#39;</span><span class="p">,</span>
+            <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span>
+        <span class="p">}</span>
+    <span class="p">]);</span>
+<span class="p">});</span>
 </code></pre>
 </div>
 

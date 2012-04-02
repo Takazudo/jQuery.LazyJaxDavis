@@ -46,39 +46,40 @@
 			<div class="mod-article">
 				<h2>Introduction</h2>
 
-<p>jQuery.LazyJaxDavis is a url router for static websites.<br/>
-This makes location changes dynamic using htlm5's history API.</p>
+<p>JQuery.LazyJaxDavis brings the power of history.pushState to static websites.<br/>
+This changes all location changes to dynamic - ajax based.<br/>
+URL routing feature is also available.</p>
 
-<h3>What jQuery.LazyJaxDavis is for?</h3>
+<h3>HTML5 history API and us</h3>
 
 <p>Do you usually use history API?<br/>
 It's... pushState, replaceState or something like that.</p>
 
-<p>If you are a developer of JavaScript web applications - and the web apps which you work in are challenging, the answer may be "Yes". But in most of the cases it must be "No" because we need to support old browsers which do not support history API yet. And, when you create static websites which are like - for example, a corporate site, a weblog, or something which is not a web app, it is pretty rare to use history API, I guess.</p>
+<p>If you are a developer of JavaScript web app - and the web apps which you work in are challenging, the answer may be "Yes". But in most of the cases it must be "No" because we need to support old browsers which do not support history API yet. And, when you create static websites which are like - for example, a corporate site, a weblog, or something which is not a web app, it is pretty rare to use history API, I guess.</p>
+
+<h3>jQuery.LazyJaxDavis stands on history API</h3>
 
 <p>But, don't you want to make your websites more dynamic and better for user experience with history API? It sounds hard. But I want to say that it's easy! - if you use jQuery.LazyJaxDavis. jQuery.LazyJaxDavis gives you simple API to make it possible.</p>
 
 <p>jQuery.LazyJaxDavis provides nice APIs for static websites development.</p>
 
-<h3>Hey, what about the old browser like IE</h3>
+<h3>About the old browsers like IE</h3>
 
 <p>New browsers has no problem about history API. But, we need to support old browsers like Internet Explorer 9 or less in most cases. So do we need to give up using history API? The answer is "No".</p>
 
 <p>jQuery.LazyJaxDavis does not provide ajax features to the browsers which don't have history API spoort. But this works with old browsers gracefully.</p>
 
-<h3>How does it work?</h3>
+<h3>Tell me what does jQuery.LazyJaxDavis do</h3>
 
-<p>This website is a document of jQuery.LazyJaxDavis but also its demo.<br/>
-Try clicking left navigations in this page. You'll see what jQuery.LazyJaxDavis does if you use a browser which supports history API.</p>
+<p>The basic feature of jQuery.LazyJaxDavis is "change all location changes to dynamic - ajax based". This website is a document of jQuery.LazyJaxDavis but also its demo. Try clicking left navigations in this page. You'll see what jQuery.LazyJaxDavis does if you use a browser which supports history API.</p>
 
-<p>If your browser does not support the history API, nothing happens. Just a location change occurs.</p>
+<p>If your browser does not support the history API, nothing happens. Just a normal location change occurs.</p>
 
-<h3>How can I use this?</h3>
+<h3>Short explanation about this website</h3>
 
-<p>This demo site is a good example to understand how jQuery.LazyJaxDavis works.</p>
-
-<p>First, this website has main content area.<br/>
-Click the button below to confirm it.</p>
+<p>I'll explain how this website works.<br/>
+First, this website has main content area. Click the button below.<br/>
+Scroll up to the top. Then scroll down to the bottom. You can understand what the main content is.</p>
 
 <p><button id="whatthemaincontent">Let me know what you mean</button></p>
 
@@ -87,23 +88,36 @@ In the case of this website, only the html source in this main area is different
 
 <p>So what we should do when the location was changed is - replace the html source in the main area. We don't need to change the source about header, footer and sidenav.</p>
 
-<p>With jQuery.LazyJaxDavis, do like below.</p>
+<p>With jQuery.LazyJaxDavis, do like below on documentready.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
-  <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span> <span class="c1">// main content wrapper</span>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">({</span>
-    <span class="nx">everyfetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-      <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">everyfetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">$newcontent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)).</span><span class="nx">hide</span><span class="p">();</span>
-      <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">).</span><span class="nx">empty</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">$newcontent</span><span class="p">);</span>
-      <span class="nx">$newcontent</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">();</span>
-      <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
+  <span class="c1">// do this when page fetching was started</span>
+  <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchstart&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// scrollup</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="c1">// add a little transparency for loading</span>
+    <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">);</span>
+
+  <span class="p">});</span>
+
+  <span class="c1">// do this when page fetching was successed</span>
+  <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchsuccess&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+    
+    <span class="c1">// rip new content</span>
+    <span class="kd">var</span> <span class="nx">newcontent</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">);</span>
+    <span class="c1">// hide it on the fly</span>
+    <span class="kd">var</span> <span class="nx">$newcontent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">newcontent</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+    <span class="c1">// replace with it</span>
+    <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">).</span><span class="nx">empty</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">$newcontent</span><span class="p">);</span> 
+    <span class="c1">// show the new content</span>
+    <span class="nx">$newcontent</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">();</span>
+    <span class="c1">// tell jQuery.LazyJaxDavis that the page is ready now</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span>
+
   <span class="p">});</span>
 
 <span class="p">});</span>
@@ -115,7 +129,7 @@ In the case of this website, only the html source in this main area is different
 
 <p>After the ajax thing was done, you can rip the part of the fetched page using <code>page.rip('content')</code>. What does this rip from the page? It's the html source in the main area, of course.</p>
 
-<p>But, who can know what the main content is?<br/>
+<p>But, how can it know what the main content is?<br/>
 You need to add the comment to the html like below.</p>
 
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;mod-body&quot;</span><span class="nt">&gt;</span>
@@ -136,7 +150,7 @@ You need to add the comment to the html like below.</p>
 </div>
 
 
-<p>The source code between <code>&lt;!-- LazyJaxDavis start --&gt;</code> and <code>&lt;!-- LazyJaxDavis end --&gt;</code> is the result of <code>page.rip('content')</code>. This is what we want. then, manually update the dom on the page.</p>
+<p>The source code between <code>&lt;!-- LazyJaxDavis start --&gt;</code> and <code>&lt;!-- LazyJaxDavis end --&gt;</code> is the result of <code>page.rip('content')</code>. This is what we want. Then, add the code to update the dom on the page.</p>
 
 <p>Basically, that's what jQuery.LazyJaxDavis does.</p>
 
