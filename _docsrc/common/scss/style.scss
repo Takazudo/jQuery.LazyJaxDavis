@@ -67,6 +67,16 @@ body {
 				text-decoration:none;
 			}
 		}
+		ul {
+			list-style-type:none;
+			li {
+				float:left;
+				padding:0 20px 0 0;
+				a {
+					float:left;
+				}
+			}
+		}
 	}
 	.mod-body {
 		@include clearfix;
@@ -114,10 +124,10 @@ body {
 		&:first-child span {
 			padding-top:15px;
 		}
-		&:last-child a,
-		&:last-child span {
-			padding-bottom:15px;
-		}
+		//&:last-child a,
+		//&:last-child span {
+		//	padding-bottom:15px;
+		//}
 	}
 }
 .mod-article {

@@ -1,8 +1,8 @@
 <!doctype html>
-<html class="no-js" lang="ja">
+<html class="no-js" lang="en">
 <head>
 <meta charset="utf-8">
-<title>{{ site.title }} - {{ page.title }}</title>
+<title>{% if page.titleoverride %}{{ page.titleoverride }}{% else %}{{ site.title }} - {{ page.title }}{% endif %}</title>
 <meta name="viewport" content="width=1000">
 <link rel="stylesheet" href="{{ site.basedir }}/common/css/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

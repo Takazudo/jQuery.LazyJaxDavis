@@ -353,6 +353,13 @@ body {
       text-shadow: 5px 5px 0 rgba(200, 200, 200, 0.9); }
       .mod-all .mod-header h1 a {
         text-decoration: none; }
+    .mod-all .mod-header ul {
+      list-style-type: none; }
+      .mod-all .mod-header ul li {
+        float: left;
+        padding: 0 20px 0 0; }
+        .mod-all .mod-header ul li a {
+          float: left; }
   .mod-all .mod-body {
     *zoom: 1;
     /* ie */ }
@@ -396,8 +403,6 @@ body {
       background: #FCD080; }
     .mod-sidenav li:first-child a, .mod-sidenav li:first-child span {
       padding-top: 15px; }
-    .mod-sidenav li:last-child a, .mod-sidenav li:last-child span {
-      padding-bottom: 15px; }
 
 .mod-article h2 {
   text-shadow: 3px 3px 0 rgba(200, 200, 200, 0.5);

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Introduction
+titleoverride: jQuery.LazyJaxDavis
 ---
 
 ## Introduction
