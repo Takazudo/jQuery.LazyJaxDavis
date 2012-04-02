@@ -50,6 +50,9 @@ a {
 		color:#fff;
 	}
 }
+code {
+	font-family:$monospace;
+}
 
 html {
 	background:$color_bodybg url(/jQuery.LazyJaxDavis/doc/common/img/noise.png);
@@ -129,7 +132,6 @@ body {
 				display:block;
 				text-decoration:none;
 				span {
-					font-weight:bold;
 					font-size:1.3em;
 				}
 			}
@@ -157,8 +159,8 @@ body {
 .mod-article {
 
 	h2 {
-		padding:10px 0 20px;
-		font-size:2.2em;
+		padding:10px 0 10px;
+		font-size:2.4em;
 	}
 	h3 {
 		margin-top:20px;
@@ -173,9 +175,10 @@ body {
 		padding:0 0 20px;
 		max-width:800px;
 		code {
+			font-size:.8em;
 			border:1px solid $color_border;
 			margin:0 3px;
-			padding:0 7px;
+			padding:3px 7px;
 		}
 	}
 	ul {
@@ -303,9 +306,6 @@ pre {
 	font-size:16px;
 	line-height:1.4;
 	background:$color_bodybg;
-	code {
-		font-family:$monospace;
-	}
 }
 pre .c { color: #586E75 } /* Comment */
 pre .err { color: #93A1A1 } /* Error */

@@ -333,6 +333,9 @@ a {
     background: #666;
     color: #fff; }
 
+code {
+  font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace; }
+
 html {
   background: #fdf6e3 url(/jQuery.LazyJaxDavis/doc/common/img/noise.png);
   overflow-y: scroll; }
@@ -406,7 +409,6 @@ body {
         display: block;
         text-decoration: none; }
         .mod-sidenav ul li a span {
-          font-weight: bold;
           font-size: 1.3em; }
       .mod-sidenav ul li.current {
         background: #FCD080; }
@@ -416,8 +418,8 @@ body {
         padding-bottom: 19px; }
 
 .mod-article h2 {
-  padding: 10px 0 20px;
-  font-size: 2.2em; }
+  padding: 10px 0 10px;
+  font-size: 2.4em; }
 .mod-article h3 {
   margin-top: 20px;
   padding: 0 0 10px;
@@ -429,9 +431,10 @@ body {
   padding: 0 0 20px;
   max-width: 800px; }
   .mod-article p code {
+    font-size: .8em;
     border: 1px solid #666666;
     margin: 0 3px;
-    padding: 0 7px; }
+    padding: 3px 7px; }
 .mod-article ul {
   padding: 0 0 15px; }
   .mod-article ul li {
@@ -535,8 +538,6 @@ pre {
   font-size: 16px;
   line-height: 1.4;
   background: #fdf6e3; }
-  pre code {
-    font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace; }
 
 pre .c {
   color: #586E75; }
