@@ -1,0 +1,18 @@
+<div class="mod-side" id="sidenav">
+	<!-- sidenav start -->
+	<ul>
+		{% if page.title == 'top' %}
+			<li>{{ page.title }}</li>
+		{% else %}
+			<li><a href="{{ site.basedir }}/">top</a></li>
+		{% endif %}
+		{% for post in site.posts reversed %}
+			{% if post.title == page.title %}
+				<li>{{ post.title }}</li>
+			{% else %}
+				<li><a href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+	<!-- sidenav end -->
+</div>

@@ -17,6 +17,15 @@ body {
 
 .mod-header {
 	border:1px solid #666;
+	padding:0 0 20px;
+	margin:0;
+}
+.mod-header h1 {
+	padding:30px 0 4px;
+	margin:0;
+}
+.mod-header p {
+	padding:0;
 	margin:0;
 }
 .mod-main {

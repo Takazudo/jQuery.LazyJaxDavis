@@ -2,11 +2,9 @@ $(function(){
 
   // define the root of the main content
 
-  $root = $('#lazyjaxdavisroot');
-
   $.LazyJaxDavis(function(router){
 
-    $root = $('#lazyjaxdavisroot');
+    var $root = $('#lazyjaxdavisroot');
 
     router.bind('everyfetchstart', function(page){
       $root.css('opacity', 0.6);

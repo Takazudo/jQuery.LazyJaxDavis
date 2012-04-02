@@ -2,7 +2,7 @@
 	<ul>
 		<li><a href="{{ site.basedir }}/">top</a></li>
 		{% for post in site.posts reversed %}
-		<li class="post"><a href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
+			<li><a href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
 		{% endfor %}
 	</ul>
 </div>
