@@ -12,6 +12,8 @@ title: Lazy Forms
 As lazy links, jQuery.LazyJaxDavis also hijacks all forms' submit.  
 jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to confirm those works.
 
+Note: Sorry, this "POST" form doesn't work on this GitHub server because this server doesn't allow "POST" method. Clone the repository to your local to confirm these.
+
 <div class="mod-forms">
 	<div class="h">GET</div>
 	<form action="{{ site.basedir }}/gettest.html" method="get">
