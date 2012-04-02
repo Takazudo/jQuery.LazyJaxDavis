@@ -136,19 +136,23 @@ $(function(){
   //$(document).on('click', $.LazyJaxDavis.prototype.options.davis.linkSelector, function(){
   //  console.log('this is!!!');
   //});
-  
-  window.d = $.LazyJaxDavis({
-    init: function(){
-      log('init');
-    },
-    everyfetchstart: function(page) {
+
+  window.d = $.LazyJaxDavis(function(router){
+
+    log('init');
+
+    //router.option({
+    //});
+
+    router.bind('everyfetchstart', function(page){
       log('everyfetchstart');
       $root.css('opacity', 0.6);
       window.scrollTo(0, 0);
       loading.show();
       sidenav.currentify(page.path);
-    },
-    everyfetchsuccess: function(page) {
+    });
+
+    router.bind('everyfetchsuccess', function(page){
       var $newcontent;
       log('everyfetchsuccess');
       $root.css('opacity', 1);
@@ -157,57 +161,115 @@ $(function(){
       $root.empty().append($newcontent);
       $newcontent.fadeIn();
       page.trigger('pageready');
-    },
-    everypageready: function(){
+    });
+
+    router.bind('everypageready', function(page){
       log('everypageready');
       $root.applyCommonThings();
-    },
-    everyfetchfail: function() {
+    });
+
+    router.bind('everyfetchfail', function(){
       alert('ajax error!');
       $root.css('opacity', 1);
       loading.hide();
-    }
-    //anchorhandler: function(hash){
-    //  console.log(hash);
-    //},
-  },[
-    {
-      path: '/jQuery.LazyJaxDavis/doc/',
-      fetchstart: function(page){
-        loglight('fetchstart: ' + page.path);
+    });
+
+    router.route([
+      {
+        path: '/jQuery.LazyJaxDavis/doc/',
+        fetchstart: function(page){
+          loglight('fetchstart: ' + page.path);
+        },
+        fetchsuccess: function(page){
+          loglight('fetchsuccess: ' + page.path);
+        },
+        pageready: function(){
+          loglight('pageready: ' + document.title);
+        }
       },
-      fetchsuccess: function(page){
-        loglight('fetchsuccess: ' + page.path);
+      {
+        path: '/jQuery.LazyJaxDavis/doc/gettest.html',
+        method: 'GET'
       },
-      pageready: function(){
-        loglight('pageready: ' + document.title);
+      {
+        path: '/jQuery.LazyJaxDavis/doc/posttest.html',
+        method: 'POST'
       }
-    },
-    {
-      path: '/jQuery.LazyJaxDavis/doc/',
-      method: 'POST'
-    },
-    {
-      path: '/jQuery.LazyJaxDavis/doc/',
-      method: 'GET'
-    }
-    //{
-    //  //anchorhandler: function(hash){
-    //  //  log('custom anchor handler');
-    //  //},
-    //  path: '/jQuery.LazyJaxDavis/doc/',
-    //  method: 'POST',
-    //  //fetchstart: function() {
-    //  //  log('toppage fetchstart');
-    //  //},
-    //  //fetchsuccess: function() {
-    //  //  log('toppage fetchsuccess');
-    //  //},
-    //  //pageready: function(){
-    //  //  log('toppage pageready');
-    //  //}
-    //}
-  ]);
+    ]);
+
+  });
+  
+  //window.d = $.LazyJaxDavis({
+  //  init: function(){
+  //    log('init');
+  //  },
+  //  everyfetchstart: function(page) {
+  //    log('everyfetchstart');
+  //    $root.css('opacity', 0.6);
+  //    window.scrollTo(0, 0);
+  //    loading.show();
+  //    sidenav.currentify(page.path);
+  //  },
+  //  everyfetchsuccess: function(page) {
+  //    var $newcontent;
+  //    log('everyfetchsuccess');
+  //    $root.css('opacity', 1);
+  //    loading.hide();
+  //    $newcontent = $(page.rip('content')).hide();
+  //    $root.empty().append($newcontent);
+  //    $newcontent.fadeIn();
+  //    page.trigger('pageready');
+  //  },
+  //  everypageready: function(){
+  //    log('everypageready');
+  //    $root.applyCommonThings();
+  //  },
+  //  everyfetchfail: function() {
+  //    alert('ajax error!');
+  //    $root.css('opacity', 1);
+  //    loading.hide();
+  //  }
+  //  //anchorhandler: function(hash){
+  //  //  console.log(hash);
+  //  //},
+  //},[
+  //  {
+  //    path: '/jQuery.LazyJaxDavis/doc/',
+  //    fetchstart: function(page){
+  //      loglight('fetchstart: ' + page.path);
+  //    },
+  //    fetchsuccess: function(page){
+  //      loglight('fetchsuccess: ' + page.path);
+  //    },
+  //    pageready: function(){
+  //      loglight('pageready: ' + document.title);
+  //    }
+  //  },
+  //  {
+  //    path: '/jQuery.LazyJaxDavis/doc/',
+  //    method: 'POST'
+  //  },
+  //  {
+  //    path: '/jQuery.LazyJaxDavis/doc/',
+  //    method: 'GET'
+  //  }
+  //  //{
+  //  //  //anchorhandler: function(hash){
+  //  //  //  log('custom anchor handler');
+  //  //  //},
+  //  //  path: '/jQuery.LazyJaxDavis/doc/',
+  //  //  method: 'POST',
+  //  //  //fetchstart: function() {
+  //  //  //  log('toppage fetchstart');
+  //  //  //},
+  //  //  //fetchsuccess: function() {
+  //  //  //  log('toppage fetchsuccess');
+  //  //  //},
+  //  //  //pageready: function(){
+  //  //  //  log('toppage pageready');
+  //  //  //}
+  //  //}
+  //]);
 
 
 });

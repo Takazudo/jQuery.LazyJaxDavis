@@ -297,24 +297,24 @@
       updatetitle: true
       firereadyonstart: true
 
-    constructor: (options, pages, extraRoute) ->
+    #constructor: (options, pages, extraRoute) ->
+    constructor: (initializer) ->
 
       # handle instance creation wo new
       if not (@ instanceof arguments.callee)
-        return new ns.Router options, pages, extraRoute
+        return new ns.Router initializer
 
       super
 
-      @pages = pages
-      @extraRoute = extraRoute
-      @options = $.extend true, {}, @options, options
       @history = new ns.HistoryLogger
-      @_eventify()
+      initializer.call @, @
+      #@_eventify()
       @_setupDavis()
-      if @options.init then @options.init.call @, @
       if @options.firereadyonstart then @fireready()
 
     _eventify: ->
+
+      # bind all events passed as options
       $.each eventNames, (i, eventName) =>
         $.each @options, (key, val) =>
           if key isnt eventName then return true
@@ -365,7 +365,7 @@
             page = self._createPage request, pageConfig, true
             completePage page
           true
-        self.extraRoute?.call davis
+        self.davisInitializer?.call davis
 
       if @options.davis.handleRouteNotFound
         @davis.bind 'routeNotFound', (request) ->
@@ -456,6 +456,17 @@
       @trigger 'everypageready'
       @
 
+    route: (pages) ->
+      @pages = pages
+      @
+
+    routeDavis: (initializer) ->
+      @davisInitializer = initializer
+      @
+
+    option: (options) ->
+      if not options then return @options
+      @options = $.extend true, {}, @options, options
 
   # ============================================================
   

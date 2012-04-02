@@ -339,18 +339,12 @@ var __slice = Array.prototype.slice,
       firereadyonstart: true
     };
 
-    function Router(options, pages, extraRoute) {
-      if (!(this instanceof arguments.callee)) {
-        return new ns.Router(options, pages, extraRoute);
-      }
+    function Router(initializer) {
+      if (!(this instanceof arguments.callee)) return new ns.Router(initializer);
       Router.__super__.constructor.apply(this, arguments);
-      this.pages = pages;
-      this.extraRoute = extraRoute;
-      this.options = $.extend(true, {}, this.options, options);
       this.history = new ns.HistoryLogger;
-      this._eventify();
+      initializer.call(this, this);
       this._setupDavis();
-      if (this.options.init) this.options.init.call(this, this);
       if (this.options.firereadyonstart) this.fireready();
     }
 
@@ -413,7 +407,7 @@ var __slice = Array.prototype.slice,
           });
           return true;
         });
-        return (_ref = self.extraRoute) != null ? _ref.call(davis) : void 0;
+        return (_ref = self.davisInitializer) != null ? _ref.call(davis) : void 0;
       });
       if (this.options.davis.handleRouteNotFound) {
         this.davis.bind('routeNotFound', function(request) {
@@ -527,6 +521,21 @@ var __slice = Array.prototype.slice,
       }
       this.trigger('everypageready');
       return this;
+    };
+
+    Router.prototype.route = function(pages) {
+      this.pages = pages;
+      return this;
+    };
+
+    Router.prototype.routeDavis = function(initializer) {
+      this.davisInitializer = initializer;
+      return this;
+    };
+
+    Router.prototype.option = function(options) {
+      if (!options) return this.options;
+      return this.options = $.extend(true, {}, this.options, options);
     };
 
     return Router;
