@@ -1,0 +1,10 @@
+<div class="mod-side">
+	<!-- sidenav start -->
+	<ul class="mod-sidenav" id="sidenav">
+		<li><a href="{{ site.basedir }}/">Introduction</a></li>
+		{% for post in site.posts reversed %}
+			<li><a href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
+		{% endfor %}
+	</ul>
+	<!-- sidenav end -->
+</div>
