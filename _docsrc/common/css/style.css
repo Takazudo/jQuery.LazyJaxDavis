@@ -505,20 +505,6 @@ body {
     background: none;
     opacity: .5; }
 
-#logger {
-  position: fixed;
-  right: 0;
-  top: 0;
-  text-align: left;
-  font-size: 12px; }
-  #logger div {
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    margin: 1px 0 0;
-    padding: 3px 8px; }
-    #logger div.light {
-      background: rgba(0, 0, 0, 0.4); }
-
 #loading {
   position: fixed;
   _position: absolute;
