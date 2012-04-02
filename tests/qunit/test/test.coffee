@@ -306,32 +306,11 @@ foobar
     .always ->
       start()
       
-      
-  asyncTest 'Page fetch events', ->
 
-    expect 4
+  asyncTest 'Page fetch events abort', ->
 
-    request = { path: 'dummy.html' }
-    config =
-      fetchstart: -> ok true, 'fetchstart fired'
-      fetchsuccess: -> ok true, 'fetchsuccess fired'
-      fetchabort: -> ok false, 'fetchabort fired'
-      fetchfail: -> ok false, 'fetchfail fired'
-    routed = false
-    router = null
-    options =null
-      
-    page = new ns.Page request, config, routed, router, options
-
-    page.fetch().done ->
-      page.fetch().done ->
-        start()
-      
-
-  asyncTest 'Page fetch events via bind method', ->
-
-    expect 4
-
+    expect 1
+    
     request = { path: 'dummy.html' }
     config = null
     routed = false
@@ -339,61 +318,15 @@ foobar
     options =null
       
     page = new ns.Page request, config, routed, router, options
-    page.bind 'fetchstart', -> ok true, 'fetchstart fired'
-    page.bind 'fetchsuccess', -> ok true, 'fetchsuccess fired'
-    page.bind 'fetchabort', -> ok false, 'fetchabort fired'
-    page.bind 'fetchfail', -> ok false, 'fetchfail fired'
 
-    page.fetch().done ->
-      page.fetch().done ->
-        start()
-      
+    page.fetch().then ->
+      ok false, '1st fetch successed'
+    , (error) ->
+      ok error.aborted, '1st fetch aborted'
+    .always ->
+      start()
 
-  asyncTest 'Page fetch events abort', ->
-
-    expect 2
-    
-    request = { path: 'dummy.html' }
-    config =
-      fetchstart: -> ok true, 'fetchstart fired'
-      fetchsuccess: -> ok false, 'fetchsuccess fired'
-      fetchabort: -> ok true, 'fetchabort fired'
-      fetchfail: -> ok false, 'fetchfail fired'
-    routed = false
-    router = null
-    options =null
-      
-    page = new ns.Page request, config, routed, router, options
-
-    page.fetch().always -> start()
     page.abort()
-      
-
-  asyncTest 'Page fetch events abort 2nd page fetching make 1st abort', ->
-
-    expect 4
-    
-    request = { path: 'dummy.html' }
-    routed = false
-    router = null
-    options =null
-      
-    config =
-      fetchstart: -> ok true, '1st fetchstart fired'
-      fetchsuccess: -> ok false, '1st fetchsuccess fired'
-      fetchabort: -> ok true, '1st fetchabort fired'
-      fetchfail: -> ok false, '1st fetchfail fired'
-    page1 = new ns.Page request, config, routed, router, options
-
-    config =
-      fetchstart: -> ok true, '2nd fetchstart fired'
-      fetchsuccess: -> ok true, '2nd fetchsuccess fired'
-      fetchabort: -> ok false, '2nd fetchabort fired'
-      fetchfail: -> ok false, '2nd fetchfail fired'
-    page2 = new ns.Page request, config, routed, router, options
-
-    page1.fetch()
-    page2.fetch().always -> start()
       
 
   asyncTest 'Page fetch events fail', ->
@@ -401,18 +334,20 @@ foobar
     expect 2
     
     request = { path: 'nothinghere.html' }
-    config =
-      fetchstart: -> ok true, '1st fetchstart fired'
-      fetchsuccess: -> ok false, '1st fetchsuccess fired'
-      fetchabort: -> ok false, '1st fetchabort fired'
-      fetchfail: -> ok true, '1st fetchfail fired'
+    config = null
     routed = false
     router = null
     options =null
       
     page = new ns.Page request, config, routed, router, options
 
-    page.fetch().always -> start()
+    page.fetch().then ->
+      ok false, 'ajax failed'
+    , (error) ->
+      ok true, 'ajax failed'
+      ok not error.aborted, 'ajax was not aborted'
+    .always ->
+      start()
       
 
   asyncTest 'Page rip', ->

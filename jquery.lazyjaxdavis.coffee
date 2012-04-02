@@ -228,17 +228,11 @@
         o.data = $.extend true, {}, o.data, @request.params
 
       @_fetchDefer = $.Deferred (defer) =>
-        @trigger 'fetchstart', @
         currentFetch = (ns.fetchPage path, o).then (text) =>
           @_text = text
-          @trigger 'fetchsuccess', @
-          defer.resolve()
           @updatetitle()
+          defer.resolve()
         , (aborted) =>
-          if aborted
-            @trigger 'fetchabort', @
-          else
-            @trigger 'fetchfail', @
           defer.reject
             aborted: aborted
         .always =>
@@ -421,12 +415,18 @@
 
     fetch: (page) ->
       $.Deferred (defer) =>
+        page.trigger 'fetchstart', page
         @trigger 'everyfetchstart', page
         ($.when page.fetch(), (wait @options.minwaittime)).then =>
+          page.trigger 'fetchsuccess', page
           @trigger 'everyfetchsuccess', page
           defer.resolve()
-        , =>
-          @trigger 'everyfetchfail', page
+        , (error) =>
+          if error.aborted
+            page.trigger 'fetchabort', page
+          else
+            page.trigger 'fetchfil', page
+            @trigger 'everyfetchfail', page
       .promise()
 
     stop: ->

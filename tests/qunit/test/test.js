@@ -227,39 +227,9 @@
       return start();
     });
   });
-  asyncTest('Page fetch events', function() {
+  asyncTest('Page fetch events abort', function() {
     var config, options, page, request, routed;
-    expect(4);
-    request = {
-      path: 'dummy.html'
-    };
-    config = {
-      fetchstart: function() {
-        return ok(true, 'fetchstart fired');
-      },
-      fetchsuccess: function() {
-        return ok(true, 'fetchsuccess fired');
-      },
-      fetchabort: function() {
-        return ok(false, 'fetchabort fired');
-      },
-      fetchfail: function() {
-        return ok(false, 'fetchfail fired');
-      }
-    };
-    routed = false;
-    router = null;
-    options = null;
-    page = new ns.Page(request, config, routed, router, options);
-    return page.fetch().done(function() {
-      return page.fetch().done(function() {
-        return start();
-      });
-    });
-  });
-  asyncTest('Page fetch events via bind method', function() {
-    var config, options, page, request, routed;
-    expect(4);
+    expect(1);
     request = {
       path: 'dummy.html'
     };
@@ -268,96 +238,14 @@
     router = null;
     options = null;
     page = new ns.Page(request, config, routed, router, options);
-    page.bind('fetchstart', function() {
-      return ok(true, 'fetchstart fired');
-    });
-    page.bind('fetchsuccess', function() {
-      return ok(true, 'fetchsuccess fired');
-    });
-    page.bind('fetchabort', function() {
-      return ok(false, 'fetchabort fired');
-    });
-    page.bind('fetchfail', function() {
-      return ok(false, 'fetchfail fired');
-    });
-    return page.fetch().done(function() {
-      return page.fetch().done(function() {
-        return start();
-      });
-    });
-  });
-  asyncTest('Page fetch events abort', function() {
-    var config, options, page, request, routed;
-    expect(2);
-    request = {
-      path: 'dummy.html'
-    };
-    config = {
-      fetchstart: function() {
-        return ok(true, 'fetchstart fired');
-      },
-      fetchsuccess: function() {
-        return ok(false, 'fetchsuccess fired');
-      },
-      fetchabort: function() {
-        return ok(true, 'fetchabort fired');
-      },
-      fetchfail: function() {
-        return ok(false, 'fetchfail fired');
-      }
-    };
-    routed = false;
-    router = null;
-    options = null;
-    page = new ns.Page(request, config, routed, router, options);
-    page.fetch().always(function() {
+    page.fetch().then(function() {
+      return ok(false, '1st fetch successed');
+    }, function(error) {
+      return ok(error.aborted, '1st fetch aborted');
+    }).always(function() {
       return start();
     });
     return page.abort();
-  });
-  asyncTest('Page fetch events abort 2nd page fetching make 1st abort', function() {
-    var config, options, page1, page2, request, routed;
-    expect(4);
-    request = {
-      path: 'dummy.html'
-    };
-    routed = false;
-    router = null;
-    options = null;
-    config = {
-      fetchstart: function() {
-        return ok(true, '1st fetchstart fired');
-      },
-      fetchsuccess: function() {
-        return ok(false, '1st fetchsuccess fired');
-      },
-      fetchabort: function() {
-        return ok(true, '1st fetchabort fired');
-      },
-      fetchfail: function() {
-        return ok(false, '1st fetchfail fired');
-      }
-    };
-    page1 = new ns.Page(request, config, routed, router, options);
-    config = {
-      fetchstart: function() {
-        return ok(true, '2nd fetchstart fired');
-      },
-      fetchsuccess: function() {
-        return ok(true, '2nd fetchsuccess fired');
-      },
-      fetchabort: function() {
-        return ok(false, '2nd fetchabort fired');
-      },
-      fetchfail: function() {
-        return ok(false, '2nd fetchfail fired');
-      }
-    };
-    page2 = new ns.Page(request, config, routed, router, options);
-    page1.fetch();
-    return page2.fetch().always(function() {
-      return start();
-    });
   });
   asyncTest('Page fetch events fail', function() {
     var config, options, page, request, routed;
@@ -365,25 +253,17 @@
     request = {
       path: 'nothinghere.html'
     };
-    config = {
-      fetchstart: function() {
-        return ok(true, '1st fetchstart fired');
-      },
-      fetchsuccess: function() {
-        return ok(false, '1st fetchsuccess fired');
-      },
-      fetchabort: function() {
-        return ok(false, '1st fetchabort fired');
-      },
-      fetchfail: function() {
-        return ok(true, '1st fetchfail fired');
-      }
-    };
+    config = null;
     routed = false;
     router = null;
     options = null;
     page = new ns.Page(request, config, routed, router, options);
-    return page.fetch().always(function() {
+    return page.fetch().then(function() {
+      return ok(false, 'ajax failed');
+    }, function(error) {
+      ok(true, 'ajax failed');
+      return ok(!error.aborted, 'ajax was not aborted');
+    }).always(function() {
       return start();
     });
   });

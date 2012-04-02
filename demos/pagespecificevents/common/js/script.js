@@ -40,11 +40,11 @@ $(function(){
     router.bind('everyfetchstart', function(page){
       $root.css('opacity', 0.6);
       window.scrollTo(0, 0);
-      loglight('everyfetchstart');
+      log('everyfetchstart');
     });
 
     router.bind('everyfetchsuccess', function(page){
-      loglight('everyfetchsuccess');
+      log('everyfetchsuccess');
       $root.css('opacity', 1);
       $newcontent = $(page.rip('content')).hide();
       $root.empty().append($newcontent);
@@ -53,11 +53,11 @@ $(function(){
     });
 
     router.bind('everypageready', function(){
-      loglight('everypageready');
+      log('everypageready');
     });
 
     router.bind('everyfetchfail', function(){
-      loglight('everyfetchfail');
+      log('everyfetchfail');
       $root.css('opacity', 1);
     });
 
@@ -65,85 +65,85 @@ $(function(){
       {
         path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/',
         fetchstart: function(){
-          log('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/');
         },
         fetchsuccess: function(){
-          log('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/');
         },
         pageready: function(){
-          log('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/');
         }
       },
       {
         path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html',
         fetchstart: function(){
-          log('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html');
         },
         fetchsuccess: function(){
-          log('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html');
         },
         pageready: function(){
-          log('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html');
         }
       },
       {
         path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html',
         fetchstart: function(){
-          log('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html');
         },
         fetchsuccess: function(){
-          log('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html');
         },
         pageready: function(){
-          log('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html');
         }
       },
       {
         path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html',
         fetchstart: function(){
-          log('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html');
         },
         fetchsuccess: function(){
-          log('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html');
         },
         pageready: function(){
-          log('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html');
         }
       },
       {
         path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html',
         fetchstart: function(){
-          log('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html');
         },
         fetchsuccess: function(){
-          log('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html');
         },
         pageready: function(){
-          log('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html');
         }
       },
       {
         path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html',
         fetchstart: function(){
-          log('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html');
         },
         fetchsuccess: function(){
-          log('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html');
         },
         pageready: function(){
-          log('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html');
         }
       },
       {
         path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html',
         fetchstart: function(){
-          log('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html');
         },
         fetchsuccess: function(){
-          log('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html');
         },
         pageready: function(){
-          log('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html');
         }
       }
     ]);

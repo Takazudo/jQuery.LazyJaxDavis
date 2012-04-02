@@ -1,4 +1,4 @@
-/*! jQuery.LazyJaxDavis - v0.0.0 -  4/2/2012
+/*! jQuery.LazyJaxDavis - v0.0.0 -  4/3/2012
  * https://github.com/Takazudo/jQuery.LazyJaxDavix
  * Copyright (c) 2012 "Takazudo" Takeshi Takatsudo; Licensed MIT */
 
@@ -256,18 +256,11 @@ var __slice = Array.prototype.slice,
         o.data = $.extend(true, {}, o.data, this.request.params);
       }
       this._fetchDefer = $.Deferred(function(defer) {
-        _this.trigger('fetchstart', _this);
         return currentFetch = (ns.fetchPage(path, o)).then(function(text) {
           _this._text = text;
-          _this.trigger('fetchsuccess', _this);
-          defer.resolve();
-          return _this.updatetitle();
+          _this.updatetitle();
+          return defer.resolve();
         }, function(aborted) {
-          if (aborted) {
-            _this.trigger('fetchabort', _this);
-          } else {
-            _this.trigger('fetchfail', _this);
-          }
           return defer.reject({
             aborted: aborted
           });
@@ -473,12 +466,19 @@ var __slice = Array.prototype.slice,
     Router.prototype.fetch = function(page) {
       var _this = this;
       return $.Deferred(function(defer) {
+        page.trigger('fetchstart', page);
         _this.trigger('everyfetchstart', page);
         return ($.when(page.fetch(), wait(_this.options.minwaittime))).then(function() {
+          page.trigger('fetchsuccess', page);
           _this.trigger('everyfetchsuccess', page);
           return defer.resolve();
-        }, function() {
-          return _this.trigger('everyfetchfail', page);
+        }, function(error) {
+          if (error.aborted) {
+            return page.trigger('fetchabort', page);
+          } else {
+            page.trigger('fetchfil', page);
+            return _this.trigger('everyfetchfail', page);
+          }
         });
       }).promise();
     };

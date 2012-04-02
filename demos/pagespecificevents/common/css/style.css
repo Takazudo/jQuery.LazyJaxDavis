@@ -64,12 +64,12 @@ h2 {
   font-size: 14px;
 }
   #logger div {
-    background: #666;
+    background: #333;
     color: #fff;
     margin: 1px 0 0;
     padding: 3px 8px;
 	}
     #logger div.light {
-      background: #999;
+      background: #666;
 		}
 
