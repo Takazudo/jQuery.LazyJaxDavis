@@ -354,21 +354,19 @@
       @davis = new Davis ->
 
         davis = @
-        if not self.pages then return
 
         # handle @pages
-        $.each self.pages, (i, pageConfig) ->
-
-          # make davis treat pages which was
-          # attached pageexpr as, routeNoutFound.
-          if $.type(pageConfig.path) is 'regexp' then return
-
-          method = (pageConfig.method or 'get').toLowerCase()
-          davis[method] pageConfig.path, (request) ->
-            if self.history.isToSamePageRequst request.path then return
-            page = self._createPage request, pageConfig, true
-            completePage page
-          true
+        if self.pages
+          $.each self.pages, (i, pageConfig) ->
+            # make davis treat pages which was
+            # attached pageexpr as, routeNoutFound.
+            if $.type(pageConfig.path) is 'regexp' then return
+            method = (pageConfig.method or 'get').toLowerCase()
+            davis[method] pageConfig.path, (request) ->
+              if self.history.isToSamePageRequst request.path then return
+              page = self._createPage request, pageConfig, true
+              completePage page
+            true
 
         # if extra davisRoutings were there, do it
         self.davisInitializer?.call davis

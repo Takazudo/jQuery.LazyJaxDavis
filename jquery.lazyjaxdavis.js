@@ -381,19 +381,20 @@ var __slice = Array.prototype.slice,
       this.davis = new Davis(function() {
         var davis, _ref;
         davis = this;
-        if (!self.pages) return;
-        $.each(self.pages, function(i, pageConfig) {
-          var method;
-          if ($.type(pageConfig.path) === 'regexp') return;
-          method = (pageConfig.method || 'get').toLowerCase();
-          davis[method](pageConfig.path, function(request) {
-            var page;
-            if (self.history.isToSamePageRequst(request.path)) return;
-            page = self._createPage(request, pageConfig, true);
-            return completePage(page);
+        if (self.pages) {
+          $.each(self.pages, function(i, pageConfig) {
+            var method;
+            if ($.type(pageConfig.path) === 'regexp') return;
+            method = (pageConfig.method || 'get').toLowerCase();
+            davis[method](pageConfig.path, function(request) {
+              var page;
+              if (self.history.isToSamePageRequst(request.path)) return;
+              page = self._createPage(request, pageConfig, true);
+              return completePage(page);
+            });
+            return true;
           });
-          return true;
-        });
+        }
         return (_ref = self.davisInitializer) != null ? _ref.call(davis) : void 0;
       });
       if (this.options.davis.handleRouteNotFound) {

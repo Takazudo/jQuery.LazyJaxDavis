@@ -1,0 +1,8 @@
+<div class="mod-side">
+	<ul>
+		<li><a href="{{ site.basedir }}/">top</a></li>
+		{% for post in site.posts reversed %}
+			<li><a href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
+		{% endfor %}
+	</ul>
+</div>
