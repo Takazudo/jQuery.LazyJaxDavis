@@ -1,7 +1,5 @@
 $(function(){
 
-  // define the root of the main content
-
   $.LazyJaxDavis(function(router){
 
     var $overlay = $.ui.hideoverlay.setup({

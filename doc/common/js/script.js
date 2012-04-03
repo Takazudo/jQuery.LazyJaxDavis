@@ -1,5 +1,7 @@
 $(function(){
 
+  var $root = $('#lazyjaxdavisroot');
+
   // tiny loading on top left
 
   var Loading = (function() {
@@ -87,8 +89,6 @@ $(function(){
   // do it
 
   $.LazyJaxDavis(function(router){
-
-    var $root = $('#lazyjaxdavisroot');
 
     router.bind('everyfetchstart', function(page){
       $root.css('opacity', 0.6);

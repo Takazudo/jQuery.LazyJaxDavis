@@ -33,8 +33,6 @@ $(function(){
   var log = function(msg) { logger.log(msg); };
   var loglight = function(msg) { logger.loglight(msg); };
 
-  // define the root of the main content
-
   $.LazyJaxDavis(function(router){
 
     var $root = $('#lazyjaxdavisroot');

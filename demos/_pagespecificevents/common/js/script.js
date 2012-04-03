@@ -33,8 +33,6 @@ $(function(){
   var log = function(msg) { logger.log(msg); };
   var loglight = function(msg) { logger.loglight(msg); };
 
-  // define the root of the main content
-
   $.LazyJaxDavis(function(router){
 
     var $root = $('#lazyjaxdavisroot');
@@ -112,7 +110,7 @@ $(function(){
           loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo3.html');
         }
       },
-      // this routing makes error because this conflicts with the pathexpr pattern of the item below
+      // this routing makes error because this conflicts with the path regexp pattern of the item below
       //{
       //  path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/bar1.html',
       //  fetchstart: function(){
