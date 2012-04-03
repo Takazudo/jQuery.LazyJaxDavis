@@ -267,13 +267,6 @@
 
   class ns.Router extends ns.Event
 
-    eventNames = [
-      'everyfetchstart'
-      'everyfetchsuccess'
-      'everyfetchfail'
-      'everypageready'
-    ]
-
     options:
       ajaxoptions:
         dataType: 'text'
@@ -290,8 +283,8 @@
       minwaittime: 0
       updatetitle: true
       firereadyonstart: true
+      ignoregetvals: false
 
-    #constructor: (options, pages, extraRoute) ->
     constructor: (initializer) ->
 
       # handle instance creation wo new
@@ -301,20 +294,9 @@
       super
 
       @history = new ns.HistoryLogger
-      @pages = null
       initializer.call @, @
-      #@_eventify()
       @_setupDavis()
       if @options.firereadyonstart then @fireready()
-
-    _eventify: ->
-
-      # bind all events passed as options
-      $.each eventNames, (i, eventName) =>
-        $.each @options, (key, val) =>
-          if key isnt eventName then return true
-          @bind eventName, val
-      @
 
     _createPage: (request, config, routed, hash) ->
 
@@ -391,18 +373,37 @@
       @_tweakDavis()
       @
 
-    _findPageWhosePathIs: (path) ->
+    _findPageWhosePathIs: (path, handleMulti) ->
       if not @pages then return null
-      ret = null
-      $.each @pages, (i, config) ->
-        if config.path is path
-          ret = config
-          return false
+      matched = []
+      trimedPath = ns.trimGetVals path
+      $.each @pages, (i, config) =>
+        if config.pathexpr
+          if pconfig.pathexpr.test path
+            matched.push config
+            if not handleMulti then return false
+        if @options.ignoregetvals or config.ignoregetvals
+          if config.path is trimedPath
+            matched.push config
+            if not handleMulti then return false
         else
-          return true
-      ret
+          if config.path is path
+            matched.push config
+            if not handleMulti then return false
+      if not handleMulti and (matched.length > 1)
+        error "2 or more expr was matched about: #{path}"
+        $.each matched, (i, config) ->
+          error "dumps detected page configs - path:#{config.path}, expr:#{config.pageexpr}"
+      if handleMulti
+        return matched
+      else
+        return matched[0] or null
 
     _tweakDavis: ->
+
+      # tweak davis not to log erro if routeNotFound.
+      # because we treat it as sure thing.
+      
       warn = @davis.logger.warn
       info = @davis.logger.info
       @davis.logger.warn = (args...) =>
@@ -414,6 +415,11 @@
       @
 
     fetch: (page) ->
+
+      # invoke all fetch events here.
+      # these are not done in Page class because I want these events
+      # to be fired in desired order
+
       $.Deferred (defer) =>
         page.trigger 'fetchstart', page
         @trigger 'everyfetchstart', page
@@ -469,6 +475,7 @@
     option: (options) ->
       if not options then return @options
       @options = $.extend true, {}, @options, options
+
 
   # ============================================================
   

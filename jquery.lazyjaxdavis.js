@@ -305,11 +305,8 @@ var __slice = Array.prototype.slice,
 
   })(ns.Event);
   ns.Router = (function(_super) {
-    var eventNames;
 
     __extends(Router, _super);
-
-    eventNames = ['everyfetchstart', 'everyfetchsuccess', 'everyfetchfail', 'everypageready'];
 
     Router.prototype.options = {
       ajaxoptions: {
@@ -329,29 +326,18 @@ var __slice = Array.prototype.slice,
       },
       minwaittime: 0,
       updatetitle: true,
-      firereadyonstart: true
+      firereadyonstart: true,
+      ignoregetvals: false
     };
 
     function Router(initializer) {
       if (!(this instanceof arguments.callee)) return new ns.Router(initializer);
       Router.__super__.constructor.apply(this, arguments);
       this.history = new ns.HistoryLogger;
-      this.pages = null;
       initializer.call(this, this);
       this._setupDavis();
       if (this.options.firereadyonstart) this.fireready();
     }
-
-    Router.prototype._eventify = function() {
-      var _this = this;
-      $.each(eventNames, function(i, eventName) {
-        return $.each(_this.options, function(key, val) {
-          if (key !== eventName) return true;
-          return _this.bind(eventName, val);
-        });
-      });
-      return this;
-    };
 
     Router.prototype._createPage = function(request, config, routed, hash) {
       var o, res;
@@ -430,19 +416,42 @@ var __slice = Array.prototype.slice,
       return this;
     };
 
-    Router.prototype._findPageWhosePathIs = function(path) {
-      var ret;
+    Router.prototype._findPageWhosePathIs = function(path, handleMulti) {
+      var matched, trimedPath,
+        _this = this;
       if (!this.pages) return null;
-      ret = null;
+      matched = [];
+      trimedPath = ns.trimGetVals(path);
       $.each(this.pages, function(i, config) {
-        if (config.path === path) {
-          ret = config;
-          return false;
+        if (config.pathexpr) {
+          if (pconfig.pathexpr.test(path)) {
+            matched.push(config);
+            if (!handleMulti) return false;
+          }
+        }
+        if (_this.options.ignoregetvals || config.ignoregetvals) {
+          if (config.path === trimedPath) {
+            matched.push(config);
+            if (!handleMulti) return false;
+          }
         } else {
-          return true;
+          if (config.path === path) {
+            matched.push(config);
+            if (!handleMulti) return false;
+          }
         }
       });
-      return ret;
+      if (!handleMulti && (matched.length > 1)) {
+        error("2 or more expr was matched about: " + path);
+        $.each(matched, function(i, config) {
+          return error("dumps detected page configs - path:" + config.path + ", expr:" + config.pageexpr);
+        });
+      }
+      if (handleMulti) {
+        return matched;
+      } else {
+        return matched[0] || null;
+      }
     };
 
     Router.prototype._tweakDavis = function() {

@@ -295,7 +295,7 @@
       return start();
     });
   });
-  return test('Page rip fail', function() {
+  test('Page rip fail', function() {
     var config, options, page, request, routed;
     expect(2);
     request = {
@@ -310,5 +310,314 @@
     page = new ns.Page(request, config, routed, router, options);
     equal(page.rip('thisKeyDoesNotExist'), null, 'requested key was not defined');
     return equal(page.rip(), null, 'notfetched yet so rip returns null');
+  });
+  test('Router new', function() {
+    var r1, r2;
+    r1 = new ns.Router($.noop);
+    r2 = ns.Router($.noop);
+    ok(r1 instanceof ns.Router, 'create instance with new');
+    ok(r1.history instanceof ns.HistoryLogger, 'history logger was attached');
+    ok(r2 instanceof ns.Router, 'create instance without new');
+    return ok(r2.history instanceof ns.HistoryLogger, 'history logger was attached');
+  });
+  test('Router initializer', function() {
+    var exported, r;
+    exported = null;
+    r = new ns.Router(function(arg) {
+      return exported = arg;
+    });
+    return equal(r, exported, 'router passes router instance to initializer');
+  });
+  test('Router initializer option', function() {
+    var origOptVal, r;
+    origOptVal = true;
+    r = new ns.Router(function(router) {
+      return router.option({
+        firereadyonstart: false
+      });
+    });
+    return equal(r.options.firereadyonstart, false, '.option overrided default value');
+  });
+  test('Router initializer route', function() {
+    var r;
+    r = new ns.Router(function(router) {
+      return router.route([
+        {
+          path: 'foobar',
+          pageready: $.noop
+        }
+      ]);
+    });
+    return ok(r.pages, '.route worked w/o error');
+  });
+  test('Router initializer routeDavis', function() {
+    var r;
+    r = new ns.Router(function(router) {
+      return router.routeDavis(function() {
+        return this.get('foobar', function() {});
+      });
+    });
+    return ok(r.davis, '.routeDavis worked w/o error');
+  });
+  test('Router event', function() {
+    var r;
+    expect(1);
+    r = new ns.Router(function(router) {
+      return router.bind('foo', function() {
+        return ok(true, 'event was successed to trigger');
+      });
+    });
+    return r.trigger('foo');
+  });
+  test('Router _findPageWhosePathIs', function() {
+    var page1, page2, page3, page4, pages, r;
+    page1 = {
+      path: 'foo'
+    };
+    page2 = {
+      path: 'bar'
+    };
+    page3 = {
+      path: 'mew'
+    };
+    page4 = {
+      path: 'moo'
+    };
+    pages = [];
+    pages.push(page1);
+    pages.push(page2);
+    pages.push(page3);
+    pages.push(page4);
+    r = new ns.Router(function(router) {
+      return router.route(pages);
+    });
+    equal(r._findPageWhosePathIs('foo'), page1, 'page was found');
+    equal(r._findPageWhosePathIs('bar'), page2, 'page was found');
+    equal(r._findPageWhosePathIs('mew'), page3, 'page was found');
+    return equal(r._findPageWhosePathIs('moo'), page4, 'page was found');
+  });
+  test('Router _findPageWhosePathIs ignore getvals via page config', function() {
+    var page1, page2, page3, page4, pages, r;
+    page1 = {
+      path: 'foo',
+      ignoregetvals: true
+    };
+    page2 = {
+      path: 'bar',
+      ignoregetvals: false
+    };
+    page3 = {
+      path: 'mew',
+      ignoregetvals: true
+    };
+    page4 = {
+      path: 'moo'
+    };
+    pages = [];
+    pages.push(page1);
+    pages.push(page2);
+    pages.push(page3);
+    pages.push(page4);
+    r = new ns.Router(function(router) {
+      return router.route(pages);
+    });
+    equal(r._findPageWhosePathIs('foo?xxx=yyy'), page1, 'get values were ignored');
+    equal(r._findPageWhosePathIs('bar?xxx=yyy'), null, 'get values were not ignored');
+    equal(r._findPageWhosePathIs('mew?xxx=yyy'), page3, 'get values were ignored');
+    return equal(r._findPageWhosePathIs('moo?xxx=yyy'), null, 'get values were not ignored');
+  });
+  test('Router _findPageWhosePathIs ignore getvals via Router config', function() {
+    var page1, page2, page3, page4, pages, r;
+    page1 = {
+      path: 'foo'
+    };
+    page2 = {
+      path: 'bar'
+    };
+    page3 = {
+      path: 'mew'
+    };
+    page4 = {
+      path: 'moo'
+    };
+    pages = [];
+    pages.push(page1);
+    pages.push(page2);
+    pages.push(page3);
+    pages.push(page4);
+    r = new ns.Router(function(router) {
+      router.option({
+        ignoregetvals: true
+      });
+      return router.route(pages);
+    });
+    equal(r._findPageWhosePathIs('foo?xxx=yyy'), page1, 'get values were ignored');
+    equal(r._findPageWhosePathIs('bar?xxx=yyy'), page2, 'get values were ignored');
+    equal(r._findPageWhosePathIs('mew?xxx=yyy'), page3, 'get values were ignored');
+    return equal(r._findPageWhosePathIs('moo?xxx=yyy'), page4, 'get values were ignored');
+  });
+  test('Router _findPageWhosePathIs handleMulti', function() {
+    var page1, page2, page3, page4, pages, r, res;
+    page1 = {
+      path: 'foo'
+    };
+    page2 = {
+      path: 'bar'
+    };
+    page3 = {
+      path: 'foo'
+    };
+    page4 = {
+      path: 'moo'
+    };
+    pages = [];
+    pages.push(page1);
+    pages.push(page2);
+    pages.push(page3);
+    pages.push(page4);
+    r = new ns.Router(function(router) {
+      return router.route(pages);
+    });
+    res = r._findPageWhosePathIs('foo', true);
+    equal(res.length, 2, 'found 2 pages as array');
+    equal(res[0], page1, 'matched page was correct');
+    equal(res[1], page3, 'matched page was correct');
+    equal((r._findPageWhosePathIs('bar', true))[0], page2, 'found 1 page as array');
+    return equal((r._findPageWhosePathIs('moo', true))[0], page4, 'found 1 page as array');
+  });
+  test('Router _createPage', function() {
+    var config, hash, page, r, request, routed;
+    request = null;
+    config = {
+      path: 'foo'
+    };
+    routed = true;
+    hash = null;
+    r = new ns.Router($.noop);
+    page = r._createPage(request, config, routed, hash);
+    return ok(page instanceof ns.Page, 'create instance');
+  });
+  test('Router _createPage anchorhandler via route option', function() {
+    var config, handler, hash, origHandler, page, r, request, routed;
+    origHandler = ns.Router.prototype.options.anchorhandler;
+    request = null;
+    config = {
+      path: 'foo'
+    };
+    routed = true;
+    hash = null;
+    handler = function() {};
+    r = new ns.Router(function(router) {
+      return router.option({
+        anchorhandler: handler
+      });
+    });
+    page = r._createPage(request, config, routed, hash);
+    notEqual(page._anchorhandler, origHandler, 'original anchorhandler was not there');
+    return equal(page._anchorhandler, handler, 'anchorhandler was overridden by Router option');
+  });
+  test('Router _createPage anchorhandler via page config', function() {
+    var config, handler, hash, origHandler, page, r, request, routed;
+    origHandler = ns.Router.prototype.options.anchorhandler;
+    handler = function() {};
+    request = null;
+    config = {
+      path: 'foo',
+      anchorhandler: handler
+    };
+    routed = true;
+    hash = null;
+    r = new ns.Router($.noop);
+    page = r._createPage(request, config, routed, hash);
+    notEqual(page._anchorhandler, origHandler, 'original anchorhandler was not there');
+    return equal(page._anchorhandler, handler, 'original anchorhandler was overridden by page config');
+  });
+  test('Router _createPage anchorhandler ensure invocation on pageready', function() {
+    var config, handler, hash, page, r, request, routed;
+    expect(1);
+    handler = function() {
+      return ok(true, 'anchor handler was fired on pageready');
+    };
+    request = null;
+    config = {
+      path: 'foo',
+      anchorhandler: handler
+    };
+    routed = true;
+    hash = '#foo';
+    r = new ns.Router($.noop);
+    page = r._createPage(request, config, routed, hash);
+    return page.trigger('pageready');
+  });
+  test('Router _createPage ajaxoptions via Router option', function() {
+    var config, hash, newAjaxoptions, origAjaxoptions, page, r, request, routed;
+    origAjaxoptions = ns.Router.prototype.options.ajaxoptions;
+    newAjaxoptions = {
+      dataType: 'html',
+      cache: false
+    };
+    request = null;
+    config = {
+      path: 'foo'
+    };
+    routed = true;
+    hash = null;
+    r = new ns.Router(function(router) {
+      return router.option({
+        ajaxoptions: newAjaxoptions
+      });
+    });
+    page = r._createPage(request, config, routed, hash);
+    notEqual(page.options.ajaxoptions.dataType, origAjaxoptions.dataType, 'orignal dataType was not there');
+    notEqual(page.options.ajaxoptions.cache, origAjaxoptions.cache, 'orignal cache was not there');
+    equal(page.options.ajaxoptions.dataType, newAjaxoptions.dataType, 'new dataType was attached');
+    return equal(page.options.ajaxoptions.cache, newAjaxoptions.cache, 'new cache was attached');
+  });
+  test('Router _createPage ajaxoptions via page config', function() {
+    var config, hash, newAjaxoptions, origAjaxoptions, page, r, request, routed;
+    origAjaxoptions = ns.Router.prototype.options.ajaxoptions;
+    newAjaxoptions = {
+      dataType: 'html',
+      cache: false
+    };
+    request = null;
+    config = {
+      path: 'foo',
+      ajaxoptions: newAjaxoptions
+    };
+    routed = true;
+    hash = null;
+    r = new ns.Router($.noop);
+    page = r._createPage(request, config, routed, hash);
+    notEqual(page.options.ajaxoptions.dataType, origAjaxoptions.dataType, 'orignal dataType was not there');
+    notEqual(page.options.ajaxoptions.cache, origAjaxoptions.cache, 'orignal cache was not there');
+    equal(page.options.ajaxoptions.dataType, newAjaxoptions.dataType, 'new dataType was attached');
+    return equal(page.options.ajaxoptions.cache, newAjaxoptions.cache, 'new cache was attached');
+  });
+  test('Router _createPage hash ensure it was passed', function() {
+    var config, hash, page, r, request, routed;
+    request = null;
+    config = {
+      path: 'foo'
+    };
+    routed = true;
+    hash = '#foobar';
+    r = new ns.Router($.noop);
+    page = r._createPage(request, config, routed, hash);
+    return equal(page.hash, hash, "hash was passed: " + hash);
+  });
+  return test('Router _createPage hash ensure it was extracted from request.path', function() {
+    var config, hash, page, r, request, routed;
+    request = {
+      path: 'foo#bar'
+    };
+    config = {
+      path: 'foo'
+    };
+    routed = true;
+    hash = null;
+    r = new ns.Router($.noop);
+    page = r._createPage(request, config, routed, hash);
+    return equal(page.hash, '#bar', "extracted hash: " + page.hash);
   });
 })(jQuery, this, this.document);
