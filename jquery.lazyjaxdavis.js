@@ -220,7 +220,11 @@ var __slice = Array.prototype.slice,
       Page.__super__.constructor.apply(this, arguments);
       this.config = $.extend({}, this.config, config);
       this.options = $.extend(true, {}, this.options, options);
-      this.path = this.config.path || this.request.path;
+      if (($.type(this.config.path)) === 'string') {
+        this.path = this.config.path;
+      } else {
+        this.path = this.request.path;
+      }
       $.each(eventNames, function(i, eventName) {
         return $.each(_this.config, function(key, val) {
           if (eventName !== key) return true;
@@ -335,8 +339,11 @@ var __slice = Array.prototype.slice,
       Router.__super__.constructor.apply(this, arguments);
       this.history = new ns.HistoryLogger;
       initializer.call(this, this);
-      this._setupDavis();
-      if (this.options.firereadyonstart) this.fireready();
+      if (this.options.davis) this._setupDavis();
+      if (this.options.firereadyonstart) {
+        this.firePageready();
+        this.fireTransPageready();
+      }
     }
 
     Router.prototype._createPage = function(request, config, routed, hash) {
@@ -367,7 +374,9 @@ var __slice = Array.prototype.slice,
       self = this;
       completePage = function(page) {
         page.bind('pageready', function() {
-          return self.trigger('everypageready');
+          self._findWhosePathMatches('page', page.path);
+          self.trigger('everypageready');
+          return self.fireTransPageready();
         });
         self.history.push(page.path);
         return self.fetch(page);
@@ -378,6 +387,7 @@ var __slice = Array.prototype.slice,
         if (!self.pages) return;
         $.each(self.pages, function(i, pageConfig) {
           var method;
+          if ($.type(pageConfig.path) === 'regexp') return;
           method = (pageConfig.method || 'get').toLowerCase();
           davis[method](pageConfig.path, function(request) {
             var page;
@@ -400,7 +410,7 @@ var __slice = Array.prototype.slice,
           hash = res.hash || null;
           path = res.path || request.path;
           if (self.history.isToSamePageRequst(path)) return;
-          config = (self._findPageWhosePathIs(path)) || null;
+          config = (self._findWhosePathMatches('page', path)) || null;
           routed = config ? true : false;
           page = self._createPage(request, config, routed, hash);
           return completePage(page);
@@ -416,36 +426,93 @@ var __slice = Array.prototype.slice,
       return this;
     };
 
-    Router.prototype._findPageWhosePathIs = function(path, handleMulti) {
+    Router.prototype._findWhosePathMatches = function(target, requestedPath, handleMulti) {
+      var configs, matched, trimedPath,
+        _this = this;
+      if (target === 'page') {
+        if (this.pages && this.pages.length) {
+          configs = this.pages;
+        } else {
+          return null;
+        }
+      } else if (target === 'transRoutes') {
+        if (this.transRoutes && this.transRoutes.length) {
+          configs = this.transRoutes;
+          handleMulti = true;
+        } else {
+          return null;
+        }
+      }
+      matched = [];
+      trimedPath = ns.trimGetVals(requestedPath);
+      $.each(configs, function(i, config) {
+        var path;
+        if (_this.options.ignoregetvals || config.ignoregetvals) {
+          path = trimedPath;
+        } else {
+          path = requestedPath;
+        }
+        if ($.type(config.path) === 'regexp') {
+          if (config.path.test(path)) {
+            matched.push(config);
+            if (handleMulti) return true;
+          } else {
+            return true;
+          }
+        }
+        if (config.path === path) {
+          matched.push(config);
+          if (handleMulti) return true;
+        }
+        return true;
+      });
+      if (!handleMulti && (matched.length > 1)) {
+        error("2 or more expr was matched about: " + requestedPath);
+        $.each(matched, function(i, config) {
+          return error("dumps detected page configs - path:" + config.path);
+        });
+        return false;
+      }
+      if (handleMulti) {
+        return matched;
+      } else {
+        return matched[0] || null;
+      }
+    };
+
+    Router.prototype._findPageWhosePathIs = function(requestedPath, handleMulti) {
       var matched, trimedPath,
         _this = this;
       if (!this.pages) return null;
       matched = [];
-      trimedPath = ns.trimGetVals(path);
+      trimedPath = ns.trimGetVals(requestedPath);
       $.each(this.pages, function(i, config) {
-        if (config.pathexpr) {
-          if (pconfig.pathexpr.test(path)) {
-            matched.push(config);
-            if (!handleMulti) return false;
-          }
-        }
+        var path;
         if (_this.options.ignoregetvals || config.ignoregetvals) {
-          if (config.path === trimedPath) {
-            matched.push(config);
-            if (!handleMulti) return false;
-          }
+          path = trimedPath;
         } else {
-          if (config.path === path) {
+          path = requestedPath;
+        }
+        if ($.type(config.path) === 'regexp') {
+          if (config.path.test(path)) {
             matched.push(config);
-            if (!handleMulti) return false;
+            if (handleMulti) return true;
+          } else {
+            return true;
           }
         }
+        if (config.path === path) {
+          matched.push(config);
+          if (handleMulti) return true;
+        }
+        return true;
       });
       if (!handleMulti && (matched.length > 1)) {
-        error("2 or more expr was matched about: " + path);
+        error("2 or more expr was matched about: " + requestedPath);
         $.each(matched, function(i, config) {
-          return error("dumps detected page configs - path:" + config.path + ", expr:" + config.pageexpr);
+          return error("dumps detected page configs - path:" + config.path);
         });
+        return false;
       }
       if (handleMulti) {
         return matched;
@@ -513,29 +580,35 @@ var __slice = Array.prototype.slice,
       return this;
     };
 
-    Router.prototype.fireready = function() {
-      var _ref,
-        _this = this;
+    Router.prototype.firePageready = function() {
+      var page, _ref;
       if ((_ref = this.pages) != null ? _ref.length : void 0) {
-        $.each(this.pages, function(i, pageConfig) {
-          var handleThis;
-          handleThis = false;
-          if (pageConfig.pathexpr) {
-            handleThis = pageConfig.pathexpr.test(location.pathname);
-          } else {
-            handleThis = pageConfig.path === location.pathname;
-          }
-          if (!handleThis) return true;
-          if (typeof pageConfig.pageready === "function") pageConfig.pageready();
-          return false;
-        });
+        page = this._findWhosePathMatches('page', location.pathname);
+        if (page) if (typeof page.pageready === "function") page.pageready();
       }
       this.trigger('everypageready');
       return this;
     };
 
+    Router.prototype.fireTransPageready = function() {
+      var routings, _ref;
+      if ((_ref = this.transRoutes) != null ? _ref.length : void 0) {
+        routings = this._findWhosePathMatches('transRoutes', location.pathname);
+        if (!routings.length) return this;
+        $.each(routings, function(i, routing) {
+          return typeof routing.pageready === "function" ? routing.pageready() : void 0;
+        });
+      }
+      return this;
+    };
+
     Router.prototype.route = function(pages) {
       this.pages = pages;
+      return this;
+    };
+
+    Router.prototype.routeTransparents = function(transRoutes) {
+      this.transRoutes = transRoutes;
       return this;
     };
 

@@ -196,7 +196,7 @@
     }
     return ok(logger.isToSamePageRequst("foobar10"), 'was same request');
   });
-  test('Page', function() {
+  test('Page instance creation', function() {
     var config, options, page, request, routed;
     request = {
       path: 'foobar'
@@ -369,7 +369,7 @@
     });
     return r.trigger('foo');
   });
-  test('Router _findPageWhosePathIs', function() {
+  test('Router _findWhosePathMatches', function() {
     var page1, page2, page3, page4, pages, r;
     page1 = {
       path: 'foo'
@@ -391,12 +391,12 @@
     r = new ns.Router(function(router) {
       return router.route(pages);
     });
-    equal(r._findPageWhosePathIs('foo'), page1, 'page was found');
-    equal(r._findPageWhosePathIs('bar'), page2, 'page was found');
-    equal(r._findPageWhosePathIs('mew'), page3, 'page was found');
-    return equal(r._findPageWhosePathIs('moo'), page4, 'page was found');
+    equal(r._findWhosePathMatches('page', 'foo'), page1, 'page was found');
+    equal(r._findWhosePathMatches('page', 'bar'), page2, 'page was found');
+    equal(r._findWhosePathMatches('page', 'mew'), page3, 'page was found');
+    return equal(r._findWhosePathMatches('page', 'moo'), page4, 'page was found');
   });
-  test('Router _findPageWhosePathIs ignore getvals via page config', function() {
+  test('Router _findWhosePathMatches ignore getvals via page config', function() {
     var page1, page2, page3, page4, pages, r;
     page1 = {
       path: 'foo',
@@ -421,12 +421,12 @@
     r = new ns.Router(function(router) {
       return router.route(pages);
     });
-    equal(r._findPageWhosePathIs('foo?xxx=yyy'), page1, 'get values were ignored');
-    equal(r._findPageWhosePathIs('bar?xxx=yyy'), null, 'get values were not ignored');
-    equal(r._findPageWhosePathIs('mew?xxx=yyy'), page3, 'get values were ignored');
-    return equal(r._findPageWhosePathIs('moo?xxx=yyy'), null, 'get values were not ignored');
+    equal(r._findWhosePathMatches('page', 'foo?xxx=yyy'), page1, 'get values were ignored');
+    equal(r._findWhosePathMatches('page', 'bar?xxx=yyy'), null, 'get values were not ignored');
+    equal(r._findWhosePathMatches('page', 'mew?xxx=yyy'), page3, 'get values were ignored');
+    return equal(r._findWhosePathMatches('page', 'moo?xxx=yyy'), null, 'get values were not ignored');
   });
-  test('Router _findPageWhosePathIs ignore getvals via Router config', function() {
+  test('Router _findWhosePathMatches ignore getvals via Router config', function() {
     var page1, page2, page3, page4, pages, r;
     page1 = {
       path: 'foo'
@@ -451,12 +451,12 @@
       });
       return router.route(pages);
     });
-    equal(r._findPageWhosePathIs('foo?xxx=yyy'), page1, 'get values were ignored');
-    equal(r._findPageWhosePathIs('bar?xxx=yyy'), page2, 'get values were ignored');
-    equal(r._findPageWhosePathIs('mew?xxx=yyy'), page3, 'get values were ignored');
-    return equal(r._findPageWhosePathIs('moo?xxx=yyy'), page4, 'get values were ignored');
+    equal(r._findWhosePathMatches('page', 'foo?xxx=yyy'), page1, 'get values were ignored');
+    equal(r._findWhosePathMatches('page', 'bar?xxx=yyy'), page2, 'get values were ignored');
+    equal(r._findWhosePathMatches('page', 'mew?xxx=yyy'), page3, 'get values were ignored');
+    return equal(r._findWhosePathMatches('page', 'moo?xxx=yyy'), page4, 'get values were ignored');
   });
-  test('Router _findPageWhosePathIs handleMulti', function() {
+  test('Router _findWhosePathMatches handleMulti', function() {
     var page1, page2, page3, page4, pages, r, res;
     page1 = {
       path: 'foo'
@@ -478,12 +478,39 @@
     r = new ns.Router(function(router) {
       return router.route(pages);
     });
-    res = r._findPageWhosePathIs('foo', true);
+    res = r._findWhosePathMatches('page', 'foo', true);
     equal(res.length, 2, 'found 2 pages as array');
     equal(res[0], page1, 'matched page was correct');
     equal(res[1], page3, 'matched page was correct');
-    equal((r._findPageWhosePathIs('bar', true))[0], page2, 'found 1 page as array');
-    return equal((r._findPageWhosePathIs('moo', true))[0], page4, 'found 1 page as array');
+    equal((r._findWhosePathMatches('page', 'bar', true))[0], page2, 'found 1 page as array');
+    return equal((r._findWhosePathMatches('page', 'moo', true))[0], page4, 'found 1 page as array');
+  });
+  test('Router _findWhosePathMatches pathexpr', function() {
+    var page1, page2, page3, page4, pages, r;
+    page1 = {
+      path: /foo/
+    };
+    page2 = {
+      path: /bar/
+    };
+    page3 = {
+      path: /mew/
+    };
+    page4 = {
+      path: /moo/
+    };
+    pages = [];
+    pages.push(page1);
+    pages.push(page2);
+    pages.push(page3);
+    pages.push(page4);
+    r = new ns.Router(function(router) {
+      return router.route(pages);
+    });
+    equal(r._findWhosePathMatches('page', 'foo'), page1, 'page was found');
+    equal(r._findWhosePathMatches('page', 'bar'), page2, 'page was found');
+    equal(r._findWhosePathMatches('page', 'mew'), page3, 'page was found');
+    return equal(r._findWhosePathMatches('page', 'moo'), page4, 'page was found');
   });
   test('Router _createPage', function() {
     var config, hash, page, r, request, routed;

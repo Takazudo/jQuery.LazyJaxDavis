@@ -196,7 +196,10 @@
 
       @config = $.extend {}, @config, config
       @options = $.extend true, {}, @options, options
-      @path = @config.path or @request.path
+      if ($.type @config.path) is 'string'
+        @path = @config.path
+      else
+        @path = @request.path
 
       $.each eventNames, (i, eventName) =>
         $.each @config, (key, val) =>
@@ -295,8 +298,10 @@
 
       @history = new ns.HistoryLogger
       initializer.call @, @
-      @_setupDavis()
-      if @options.firereadyonstart then @fireready()
+      if @options.davis then @_setupDavis()
+      if @options.firereadyonstart
+        @firePageready()
+        @fireTransPageready()
 
     _createPage: (request, config, routed, hash) ->
 
@@ -327,7 +332,9 @@
 
       completePage = (page) ->
         page.bind 'pageready', ->
+          self._findWhosePathMatches 'page', page.path # just find for raise error
           self.trigger 'everypageready'
+          self.fireTransPageready()
         self.history.push page.path
         self.fetch page
 
@@ -335,19 +342,26 @@
 
         davis = @
         if not self.pages then return
+
         $.each self.pages, (i, pageConfig) ->
+
+          # make davis treat pages which was
+          # attached pageexpr as, routeNoutFound.
+          if $.type(pageConfig.path) is 'regexp' then return
+
           method = (pageConfig.method or 'get').toLowerCase()
           davis[method] pageConfig.path, (request) ->
             if self.history.isToSamePageRequst request.path then return
             page = self._createPage request, pageConfig, true
             completePage page
           true
+
         self.davisInitializer?.call davis
 
       if @options.davis.handleRouteNotFound
         @davis.bind 'routeNotFound', (request) ->
-
-          # if it was just an anchor to the same page, ignore
+          
+          # if it was just an anchor to the same page, ignore it
           if ns.isToId request.path
             self.trigger 'toid', request.path
             return
@@ -360,7 +374,7 @@
 
           if self.history.isToSamePageRequst path then return
 
-          config = (self._findPageWhosePathIs path) or null
+          config = (self._findWhosePathMatches 'page', path) or null
           routed = if config then true else false
           page = self._createPage request, config, routed, hash
           completePage page
@@ -373,27 +387,94 @@
       @_tweakDavis()
       @
 
-    _findPageWhosePathIs: (path, handleMulti) ->
+    _findWhosePathMatches: (target, requestedPath, handleMulti) ->
+
+      # determine which configs to handle
+      if target is 'page'
+        if @pages and @pages.length
+          configs = @pages
+        else
+          return null
+      else if target is 'transRoutes'
+        if @transRoutes and @transRoutes.length
+          configs = @transRoutes
+          handleMulti = true
+        else
+          return null
+
+      matched = []
+      trimedPath = ns.trimGetVals requestedPath
+
+      $.each configs, (i, config) =>
+
+        # if ignoregetvals, trim path to eval
+        if @options.ignoregetvals or config.ignoregetvals
+          path = trimedPath
+        else
+          path = requestedPath
+
+        # handle regexp
+        if $.type(config.path) is 'regexp'
+          if config.path.test path
+            matched.push config
+            if handleMulti then return true
+          else
+            return true
+
+        # eval path
+        if config.path is path
+          matched.push config
+          if handleMulti then return true
+
+        true
+
+      # raise error if multi configs are detected
+      if not handleMulti and (matched.length > 1)
+        error "2 or more expr was matched about: #{requestedPath}"
+        $.each matched, (i, config) ->
+          error "dumps detected page configs - path:#{config.path}"
+        return false
+
+      if handleMulti
+        return matched
+      else
+        return matched[0] or null
+
+    _findPageWhosePathIs: (requestedPath, handleMulti) ->
       if not @pages then return null
       matched = []
-      trimedPath = ns.trimGetVals path
+      trimedPath = ns.trimGetVals requestedPath
+
       $.each @pages, (i, config) =>
-        if config.pathexpr
-          if pconfig.pathexpr.test path
-            matched.push config
-            if not handleMulti then return false
+
+        # if ignoregetvals, trim path to eval
         if @options.ignoregetvals or config.ignoregetvals
-          if config.path is trimedPath
-            matched.push config
-            if not handleMulti then return false
+          path = trimedPath
         else
-          if config.path is path
+          path = requestedPath
+
+        # handle regexp
+        if $.type(config.path) is 'regexp'
+          if config.path.test path
             matched.push config
-            if not handleMulti then return false
+            if handleMulti then return true
+          else
+            return true
+
+        # eval path
+        if config.path is path
+          matched.push config
+          if handleMulti then return true
+
+        true
+
+      # raise error if multi configs are detected
       if not handleMulti and (matched.length > 1)
-        error "2 or more expr was matched about: #{path}"
+        error "2 or more expr was matched about: #{requestedPath}"
         $.each matched, (i, config) ->
-          error "dumps detected page configs - path:#{config.path}, expr:#{config.pageexpr}"
+          error "dumps detected page configs - path:#{config.path}"
+        return false
+
       if handleMulti
         return matched
       else
@@ -450,22 +531,27 @@
         location.href = path
       @
 
-    fireready: ->
+    firePageready: ->
       if @pages?.length
-        $.each @pages, (i, pageConfig) =>
-          handleThis = false
-          if pageConfig.pathexpr
-            handleThis = pageConfig.pathexpr.test location.pathname
-          else
-            handleThis = pageConfig.path is location.pathname
-          if not handleThis then return true
-          pageConfig.pageready?()
-          return false
+        page = @_findWhosePathMatches 'page', location.pathname
+        if page then page.pageready?()
       @trigger 'everypageready'
+      @
+
+    fireTransPageready: ->
+      if @transRoutes?.length
+        routings = @_findWhosePathMatches 'transRoutes', location.pathname
+        if not routings.length then return @
+        $.each routings, (i, routing) ->
+          routing.pageready?()
       @
 
     route: (pages) ->
       @pages = pages
+      @
+    
+    routeTransparents: (transRoutes) ->
+      @transRoutes = transRoutes
       @
 
     routeDavis: (initializer) ->

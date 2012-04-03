@@ -75,75 +75,64 @@ $(function(){
         }
       },
       {
-        path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html',
+        path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo1.html',
         fetchstart: function(){
-          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo1.html');
         },
         fetchsuccess: function(){
-          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo1.html');
         },
         pageready: function(){
-          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page1.html');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo1.html');
         }
       },
       {
-        path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html',
+        path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo2.html',
         fetchstart: function(){
-          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo2.html');
         },
         fetchsuccess: function(){
-          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo2.html');
         },
         pageready: function(){
-          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page2.html');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo2.html');
         }
       },
       {
-        path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html',
+        path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo3.html',
         fetchstart: function(){
-          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html');
+          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo3.html');
         },
         fetchsuccess: function(){
-          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html');
+          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo3.html');
         },
         pageready: function(){
-          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page3.html');
+          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/foo3.html');
         }
       },
+      // this routing makes error because this conflicts with the pathexpr pattern of the item below
+      //{
+      //  path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/bar1.html',
+      //  fetchstart: function(){
+      //    loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/bar1.html');
+      //  },
+      //  fetchsuccess: function(){
+      //    loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/bar1.html');
+      //  },
+      //  pageready: function(){
+      //    loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/bar1.html');
+      //  }
+      //},
       {
-        path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html',
+        path: /bar[0-9]+\.html/,
         fetchstart: function(){
-          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html');
+          loglight('fetchstart: /bar[0-9]+\.html/');
         },
         fetchsuccess: function(){
-          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html');
+          loglight('fetchsuccess: /bar[0-9]+\.html/');
         },
         pageready: function(){
-          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page4.html');
-        }
-      },
-      {
-        path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html',
-        fetchstart: function(){
-          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html');
-        },
-        fetchsuccess: function(){
-          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html');
-        },
-        pageready: function(){
-          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page5.html');
-        }
-      },
-      {
-        path: '/jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html',
-        fetchstart: function(){
-          loglight('fetchstart: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html');
-        },
-        fetchsuccess: function(){
-          loglight('fetchsuccess: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html');
-        },
-        pageready: function(){
-          loglight('pageready: /jQuery.LazyJaxDavis/demos/pagespecificevents/pages/page6.html');
+          loglight('pageready: /bar[0-9]+\.html/');
         }
       }
     ]);
