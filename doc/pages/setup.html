@@ -25,9 +25,7 @@
 			
 				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/setup.html">Setup</a></li>
 			
-				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links</a></li>
-			
-				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/lazyforms.html">Lazy Forms</a></li>
+				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links/forms</a></li>
 			
 				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/anchorhandling.html">Anchor handling</a></li>
 			
@@ -86,7 +84,7 @@
 </div>
 
 
-<h3>everyfetchsuccess</h3>
+<h3>everyfetchsuccess event</h3>
 
 <p>jQuery.LazyJaxDavis hijacks all links in the page.<br/>
 The first thing you need to do is - event bindings.</p>
@@ -115,7 +113,7 @@ The first thing you need to do is - event bindings.</p>
 
 <p>With only these codes above, every links invokes ajaxed location change.</p>
 
-<h3>everyfetchstart</h3>
+<h3>everyfetchstart event</h3>
 
 <p>If you like to show loading spinner or something while ajax was in progress, use <code>everyfetchstart</code>.</p>
 
@@ -142,9 +140,9 @@ The first thing you need to do is - event bindings.</p>
 
 <p>The <code>loading</code> here is not what jQuery.LazyJaxDavis prepared. It's your code. <code>everyfatchstart</code> will be fired when page fetching ajax was satarted. You can tell users to know that it's loading with this.</p>
 
-<h3>everypageready</h3>
+<h3>everypageready event</h3>
 
-<p>If you finished refreshing the main content of the page, there must be something you need to do. For example, imagine rollover, tab, slider or something like that. Generally, you'll apply them like below.</p>
+<p>When you finished refreshing the main content of the page, there must be something you need to do. For example, imagine rollover, tab, slider or something like that. Generally, you'll apply them like below.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
   <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.apply-rollover&#39;</span><span class="p">).</span><span class="nx">rollover</span><span class="p">();</span> <span class="c1">// initialize my widget!</span>
@@ -180,7 +178,7 @@ The first thing you need to do is - event bindings.</p>
 
 <p>This <code>everypageready</code> event will be fired when you call <code>$.LazyJaxDavis()</code> for the first time too. And this also fired when the browser did not support history API.</p>
 
-<p>that is to say, this event is the ready evnet for the main content.</p>
+<p>that is to say, this event works like the ready event for the refreshed content.</p>
 
 <p>If you don't want to run <code>everypageready</code> on the first time, set <code>firereadyonstart: false</code> as option like below.</p>
 
@@ -208,7 +206,7 @@ The first thing you need to do is - event bindings.</p>
 </div>
 
 
-<h3>everyfetchfail</h3>
+<h3>everyfetchfail event</h3>
 
 <p>If the page fetching ajax was failed, the visitor can't know that it was bugged. Because with the code above, there must be a loading indicator or something which tells it's still loading. To avoid this, use <code>everyfetchfail</code> event. This will be fired when ajax was failed.</p>
 
@@ -242,10 +240,14 @@ The first thing you need to do is - event bindings.</p>
 </ul>
 
 
+<h3>everyfetchabort event</h3>
+
+<p>This event will be fired when any ajax which is handled by jQuery.LazyJaxDavis was aborted. If 2nd page fetching request was started, jQuery.LazyJaxDavis makes 1st abort if there was that with in progress status. It is pretty rare to use this event for something. So, basically don't take care of this event.</p>
+
 <h3>other options</h3>
 
 <p>The options listed below are also available.<br/>
-And these are default value of each options. If you specify some, $.LazyJaxDavis will be initialized with the overridden options.</p>
+And these are default value of each options. If you specify some, <code>$.LazyJaxDavis</code> will be initialized with the overridden options.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
@@ -267,7 +269,8 @@ And these are default value of each options. If you specify some, $.LazyJaxDavis
     <span class="p">},</span>
     <span class="nx">minwaittime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="nx">updatetitle</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nx">firereadyonstart</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="nx">firereadyonstart</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">ignoregetvals</span><span class="o">:</span> <span class="kc">false</span>
   <span class="p">});</span>
 
 <span class="p">});</span>
@@ -303,25 +306,49 @@ If you use <code>page.rip('content')</code> to rip the new content in <code>ever
 </div>
 
 
+<p>I made a demo for this feature. Check the demo below to learn more.</p>
+
+<ul>
+<li><a href="/jQuery.LazyJaxDavis/doc/pages/demos.html#multirip">Demo - Multirip</a></li>
+</ul>
+
+
 <h4>davis</h4>
 
 <p>Davis.js options which jQuery.LazyJaxDavis uses.<br/>
 About <code>linkSelector</code> and <code>formSelector</code>, check the "Lazy link" and "Lazy form" in this document. About other options here, See <a href="http://davisjs.com/">Davis.js's document</a> for more info. But, don't change <code>handleRouteNotFound</code> to false. jQuery.LazyJaxDavis uses this internally.</p>
 
+<p>In addition, you can choose to set <code>false</code> to use jQuery.LazyJaxDavis without Davis.js. If you did so, jQuery.LazyJaxDavis works like just a URL router. To learn more, Check the demo below.</p>
+
+<ul>
+<li><a href="/jQuery.LazyJaxDavis/doc/pages/demos.html#nodavis">Demo - Nodavis</a></li>
+</ul>
+
+
 <h4>minwaittime</h4>
 
 <p>Minimum wait time to make ajax complete.<br/>
-If you want to show something for loading, ajax may be completed before the loading spinner or something was revealed. Imagine full-Flash websites. They always show the loading indicator before the content was started. In such case, define milli seconds here.</p>
+If you want to show something for loading, ajax may be completed before the loading spinner or something was revealed. Imagine full-Flash websites. They always show the loading indicator before the content was started. In such case, define milli seconds here. I made a demo for this too. Check the demo below to learn more. <code>0</code> as default.</p>
+
+<ul>
+<li><a href="/jQuery.LazyJaxDavis/doc/pages/demos.html#customloading">Demo - Custom loading</a></li>
+</ul>
+
 
 <h4>updatetitle</h4>
 
 <p>Update document.title after page fetching or not.<br/>
-This uses <code>title</code> regexp pattern I wrote above.</p>
+This uses <code>title</code> regexp pattern I wrote above. You can set <code>false</code> to disable this feature. <code>true</code> as default.</p>
 
 <h4>firereadyonstart</h4>
 
 <p>Fires <code>everypageready</code> event on startup or not.<br/>
-This will be also applied to each url routings' <code>pageready</code> event too.</p>
+You can set <code>false</code> to disable this feature. You may turn off this If you apply rollover or something to the whole document on documentready. <code>true</code> as default.</p>
+
+<h4>ignoregetvals</h4>
+
+<p>Ignore all get values in URL like <code>?foo=bar</code> or not.<br/>
+Set <code>true</code> to turn on this. <code>false</code> as default.</p>
 
 			</div>
 

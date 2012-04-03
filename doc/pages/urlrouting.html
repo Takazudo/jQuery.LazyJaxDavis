@@ -25,9 +25,7 @@
 			
 				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/setup.html">Setup</a></li>
 			
-				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links</a></li>
-			
-				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/lazyforms.html">Lazy Forms</a></li>
+				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links/forms</a></li>
 			
 				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/anchorhandling.html">Anchor handling</a></li>
 			
@@ -54,25 +52,30 @@
 
 <p>You can define custom events for specific urls using URL routing.</p>
 
-<h3>How to define URL routings</h3>
+<h3>Basics</h3>
 
 <p>Pass the array of URL routing configs to the <code>route</code> method like below.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+
+  <span class="p">...</span>
+
   <span class="nx">router</span><span class="p">.</span><span class="nx">route</span><span class="p">([</span>
     <span class="p">{</span>
       <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/1.html&#39;</span><span class="p">,</span>
+      <span class="nx">ignoregetvals</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html fetchstart!&#39;</span><span class="p">);</span> <span class="p">},</span>
       <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html fetchsuccess!&#39;</span><span class="p">);</span> <span class="p">},</span>
       <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;1.html pageready!&#39;</span><span class="p">);</span> <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-      <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/2.html&#39;</span><span class="p">,</span>
+      <span class="nx">path</span><span class="o">:</span> <span class="sr">/anycategory\/foobar/</span><span class="p">,</span>
       <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html fetchstart!&#39;</span><span class="p">);</span> <span class="p">},</span>
       <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html fetchsuccess!&#39;</span><span class="p">);</span> <span class="p">},</span>
       <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;2.html pageready!&#39;</span><span class="p">);</span> <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">]);</span>
+
 <span class="p">});</span>
 </code></pre>
 </div>
@@ -84,11 +87,53 @@
 <li>fetchstart</li>
 <li>fetchsuccess</li>
 <li>fetchfail</li>
+<li>fetchabort</li>
 <li>pageready</li>
 </ul>
 
 
-<p>These are path-pecific ones of every-foo event which you already know.</p>
+<p>These are path-pecific ones of everyxxxxxx event which I already wrote. As <code>path</code>, you can set string or regexp to define which page to be applied. These routings' paths cannot be conflicted each other.</p>
+
+<p>If you specify <code>ignoregetvals: true</code> to any, get values like <code>?foo=bar</code> in the URL will be ignored about these path rule.</p>
+
+<h3>Transparent routing</h3>
+
+<p>As I wrote above, each routings cannnot be conflicted. If you like to do complicated routing, use transparent routing feature like below. I introduced this more on <a href="/jQuery.LazyJaxDavis/doc/pages/demos.html#transparent">demo</a> page.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+
+  <span class="p">...</span>
+
+  <span class="nx">router</span><span class="p">.</span><span class="nx">route</span><span class="p">([</span>
+    <span class="p">{</span>
+      <span class="nx">path</span><span class="o">:</span> <span class="sr">/\/pages\/2010\//</span><span class="p">,</span>
+      <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="p">...</span>  <span class="p">},</span>
+      <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="p">...</span>  <span class="p">},</span>
+      <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="p">...</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">path</span><span class="o">:</span> <span class="sr">/\/pages\/2011\//</span><span class="p">,</span>
+      <span class="nx">fetchstart</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="p">...</span> <span class="p">},</span>
+      <span class="nx">fetchsuccess</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="p">...</span> <span class="p">},</span>
+      <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="p">...</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]);</span>
+
+  <span class="nx">router</span><span class="p">.</span><span class="nx">routeTransparents</span><span class="p">([</span>
+    <span class="p">{</span>
+      <span class="nx">path</span><span class="o">:</span> <span class="sr">/\/pages\//</span><span class="p">,</span>
+      <span class="nx">pageready</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="cm">/* do some thing for all /pages/ here */</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]);</span>
+
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+
 
 			</div>
 

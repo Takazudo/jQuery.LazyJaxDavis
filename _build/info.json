@@ -1,6 +1,6 @@
 {
   "name": "jQuery.LazyJaxDavis",
-  "description": "Url router for static websites.",
+  "description": "Makes everything ajaxify with flexible URL routing.",
   "version": "0.0.0",
   "homepage": "https://github.com/Takazudo/jQuery.LazyJaxDavix",
   "author": {

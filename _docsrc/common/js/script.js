@@ -31,6 +31,7 @@ $(function(){
       this.currentify(location.pathname);
     }
     Sidenav.prototype.currentify = function(path) {
+      path = path.replace(/#.*/,'');
       $('li', this.$el).each(function(){
         var $li = $(this);
         var $a = $('a', $li);

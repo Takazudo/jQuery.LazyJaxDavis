@@ -1,15 +1,17 @@
 ---
 layout: default
-title: Lazy links
+title: Lazy links/forms
 ---
 
 ## {{ page.title }}
 
+With jQuery.LazyJaxDavis, all links and forms invokes ajax instead.  
+You can handle them with one specified rule. I call this lazy.
+
+### Lazy links
+
 "Lazy links" mean the anchors which jQuery.LazyJaxDavis hijacks.  
-
-### All links are lazy-links
-
-If you use jQuery.LazyJaxDavis, Each normal links' click invokes LazyJaxDavis's navigation behavior. LazyJaxDavis observes all links' click using jQuery's delegate. LazyJaxDavis hijacks all links as default. You should set "fetchstart" and "fetchsuccess" events to make your site work.
+If you use jQuery.LazyJaxDavis, Each normal links' click invokes LazyJaxDavis's navigation behavior. LazyJaxDavis observes all links' click using jQuery's delegate. LazyJaxDavis hijacks all links as default. You should set `fetchstart` and `fetchsuccess` events to make your site work.
 
 ### No-lazy links
 
@@ -44,6 +46,10 @@ Click the links below to confirm this.
 	</div>
 </div>
 
+### Anchors to other domains
+
+All anchors whose `href` starts with `http` will automatically become no-lazy links. This is why history API doesn't allow this for security. Give up about that.
+
 ### Let me define which anchors to be hijacked
 
 You can define what elements to be hijacked like below.  
@@ -59,5 +65,83 @@ $.LazyJaxDavis(function(router){
 {% endhighlight %}
 
 As default, jQuery.LazyJaxDavis hijacks `'a:not([href^=#]):not(.apply-nolazy)'`. Anchors to the id on the same page should not be contained in here.
+
+### Lazy forms
+
+"Lazy forms" mean the forms which jQuery.LazyJaxDavis hijacks.  
+As lazy links, jQuery.LazyJaxDavis also hijacks all forms' submit.  
+jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to confirm those works.
+
+Note: Sorry, this "POST" form doesn't work on this GitHub server because this server doesn't allow "POST" method. Clone the repository to your local to confirm these. Instead, you can check `everyfetchfail` event here, haha.
+
+<div class="mod-forms">
+	<div class="h">GET</div>
+	<form action="{{ site.basedir }}/gettest.html" method="get">
+		<input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
+	</form>
+	<div class="h">POST</div>
+	<form action="{{ site.basedir }}/posttest.html" method="post">
+		<input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
+	</form>
+</div>
+
+{% highlight html %}
+<form action="{{ site.basedir }}/gettest.html" method="get">
+	<input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
+</form>
+{% endhighlight %}
+{% highlight html %}
+<form action="{{ site.basedir }}/posttest.html" method="post">
+	<input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
+</form>
+{% endhighlight %}
+
+### No-lazy forms
+
+As lazy links, you can avoid the ajax behavior to add `apply-nolazy` to the form's class attributes.
+
+<div class="mod-forms">
+	<div class="h">GET (no-lazy)</div>
+	<form action="{{ site.basedir }}/gettest.html" method="get" class="apply-nolazy">
+		<input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
+	</form>
+	<div class="h">POST (no-lazy)</div>
+	<form action="{{ site.basedir }}/posttest.html" method="post" class="apply-nolazy">
+		<input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
+	</form>
+</div>
+
+{% highlight html %}
+<form action="{{ site.basedir }}/gettest.html" method="get" class="apply-nolazy">
+	<input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
+</form>
+{% endhighlight %}
+{% highlight html %}
+<form action="{{ site.basedir }}/posttest.html" method="post" class="apply-nolazy">
+	<input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
+</form>
+{% endhighlight %}
+
+### Make url routings for POST receivers
+
+If you handle form POST with jQuery.LazyJaxDavis, you need to make url routings for POST receiver pages like below.
+
+{% highlight javascript %}
+$.LazyJaxDavis(function(router){
+	router.route([
+		{
+			path: '{{ site.basedir }}/posttest.html',
+			method: 'POST'
+		}
+	]);
+});
+{% endhighlight %}
+
+As default jQuery.LazyJaxDavis handles all incoming requests as GET. You need to override this to add `method: 'POST'` to url routing.
+
+### POST submit doesn't change url
+
+If you submit with lazy forms as above, the url displayed in the location bar is still unchanged. This is why Davis.js works like this. I think this doesn't make any trouble. But please keep in mind about this.
+
 
 

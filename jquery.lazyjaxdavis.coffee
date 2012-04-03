@@ -294,7 +294,6 @@
       updatetitle: true
       firereadyonstart: true
       ignoregetvals: false
-      nodavis: false
 
     constructor: (initializer) ->
 
@@ -307,9 +306,8 @@
       initializer.call @, @
 
       if @options.davis then @_setupDavis()
-      if @options.firereadyonstart
-        @firePageready()
-        @fireTransPageready()
+      @firePageready not @options.firereadyonstart
+      @fireTransPageready()
 
     _createPage: (request, config, routed, hash) ->
 
@@ -489,6 +487,7 @@
         , (error) =>
           if error.aborted
             page.trigger 'fetchabort', page
+            @trigger 'everyfetchabort', page
           else
             page.trigger 'fetchfil', page
             @trigger 'everyfetchfail', page
@@ -510,10 +509,11 @@
       @
 
     # fire all pageready events from @pages
-    firePageready: ->
+    firePageready: (skipEvery) ->
       if @pages?.length
         page = @_findWhosePathMatches 'page', location.pathname
         if page then page.pageready?()
+      if skipEvery then return @
       @trigger 'everypageready'
       @
 

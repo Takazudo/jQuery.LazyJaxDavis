@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 <head>
 <meta charset="utf-8">
-<title>jQuery.LazyJaxDavis - Lazy links</title>
+<title>jQuery.LazyJaxDavis - Lazy links/forms</title>
 <meta name="viewport" content="width=1000">
 <link rel="stylesheet" href="/jQuery.LazyJaxDavis/doc/common/css/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -25,9 +25,7 @@
 			
 				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/setup.html">Setup</a></li>
 			
-				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links</a></li>
-			
-				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/lazyforms.html">Lazy Forms</a></li>
+				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links/forms</a></li>
 			
 				<li class="post"><a href="/jQuery.LazyJaxDavis/doc/pages/anchorhandling.html">Anchor handling</a></li>
 			
@@ -50,13 +48,15 @@
 			<!-- LazyJaxDavis start -->
 
 			<div class="mod-article">
-				<h2>Lazy links</h2>
+				<h2>Lazy links/forms</h2>
 
-<p>"Lazy links" mean the anchors which jQuery.LazyJaxDavis hijacks.</p>
+<p>With jQuery.LazyJaxDavis, all links and forms invokes ajax instead.<br/>
+You can handle them with one specified rule. I call this lazy.</p>
 
-<h3>All links are lazy-links</h3>
+<h3>Lazy links</h3>
 
-<p>If you use jQuery.LazyJaxDavis, Each normal links' click invokes LazyJaxDavis's navigation behavior. LazyJaxDavis observes all links' click using jQuery's delegate. LazyJaxDavis hijacks all links as default. You should set "fetchstart" and "fetchsuccess" events to make your site work.</p>
+<p>"Lazy links" mean the anchors which jQuery.LazyJaxDavis hijacks.<br/>
+If you use jQuery.LazyJaxDavis, Each normal links' click invokes LazyJaxDavis's navigation behavior. LazyJaxDavis observes all links' click using jQuery's delegate. LazyJaxDavis hijacks all links as default. You should set <code>fetchstart</code> and <code>fetchsuccess</code> events to make your site work.</p>
 
 <h3>No-lazy links</h3>
 
@@ -78,9 +78,7 @@
             
                 <li><a href="/jQuery.LazyJaxDavis/doc/pages/setup.html">Setup</a></li>
             
-                <li><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links</a></li>
-            
-                <li><a href="/jQuery.LazyJaxDavis/doc/pages/lazyforms.html">Lazy Forms</a></li>
+                <li><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links/forms</a></li>
             
                 <li><a href="/jQuery.LazyJaxDavis/doc/pages/anchorhandling.html">Anchor handling</a></li>
             
@@ -106,9 +104,7 @@
             
                 <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/doc/pages/anchorhandling.html">Anchor handling</a></li>
             
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/doc/pages/lazyforms.html">Lazy Forms</a></li>
-            
-                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links</a></li>
+                <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links/forms</a></li>
             
                 <li><a class="apply-nolazy" href="/jQuery.LazyJaxDavis/doc/pages/setup.html">Setup</a></li>
             
@@ -116,6 +112,10 @@
     </div>
 </div>
 
+
+<h3>Anchors to other domains</h3>
+
+<p>All anchors whose <code>href</code> starts with <code>http</code> will automatically become no-lazy links. This is why history API doesn't allow this for security. Give up about that.</p>
 
 <h3>Let me define which anchors to be hijacked</h3>
 
@@ -133,6 +133,100 @@
 
 
 <p>As default, jQuery.LazyJaxDavis hijacks <code>'a:not([href^=#]):not(.apply-nolazy)'</code>. Anchors to the id on the same page should not be contained in here.</p>
+
+<h3>Lazy forms</h3>
+
+<p>"Lazy forms" mean the forms which jQuery.LazyJaxDavis hijacks.<br/>
+As lazy links, jQuery.LazyJaxDavis also hijacks all forms' submit.<br/>
+jQuery.LazyJaxDavis supports GET and POST. Try to submit the forms below to confirm those works.</p>
+
+<p>Note: Sorry, this "POST" form doesn't work on this GitHub server because this server doesn't allow "POST" method. Clone the repository to your local to confirm these. Instead, you can check <code>everyfetchfail</code> event here, haha.</p>
+
+<div class="mod-forms">
+    <div class="h">GET</div>
+    <form action="/jQuery.LazyJaxDavis/doc/gettest.html" method="get">
+        <input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
+    </form>
+    <div class="h">POST</div>
+    <form action="/jQuery.LazyJaxDavis/doc/posttest.html" method="post">
+        <input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
+    </form>
+</div>
+
+
+
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/doc/gettest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;getformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;getval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre>
+</div>
+
+
+
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/doc/posttest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;postformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;postval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre>
+</div>
+
+
+<h3>No-lazy forms</h3>
+
+<p>As lazy links, you can avoid the ajax behavior to add <code>apply-nolazy</code> to the form's class attributes.</p>
+
+<div class="mod-forms">
+    <div class="h">GET (no-lazy)</div>
+    <form action="/jQuery.LazyJaxDavis/doc/gettest.html" method="get" class="apply-nolazy">
+        <input type="text" value="getformtest" name="getval"> <input type="submit" value="go">
+    </form>
+    <div class="h">POST (no-lazy)</div>
+    <form action="/jQuery.LazyJaxDavis/doc/posttest.html" method="post" class="apply-nolazy">
+        <input type="text" value="postformtest" name="postval"> <input type="submit" value="go">
+    </form>
+</div>
+
+
+
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/doc/gettest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">class=</span><span class="s">&quot;apply-nolazy&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;getformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;getval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre>
+</div>
+
+
+
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/jQuery.LazyJaxDavis/doc/posttest.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">class=</span><span class="s">&quot;apply-nolazy&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;postformtest&quot;</span> <span class="na">name=</span><span class="s">&quot;postval&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;go&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre>
+</div>
+
+
+<h3>Make url routings for POST receivers</h3>
+
+<p>If you handle form POST with jQuery.LazyJaxDavis, you need to make url routings for POST receiver pages like below.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nx">route</span><span class="p">([</span>
+        <span class="p">{</span>
+            <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/jQuery.LazyJaxDavis/doc/posttest.html&#39;</span><span class="p">,</span>
+            <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span>
+        <span class="p">}</span>
+    <span class="p">]);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<p>As default jQuery.LazyJaxDavis handles all incoming requests as GET. You need to override this to add <code>method: 'POST'</code> to url routing.</p>
+
+<h3>POST submit doesn't change url</h3>
+
+<p>If you submit with lazy forms as above, the url displayed in the location bar is still unchanged. This is why Davis.js works like this. I think this doesn't make any trouble. But please keep in mind about this.</p>
 
 			</div>
 

@@ -6,18 +6,16 @@ titleoverride: jQuery.LazyJaxDavis
 
 ## Introduction
 
-<p style="background:red; color:#fff; padding:10px; margin:0 0 20px">NOTE! THIS PROJECT IS STILL UNDER DEV.<br>WAIT FOR THE v.0.1 RELEASE.</p>
-
 JQuery.LazyJaxDavis brings the power of history.pushState to static websites.  
 This changes all location changes to dynamic - ajax based.  
-URL routing feature is also available.
+Flexible URL routing feature is also available.
 
 ### HTML5 history API and us
 
 Do you usually use history API?  
 It's... pushState, replaceState or something like that.  
 
-If you are a developer of JavaScript web app - and the web apps which you work in are challenging, the answer may be "Yes". But in most of the cases it must be "No" because we need to support old browsers which do not support history API yet. And, when you create static websites which are like - for example, a corporate site, a weblog, or something which is not a web app, it is pretty rare to use history API, I guess.
+If you are a developer of JavaScript web app - and the web apps which you work in are challenging, the answer may be "Yes". But in most of the cases it must be "No" because we usually need to support old browsers which do not support history API yet. And, when you create static websites which are like - for example, a corporate site, a weblog, or something which is not a web app, it is pretty rare to use history API, I guess.
 
 ### jQuery.LazyJaxDavis stands on history API
 
@@ -29,17 +27,17 @@ jQuery.LazyJaxDavis provides nice APIs for static websites development.
 
 New browsers has no problem about history API. But, we need to support old browsers like Internet Explorer 9 or less in most cases. So do we need to give up using history API? The answer is "No".
 
-jQuery.LazyJaxDavis does not provide ajax features to the browsers which don't have history API spoort. But this works with old browsers gracefully.
+jQuery.LazyJaxDavis does not provide nice features to the browsers which don't have history API spoort. But this also works with old browsers gracefully.
 
 ### Tell me what does jQuery.LazyJaxDavis do
 
-The basic feature of jQuery.LazyJaxDavis is "change all location changes to dynamic - ajax based". This website is a document of jQuery.LazyJaxDavis but also its demo. Try clicking left navigations in this page. You'll see what jQuery.LazyJaxDavis does if you use a browser which supports history API.
+The basic feature of jQuery.LazyJaxDavis is "change all location-changes to dynamic - ajax based". This website is a document of jQuery.LazyJaxDavis but is also its demo site. Try clicking left navigations in this page. You'll see what jQuery.LazyJaxDavis does if you use a browser which supports history API.
 
 If your browser does not support the history API, nothing happens. Just a normal location change occurs.
 
 ### Short explanation about this website
 
-I'll explain how this website works.  
+I'll explain how this website works in short.  
 First, this website has main content area. Click the button below.  
 Scroll up to the top. Then scroll down to the bottom. You can understand what the main content is.
 
@@ -121,4 +119,6 @@ As you see, this demo site shows nowloading on the left top corner of the browse
 If you want to do the things like that, just add the code to the event handler `everyfetchstart` and `everyfetchsuccess`.
 
 jQuery.LazyJaxDavis provides only the apis to do things like this.  
-So if you want to implement the things like nice loading, it's what you need to code by yourself. To learn more, keep reading the other pages in this document.
+So if you want to implement the things like nice loading, it's what you need to code by yourself.
+
+To learn more, keep reading the other pages in this document.

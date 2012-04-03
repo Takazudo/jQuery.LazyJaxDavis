@@ -1,4 +1,4 @@
-/*! jQuery.LazyJaxDavis - v0.0.0 -  4/3/2012
+/*! jQuery.LazyJaxDavis - v0.0.0 -  4/4/2012
  * https://github.com/Takazudo/jQuery.LazyJaxDavix
  * Copyright (c) 2012 "Takazudo" Takeshi Takatsudo; Licensed MIT */
 
@@ -329,8 +329,7 @@ var __slice = Array.prototype.slice,
       minwaittime: 0,
       updatetitle: true,
       firereadyonstart: true,
-      ignoregetvals: false,
-      nodavis: false
+      ignoregetvals: false
     };
 
     function Router(initializer) {
@@ -339,10 +338,8 @@ var __slice = Array.prototype.slice,
       this.history = new ns.HistoryLogger;
       initializer.call(this, this);
       if (this.options.davis) this._setupDavis();
-      if (this.options.firereadyonstart) {
-        this.firePageready();
-        this.fireTransPageready();
-      }
+      this.firePageready(!this.options.firereadyonstart);
+      this.fireTransPageready();
     }
 
     Router.prototype._createPage = function(request, config, routed, hash) {
@@ -507,7 +504,8 @@ var __slice = Array.prototype.slice,
           return defer.resolve();
         }, function(error) {
           if (error.aborted) {
-            return page.trigger('fetchabort', page);
+            page.trigger('fetchabort', page);
+            return _this.trigger('everyfetchabort', page);
           } else {
             page.trigger('fetchfil', page);
             return _this.trigger('everyfetchfail', page);
@@ -537,12 +535,13 @@ var __slice = Array.prototype.slice,
       return this;
     };
 
-    Router.prototype.firePageready = function() {
+    Router.prototype.firePageready = function(skipEvery) {
       var page, _ref;
       if ((_ref = this.pages) != null ? _ref.length : void 0) {
         page = this._findWhosePathMatches('page', location.pathname);
         if (page) if (typeof page.pageready === "function") page.pageready();
       }
+      if (skipEvery) return this;
       this.trigger('everypageready');
       return this;
     };

@@ -2,7 +2,7 @@
 
 # jQuery.LazyJaxDavis
 
-Url router for static websites.
+Makes everything ajaxify with flexible URL routing.
 
 ## demos
 
