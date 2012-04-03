@@ -1,5 +1,7 @@
 $(function(){
 
+  // logger
+
   var Logger = (function() {
     function Logger() {
       this.$el = $('<div id="logger"></div>');

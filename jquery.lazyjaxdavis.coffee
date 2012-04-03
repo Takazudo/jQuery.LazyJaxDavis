@@ -16,7 +16,7 @@
   
   # detect features
 
-  $.support.pushstate = Davis.supported()
+  $.support.pushstate = $.isFunction window.history.pushState
 
   
   # ============================================================
@@ -63,12 +63,19 @@
 
   # ============================================================
   # logger
+  # prepare this if there's Davis. else do nothing about this
   
-  ns.logger = (new Davis.logger).logger
-  ns.info = info = (args...) ->
-    ns.logger.info.apply ns.logger, args
-  ns.error = error = (args...) ->
-    ns.logger.error.apply ns.logger, args
+  ns.logger = if window.Davis then (new Davis.logger).logger else null
+
+  # shortcuts
+  
+  ns.info = info = (msg) ->
+    if not ns.logger then return
+    ns.logger.info msg
+
+  ns.error = error = (msg) ->
+    if not ns.logger then return
+    ns.logger.error msg
 
 
   # ============================================================
@@ -287,6 +294,7 @@
       updatetitle: true
       firereadyonstart: true
       ignoregetvals: false
+      nodavis: false
 
     constructor: (initializer) ->
 
@@ -295,9 +303,9 @@
         return new ns.Router initializer
 
       super
-
       @history = new ns.HistoryLogger
       initializer.call @, @
+
       if @options.davis then @_setupDavis()
       if @options.firereadyonstart
         @firePageready()
@@ -310,15 +318,18 @@
         expr: @options.expr
         updatetitle: @options.updatetitle
 
+      # handle anchorhandler
       if @options.anchorhandler
         o.anchorhandler = @options.anchorhandler
 
-      if @options.ajaxoptions
-        if config?.ajaxoptions
-          o.ajaxoptions = config.ajaxoptions
-        else
-          o.ajaxoptions = @options.ajaxoptions
+      # handle ajaxoptions
+      # use config or @options
+      if config?.ajaxoptions
+        o.ajaxoptions = config.ajaxoptions
+      else if @options.ajaxoptions
+        o.ajaxoptions = @options.ajaxoptions
 
+      # detect hash
       if not hash and request?.path
         res = ns.tryParseAnotherPageAnchor request.path
         hash = res.hash or null
@@ -327,9 +338,10 @@
 
     _setupDavis: ->
 
-      if not $.support.pushstate then return
+      if not $.support.pushstate then return # you can't use it
       self = @ # Davis needs "this" scope
 
+      # complete action
       completePage = (page) ->
         page.bind 'pageready', ->
           self._findWhosePathMatches 'page', page.path # just find for raise error
@@ -338,11 +350,13 @@
         self.history.push page.path
         self.fetch page
 
+      # start Davis initialization
       @davis = new Davis ->
 
         davis = @
         if not self.pages then return
 
+        # handle @pages
         $.each self.pages, (i, pageConfig) ->
 
           # make davis treat pages which was
@@ -356,8 +370,10 @@
             completePage page
           true
 
+        # if extra davisRoutings were there, do it
         self.davisInitializer?.call davis
 
+      # handle routNotFound
       if @options.davis.handleRouteNotFound
         @davis.bind 'routeNotFound', (request) ->
           
@@ -372,19 +388,38 @@
           hash = res.hash or null
           path = res.path or request.path
 
+          # log
           if self.history.isToSamePageRequst path then return
 
+          # find matched page config
           config = (self._findWhosePathMatches 'page', path) or null
           routed = if config then true else false
+
+          # then complete it
           page = self._createPage request, config, routed, hash
           completePage page
 
+      # configure davis
       @davis.configure (config) =>
         $.each @options.davis, (key, val) ->
           config[key] = val
           true
-
       @_tweakDavis()
+
+      @
+
+    _tweakDavis: ->
+
+      # tweak davis not to log erro if routeNotFound.
+      # because we treat it as sure thing.
+      warn = @davis.logger.warn
+      info = @davis.logger.info
+      @davis.logger.warn = (args...) =>
+        if (args[0].indexOf 'routeNotFound') isnt -1
+          args[0] = args[0].replace /routeNotFound/, 'unRouted'
+          info.apply @davis.logger, args
+        else
+          warn.apply @davis.logger, args
       @
 
     _findWhosePathMatches: (target, requestedPath, handleMulti) ->
@@ -405,6 +440,7 @@
       matched = []
       trimedPath = ns.trimGetVals requestedPath
 
+      # find from configs
       $.each configs, (i, config) =>
 
         # if ignoregetvals, trim path to eval
@@ -440,67 +476,11 @@
       else
         return matched[0] or null
 
-    _findPageWhosePathIs: (requestedPath, handleMulti) ->
-      if not @pages then return null
-      matched = []
-      trimedPath = ns.trimGetVals requestedPath
-
-      $.each @pages, (i, config) =>
-
-        # if ignoregetvals, trim path to eval
-        if @options.ignoregetvals or config.ignoregetvals
-          path = trimedPath
-        else
-          path = requestedPath
-
-        # handle regexp
-        if $.type(config.path) is 'regexp'
-          if config.path.test path
-            matched.push config
-            if handleMulti then return true
-          else
-            return true
-
-        # eval path
-        if config.path is path
-          matched.push config
-          if handleMulti then return true
-
-        true
-
-      # raise error if multi configs are detected
-      if not handleMulti and (matched.length > 1)
-        error "2 or more expr was matched about: #{requestedPath}"
-        $.each matched, (i, config) ->
-          error "dumps detected page configs - path:#{config.path}"
-        return false
-
-      if handleMulti
-        return matched
-      else
-        return matched[0] or null
-
-    _tweakDavis: ->
-
-      # tweak davis not to log erro if routeNotFound.
-      # because we treat it as sure thing.
-      
-      warn = @davis.logger.warn
-      info = @davis.logger.info
-      @davis.logger.warn = (args...) =>
-        if (args[0].indexOf 'routeNotFound') isnt -1
-          args[0] = args[0].replace /routeNotFound/, 'unRouted'
-          info.apply @davis.logger, args
-        else
-          warn.apply @davis.logger, args
-      @
-
     fetch: (page) ->
 
       # invoke all fetch events here.
       # these are not done in Page class because I want these events
       # to be fired in desired order
-
       $.Deferred (defer) =>
         page.trigger 'fetchstart', page
         @trigger 'everyfetchstart', page
@@ -531,6 +511,7 @@
         location.href = path
       @
 
+    # fire all pageready events from @pages
     firePageready: ->
       if @pages?.length
         page = @_findWhosePathMatches 'page', location.pathname
@@ -538,6 +519,7 @@
       @trigger 'everypageready'
       @
 
+    # fire all pageready events from @transRoutes
     fireTransPageready: ->
       if @transRoutes?.length
         routings = @_findWhosePathMatches 'transRoutes', location.pathname
@@ -546,18 +528,16 @@
           routing.pageready?()
       @
 
+    # initialization helpers
     route: (pages) ->
       @pages = pages
       @
-    
     routeTransparents: (transRoutes) ->
       @transRoutes = transRoutes
       @
-
     routeDavis: (initializer) ->
       @davisInitializer = initializer
       @
-
     option: (options) ->
       if not options then return @options
       @options = $.extend true, {}, @options, options

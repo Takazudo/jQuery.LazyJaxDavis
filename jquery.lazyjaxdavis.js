@@ -17,7 +17,7 @@ var __slice = Array.prototype.slice,
       }, time);
     });
   };
-  $.support.pushstate = Davis.supported();
+  $.support.pushstate = $.isFunction(window.history.pushState);
   ns.isToId = function(path) {
     if ((path.charAt(0)) === '#') {
       return true;
@@ -48,16 +48,14 @@ var __slice = Array.prototype.slice,
       return null;
     }
   };
-  ns.logger = (new Davis.logger).logger;
-  ns.info = info = function() {
-    var args;
-    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-    return ns.logger.info.apply(ns.logger, args);
+  ns.logger = window.Davis ? (new Davis.logger).logger : null;
+  ns.info = info = function(msg) {
+    if (!ns.logger) return;
+    return ns.logger.info(msg);
   };
-  ns.error = error = function() {
-    var args;
-    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-    return ns.logger.error.apply(ns.logger, args);
+  ns.error = error = function(msg) {
+    if (!ns.logger) return;
+    return ns.logger.error(msg);
   };
   ns.fetchPage = (function() {
     var current;
@@ -331,7 +329,8 @@ var __slice = Array.prototype.slice,
       minwaittime: 0,
       updatetitle: true,
       firereadyonstart: true,
-      ignoregetvals: false
+      ignoregetvals: false,
+      nodavis: false
     };
 
     function Router(initializer) {
@@ -353,12 +352,10 @@ var __slice = Array.prototype.slice,
         updatetitle: this.options.updatetitle
       };
       if (this.options.anchorhandler) o.anchorhandler = this.options.anchorhandler;
-      if (this.options.ajaxoptions) {
-        if (config != null ? config.ajaxoptions : void 0) {
-          o.ajaxoptions = config.ajaxoptions;
-        } else {
-          o.ajaxoptions = this.options.ajaxoptions;
-        }
+      if (config != null ? config.ajaxoptions : void 0) {
+        o.ajaxoptions = config.ajaxoptions;
+      } else if (this.options.ajaxoptions) {
+        o.ajaxoptions = this.options.ajaxoptions;
       }
       if (!hash && (request != null ? request.path : void 0)) {
         res = ns.tryParseAnotherPageAnchor(request.path);
@@ -426,6 +423,24 @@ var __slice = Array.prototype.slice,
       return this;
     };
 
+    Router.prototype._tweakDavis = function() {
+      var warn,
+        _this = this;
+      warn = this.davis.logger.warn;
+      info = this.davis.logger.info;
+      this.davis.logger.warn = function() {
+        var args;
+        args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        if ((args[0].indexOf('routeNotFound')) !== -1) {
+          args[0] = args[0].replace(/routeNotFound/, 'unRouted');
+          return info.apply(_this.davis.logger, args);
+        } else {
+          return warn.apply(_this.davis.logger, args);
+        }
+      };
+      return this;
+    };
+
     Router.prototype._findWhosePathMatches = function(target, requestedPath, handleMulti) {
       var configs, matched, trimedPath,
         _this = this;
@@ -478,65 +493,6 @@ var __slice = Array.prototype.slice,
       } else {
         return matched[0] || null;
       }
-    };
-
-    Router.prototype._findPageWhosePathIs = function(requestedPath, handleMulti) {
-      var matched, trimedPath,
-        _this = this;
-      if (!this.pages) return null;
-      matched = [];
-      trimedPath = ns.trimGetVals(requestedPath);
-      $.each(this.pages, function(i, config) {
-        var path;
-        if (_this.options.ignoregetvals || config.ignoregetvals) {
-          path = trimedPath;
-        } else {
-          path = requestedPath;
-        }
-        if ($.type(config.path) === 'regexp') {
-          if (config.path.test(path)) {
-            matched.push(config);
-            if (handleMulti) return true;
-          } else {
-            return true;
-          }
-        }
-        if (config.path === path) {
-          matched.push(config);
-          if (handleMulti) return true;
-        }
-        return true;
-      });
-      if (!handleMulti && (matched.length > 1)) {
-        error("2 or more expr was matched about: " + requestedPath);
-        $.each(matched, function(i, config) {
-          return error("dumps detected page configs - path:" + config.path);
-        });
-        return false;
-      }
-      if (handleMulti) {
-        return matched;
-      } else {
-        return matched[0] || null;
-      }
-    };
-
-    Router.prototype._tweakDavis = function() {
-      var warn,
-        _this = this;
-      warn = this.davis.logger.warn;
-      info = this.davis.logger.info;
-      this.davis.logger.warn = function() {
-        var args;
-        args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-        if ((args[0].indexOf('routeNotFound')) !== -1) {
-          args[0] = args[0].replace(/routeNotFound/, 'unRouted');
-          return info.apply(_this.davis.logger, args);
-        } else {
-          return warn.apply(_this.davis.logger, args);
-        }
-      };
-      return this;
     };
 
     Router.prototype.fetch = function(page) {

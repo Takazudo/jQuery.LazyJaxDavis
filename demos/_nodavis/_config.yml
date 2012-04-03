@@ -1,0 +1,54 @@
+# copied from official wiki
+# https://github.com/mojombo/jekyll/wiki/Configuration
+
+safe:        false
+auto:        false
+server:      false
+server_port: 4000
+#baseurl:    /
+#url: http://localhost:4000/
+
+source:      .
+destination: ../nodavis
+plugins:     ./_plugins
+
+future:      true
+lsi:         false
+pygments:    false
+markdown:    rdiscount
+
+maruku:
+  use_tex:    false
+  use_divs:   false
+  png_engine: blahtex
+  png_dir:    images/latex
+  png_url:    /images/latex
+
+rdiscount:
+  extensions: []
+
+kramdown:
+  auto_ids: true,
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  use_coderay: false
+  
+  coderay:
+    coderay_wrap: div
+    coderay_line_numbers: inline
+    coderay_line_numbers_start: 1
+    coderay_tab_width: 4
+    coderay_bold_every: 10
+    coderay_css: style
+
+# For more see: https://github.com/mojombo/jekyll/wiki/Permalinks
+permalink: /pages/:year/:title.html
+
+# all variables can be refered in templates
+title : jQuery.LazyJaxDavis
+basedir: /jQuery.LazyJaxDavis/demos/nodavis
+
+# ignore these
+exclude: ["readme.md"]
+
