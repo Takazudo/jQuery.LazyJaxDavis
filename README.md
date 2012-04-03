@@ -6,7 +6,7 @@ Makes everything ajaxify with flexible URL routing powered by html5 history API.
 
 * [http://takazudo.github.com/jQuery.LazyJaxDavis/doc/](http://takazudo.github.com/jQuery.LazyJaxDavis/doc/)
 
-## demos
+## Demos
 
 * [http://takazudo.github.com/jQuery.LazyJaxDavis/doc/pages/demos.html](http://takazudo.github.com/jQuery.LazyJaxDavis/doc/pages/demos.html)
 
