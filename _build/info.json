@@ -1,7 +1,7 @@
 {
   "name": "jQuery.LazyJaxDavis",
   "description": "Makes everything ajaxify with flexible URL routing powered by html5 history API.",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://github.com/Takazudo/jQuery.LazyJaxDavix",
   "author": {
     "name": "\"Takazudo\" Takeshi Takatsudo",
