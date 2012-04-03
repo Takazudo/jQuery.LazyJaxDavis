@@ -1,20 +1,19 @@
-# NOTE: STILL UNDER DEV!
-
 # jQuery.LazyJaxDavis
 
-Makes everything ajaxify with flexible URL routing.
+Makes everything ajaxify with flexible URL routing powered by html5 history API.
+
+## Document
+
+* [http://takazudo.github.com/jQuery.LazyJaxDavis/doc/](http://takazudo.github.com/jQuery.LazyJaxDavis/doc/)
 
 ## demos
 
-* [demo](http://takazudo.github.com/jQuery.LazyJaxDavis/doc/)
-
-## Usage
-
-working
+* [http://takazudo.github.com/jQuery.LazyJaxDavis/doc/pages/demos.html](http://takazudo.github.com/jQuery.LazyJaxDavis/doc/pages/demos.html)
 
 ## Depends
 
-jQuery 1.7.2
+* [jQuery 1.7.2](http://jquery.com/)
+* [Davis.js 0.8.1](http://davisjs.com/)
 
 ## Browsers
 
