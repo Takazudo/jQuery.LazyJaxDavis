@@ -261,9 +261,10 @@ body {
 	_position:fixed;
 	left:0;
 	top:0;
-	a:hover{
-		background:none;
-		opacity:.5;
+	a {
+		&:hover, &:active, &:focus {
+			background:none;
+		}
 	}
 }
 

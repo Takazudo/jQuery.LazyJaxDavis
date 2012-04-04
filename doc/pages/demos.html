@@ -62,7 +62,7 @@ These may help you to understand jQuery.LazyJaxDavis.</p>
 </ul>
 
 
-<p>This demo is pretty simiar to this document itself. It just fetch the main content then update with animation.</p>
+<p>This demo is pretty simiar to this document itself. It just fetches the new page, then update the main content with animation.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
@@ -126,11 +126,11 @@ These may help you to understand jQuery.LazyJaxDavis.</p>
     <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchsuccess&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
 
       <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-      <span class="nx">$newcontent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)).</span><span class="nx">hide</span><span class="p">();</span>
+      <span class="nx">$newcontent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)).</span><span class="nx">hide</span><span class="p">();</span> <span class="c1">// rips main</span>
       <span class="nx">$root</span><span class="p">.</span><span class="nx">empty</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">$newcontent</span><span class="p">);</span>
       <span class="nx">$newcontent</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">();</span>
 
-      <span class="nx">$sidenav</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;sidenav&#39;</span><span class="p">));</span>
+      <span class="nx">$sidenav</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;sidenav&#39;</span><span class="p">));</span> <span class="c1">// rips sidenav</span>
 
       <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span>
 

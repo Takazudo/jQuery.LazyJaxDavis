@@ -50,7 +50,7 @@
 			<div class="mod-article">
 				<h2>URL routing</h2>
 
-<p>You can define custom events for specific urls using URL routing.</p>
+<p>You can define custom events for specific URLs using URL routing.</p>
 
 <h3>Basics</h3>
 
@@ -92,13 +92,15 @@
 </ul>
 
 
-<p>These are path-pecific ones of everyxxxxxx event which I already wrote. As <code>path</code>, you can set string or regexp to define which page to be applied. These routings' paths cannot be conflicted each other.</p>
+<p>These are path-pecific ones of everyxxxxxx event which I already wrote. As <code>path</code>, you can set string or regexp to define which page to be applied.</p>
 
-<p>If you specify <code>ignoregetvals: true</code> to any, get values like <code>?foo=bar</code> in the URL will be ignored about these path rule.</p>
+<p>These routings' paths cannot be conflicted each other. This is pretty important. if jQuery.LazyJaxDavis found plural matched config about a URL, it shows error.</p>
+
+<p>If you specify <code>ignoregetvals: true</code> to any, get values like <code>?foo=bar</code> in the URL will be ignored about these path rules.</p>
 
 <h3>Transparent routing</h3>
 
-<p>As I wrote above, each routings cannnot be conflicted. If you like to do complicated routing, use transparent routing feature like below. I introduced this more on <a href="/jQuery.LazyJaxDavis/doc/pages/demos.html#transparent">demo</a> page.</p>
+<p>As I wrote above, each routings cannnot be conflicted. But, it's possible. If you like to do complicated routing, use transparent routing feature like below. I introduced this more on <a href="/jQuery.LazyJaxDavis/doc/pages/demos.html#transparent">demo</a> page.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
@@ -133,7 +135,7 @@
 </div>
 
 
-
+<p>Transparent routing is a feature for groups of pages.</p>
 
 			</div>
 

@@ -501,9 +501,8 @@ body {
   _position: fixed;
   left: 0;
   top: 0; }
-  .mod-githubribbon a:hover {
-    background: none;
-    opacity: .5; }
+  .mod-githubribbon a:hover, .mod-githubribbon a:active, .mod-githubribbon a:focus {
+    background: none; }
 
 #loading {
   position: fixed;

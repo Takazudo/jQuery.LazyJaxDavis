@@ -55,7 +55,7 @@ jQuery.LazyJaxDavis handles them automatically.</p>
 
 <h3>Anchor to the id on the same page</h3>
 
-<p>jQuery.LazyJaxDavis doesn't handle the anchor click like below.<br/>
+<p>jQuery.LazyJaxDavis doesn't invoke ajax with the anchor click like below.<br/>
 These are just the anchor link.</p>
 
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#main&quot;</span><span class="nt">&gt;</span>link to the id on the same page<span class="nt">&lt;/a&gt;</span>
@@ -73,7 +73,7 @@ These are just the anchor link.</p>
 <h3>Anchor to the id on another page</h3>
 
 <p>This is a little tricky thing.<br/>
-Because without jQuery.LazyJaxDavis the browser invokes full page redraw. Then it automatically scroll to the element.</p>
+Because without jQuery.LazyJaxDavis, the browser does full page redraw. Then it automatically scroll to the element.</p>
 
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;somewhere.html#main&quot;</span><span class="nt">&gt;</span>link to the id on another page<span class="nt">&lt;/a&gt;</span>
 </code></pre>
@@ -98,17 +98,27 @@ Because without jQuery.LazyJaxDavis the browser invokes full page redraw. Then i
 <ul>
     <li><a href="/jQuery.LazyJaxDavis/doc/#main">/jQuery.LazyJaxDavis/doc/#main</a></li>
     
-        <li><a href="/jQuery.LazyJaxDavis/doc/pages/demos.html#main">/jQuery.LazyJaxDavis/doc/pages/demos.html#main</a></li>
+        
+            <li><a href="/jQuery.LazyJaxDavis/doc/pages/demos.html#main">/jQuery.LazyJaxDavis/doc/pages/demos.html#main</a></li>
+        
     
-        <li><a href="/jQuery.LazyJaxDavis/doc/pages/davis.html#main">/jQuery.LazyJaxDavis/doc/pages/davis.html#main</a></li>
+        
+            <li><a href="/jQuery.LazyJaxDavis/doc/pages/davis.html#main">/jQuery.LazyJaxDavis/doc/pages/davis.html#main</a></li>
+        
     
-        <li><a href="/jQuery.LazyJaxDavis/doc/pages/urlrouting.html#main">/jQuery.LazyJaxDavis/doc/pages/urlrouting.html#main</a></li>
+        
+            <li><a href="/jQuery.LazyJaxDavis/doc/pages/urlrouting.html#main">/jQuery.LazyJaxDavis/doc/pages/urlrouting.html#main</a></li>
+        
     
-        <li><a href="/jQuery.LazyJaxDavis/doc/pages/anchorhandling.html#main">/jQuery.LazyJaxDavis/doc/pages/anchorhandling.html#main</a></li>
+        
     
-        <li><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html#main">/jQuery.LazyJaxDavis/doc/pages/lazylinks.html#main</a></li>
+        
+            <li><a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html#main">/jQuery.LazyJaxDavis/doc/pages/lazylinks.html#main</a></li>
+        
     
-        <li><a href="/jQuery.LazyJaxDavis/doc/pages/setup.html#main">/jQuery.LazyJaxDavis/doc/pages/setup.html#main</a></li>
+        
+            <li><a href="/jQuery.LazyJaxDavis/doc/pages/setup.html#main">/jQuery.LazyJaxDavis/doc/pages/setup.html#main</a></li>
+        
     
 </ul>
 
@@ -135,7 +145,7 @@ Because without jQuery.LazyJaxDavis the browser invokes full page redraw. Then i
 
 <p>You can use smoothcroll library or something with the code like above.</p>
 
-<p>This feature is available within url routing too.</p>
+<p>This feature is available within URL routing too.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
@@ -152,7 +162,7 @@ Because without jQuery.LazyJaxDavis the browser invokes full page redraw. Then i
 </div>
 
 
-<p>With the code above, the anchorhandler will be overridden only if the url was <code>/somewhere/foobar.html</code>.</p>
+<p>With the code above, the anchorhandler will be overridden only if the URL was <code>/somewhere/foobar.html</code>.</p>
 
 			</div>
 

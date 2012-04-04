@@ -11,7 +11,7 @@ jQuery.LazyJaxDavis handles them automatically.
 
 ### Anchor to the id on the same page
 
-jQuery.LazyJaxDavis doesn't handle the anchor click like below.  
+jQuery.LazyJaxDavis doesn't invoke ajax with the anchor click like below.  
 These are just the anchor link.
 
 {% highlight html %}
@@ -26,7 +26,7 @@ Click the link below to confirm.
 ### Anchor to the id on another page
 
 This is a little tricky thing.  
-Because without jQuery.LazyJaxDavis the browser invokes full page redraw. Then it automatically scroll to the element.
+Because without jQuery.LazyJaxDavis, the browser does full page redraw. Then it automatically scroll to the element.
 
 {% highlight html %}
 <a href="somewhere.html#main">link to the id on another page</a>
@@ -49,7 +49,9 @@ Click the links below to confirm this.
 <ul>
 	<li><a href="{{ site.basedir }}/#main">{{ site.basedir }}/#main</a></li>
 	{% for post in site.posts %}
-		<li><a href="{{ site.basedir }}{{ post.url }}#main">{{ site.basedir }}{{ post.url }}#main</a></li>
+		{% if post.title != page.title %}
+			<li><a href="{{ site.basedir }}{{ post.url }}#main">{{ site.basedir }}{{ post.url }}#main</a></li>
+		{% endif %}
 	{% endfor %}
 </ul>
 
@@ -74,7 +76,7 @@ $.LazyJaxDavis(function(router){
 
 You can use smoothcroll library or something with the code like above.
 
-This feature is available within url routing too.
+This feature is available within URL routing too.
 
 {% highlight javascript %}
 $.LazyJaxDavis(function(router){
@@ -90,4 +92,4 @@ $.LazyJaxDavis(function(router){
 ]);
 {% endhighlight %}
 
-With the code above, the anchorhandler will be overridden only if the url was `/somewhere/foobar.html`.
+With the code above, the anchorhandler will be overridden only if the URL was `/somewhere/foobar.html`.

@@ -151,7 +151,7 @@ The first thing you need to do is - event bindings.</p>
 </div>
 
 
-<p>Oh hey, but newly added doms in the main content area are not ready for this. Because it was not in the page when documentready. It was added after ajax was successed. So, use <code>everypageready</code> event for this.</p>
+<p>Oh hey, but newly added doms in the main content area are not ready for this. Because it was not in the page on documentready. It was added after ajax was successed. So, use <code>everypageready</code> event for this.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
@@ -242,7 +242,7 @@ The first thing you need to do is - event bindings.</p>
 
 <h3>everyfetchabort event</h3>
 
-<p>This event will be fired when any ajax which is handled by jQuery.LazyJaxDavis was aborted. If 2nd page fetching request was started, jQuery.LazyJaxDavis makes 1st abort if there was that with in progress status. It is pretty rare to use this event for something. So, basically don't take care of this event.</p>
+<p>This event will be fired when any ajax which is handled by jQuery.LazyJaxDavis was aborted. If 2nd page fetching request was started, jQuery.LazyJaxDavis makes 1st abort if there was already an ajax request with in progress status. It is pretty rare to use this event for something. So, basically don't take care of this event.</p>
 
 <h3>other options</h3>
 
@@ -286,9 +286,9 @@ And these are default value of each options. If you specify some, <code>$.LazyJa
 <h4>expr</h4>
 
 <p>Page ripping regexp patterns.<br/>
-If you use <code>page.rip('content')</code> to rip the new content in <code>everyfetchsuccess</code> handler, jQuery.LazyJaxDavis rips the fetched html with <code>expr.content</code>. You can change this pattern. <code>expr.title</code> is to fetch the new page's title.</p>
+If you use <code>page.rip('content')</code> to rip the new content in <code>everyfetchsuccess</code> handler, jQuery.LazyJaxDavis rips the fetched html with <code>expr.content</code>. You can change this pattern. <code>expr.title</code> is to fetch the new page's title. So, don't change <code>expr.title</code> generally.</p>
 
-<p>In addition, you may want to rip the other html source of the fetched page. Then define your own pattern like below. Then <code>page.rip('keyYouDefined')</code> is also available.</p>
+<p>In addition, you may want to rip the other html source of the fetched page. Then define your own pattern like below. Then <code>page.rip('sidenav')</code> is also available.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
   <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
@@ -316,7 +316,7 @@ If you use <code>page.rip('content')</code> to rip the new content in <code>ever
 <h4>davis</h4>
 
 <p>Davis.js options which jQuery.LazyJaxDavis uses.<br/>
-About <code>linkSelector</code> and <code>formSelector</code>, check the "Lazy link" and "Lazy form" in this document. About other options here, See <a href="http://davisjs.com/">Davis.js's document</a> for more info. But, don't change <code>handleRouteNotFound</code> to false. jQuery.LazyJaxDavis uses this internally.</p>
+About <code>linkSelector</code> and <code>formSelector</code>, check the <a href="/jQuery.LazyJaxDavis/doc/pages/lazylinks.html">Lazy links/forms</a> in this document. About other options here, See <a href="http://davisjs.com/">Davis.js's document</a> for more info. But, don't change <code>handleRouteNotFound</code> to <code>false</code>. jQuery.LazyJaxDavis uses this internally.</p>
 
 <p>In addition, you can choose to set <code>false</code> to use jQuery.LazyJaxDavis without Davis.js. If you did so, jQuery.LazyJaxDavis works like just a URL router. To learn more, Check the demo below.</p>
 
@@ -348,7 +348,7 @@ You can set <code>false</code> to disable this feature. You may turn off this If
 <h4>ignoregetvals</h4>
 
 <p>Ignore all get values in URL like <code>?foo=bar</code> or not.<br/>
-Set <code>true</code> to turn on this. <code>false</code> as default.</p>
+This may be useful if your URL routings got troubled with annoying access analysis URL. Set <code>true</code> to turn on this. <code>false</code> as default.</p>
 
 			</div>
 

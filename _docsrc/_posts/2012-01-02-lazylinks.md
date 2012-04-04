@@ -6,16 +6,16 @@ title: Lazy links/forms
 ## {{ page.title }}
 
 With jQuery.LazyJaxDavis, all links and forms invokes ajax instead.  
-You can handle them with one specified rule. I call this lazy.
+You can handle them with only a few events. I call this lazy.
 
 ### Lazy links
 
 "Lazy links" mean the anchors which jQuery.LazyJaxDavis hijacks.  
-If you use jQuery.LazyJaxDavis, Each normal links' click invokes LazyJaxDavis's navigation behavior. LazyJaxDavis observes all links' click using jQuery's delegate. LazyJaxDavis hijacks all links as default. You should set `fetchstart` and `fetchsuccess` events to make your site work.
+If you use jQuery.LazyJaxDavis, Each normal links' click invokes LazyJaxDavis's navigation behavior. LazyJaxDavis observes all links' click using jQuery's event delegation. LazyJaxDavis hijacks all links as default. You should set `fetchstart` and `fetchsuccess` events to make your site works.
 
 ### No-lazy links
 
-Even if you want to use jQuery.LazyJaxDavis, you may not want to attach the ajax behavior for some anchors. For example, the anchors which refer imgs or pdf should not to be handled by jQuery.LazyJaxDavis. As default, you can avoid this by attaching `apply-nolazy` to the class attribute of the anchor like below.
+Even if you want to use jQuery.LazyJaxDavis, you may not want to attach its ajax behavior to some anchors. For example, the anchors which refer imgs or pdf should not to be handled by jQuery.LazyJaxDavis. As default, you can avoid this by attaching `apply-nolazy` to the class attribute of the anchor like below.
 
 {% highlight html %}
 <a href="somewhere.html" class="apply-nolazy">Let me avoid the lazy thing</a>
@@ -30,7 +30,9 @@ Click the links below to confirm this.
 		<ul>
 			<li><a href="{{ site.basedir }}/">Introduction</a></li>
 			{% for post in site.posts reversed %}
-				<li><a href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
+				{% if post.title != page.title %}
+					<li><a href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
+				{% endif %}
 			{% endfor %}
 		</ul>
 	</div>
@@ -39,8 +41,10 @@ Click the links below to confirm this.
 		<div class="p">These links has <code>class="apply-nolazy"</code>.</div>
 		<ul>
 			<li><a class="apply-nolazy" href="{{ site.basedir }}/">Introduction</a></li>
-			{% for post in site.posts %}
-				<li><a class="apply-nolazy" href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
+			{% for post in site.posts reversed %}
+				{% if post.title != page.title %}
+					<li><a class="apply-nolazy" href="{{ site.basedir }}{{ post.url }}">{{ post.title }}</a></li>
+				{% endif %}
 			{% endfor %}
 		</ul>
 	</div>
@@ -48,7 +52,7 @@ Click the links below to confirm this.
 
 ### Anchors to other domains
 
-All anchors whose `href` starts with `http` will automatically become no-lazy links. This is why history API doesn't allow this for security. Give up about that.
+All anchors whose `href` starts with `http` will automatically become no-lazy links. This is why history API doesn't allow this for security reason. Basically, this is impossible to handle. Give up about that.
 
 ### Let me define which anchors to be hijacked
 
@@ -137,11 +141,17 @@ $.LazyJaxDavis(function(router){
 });
 {% endhighlight %}
 
-As default jQuery.LazyJaxDavis handles all incoming requests as GET. You need to override this to add `method: 'POST'` to url routing.
+As default jQuery.LazyJaxDavis handles all incoming requests as GET. You need to override this to add `method: 'POST'` to url routing. Check the [URL routing]({{ site.basedir }}/pages/urlrouting.html) in this document to learn more about `route`.
 
 ### POST submit doesn't change url
 
 If you submit with lazy forms as above, the url displayed in the location bar is still unchanged. This is why Davis.js works like this. I think this doesn't make any trouble. But please keep in mind about this.
+
+### POST does not works with regexp
+
+If you want to use POST. You can't use regexp as path.  
+I think there's no needs to use regexp with POST.
+
 
 
 

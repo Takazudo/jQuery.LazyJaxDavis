@@ -5,7 +5,7 @@ title: URL routing
 
 ## {{ page.title }}
 
-You can define custom events for specific urls using URL routing.
+You can define custom events for specific URLs using URL routing.
 
 ### Basics
 
@@ -43,13 +43,15 @@ With URL routing, you can set events for each specific URLs. These event handler
 * fetchabort
 * pageready
 
-These are path-pecific ones of everyxxxxxx event which I already wrote. As `path`, you can set string or regexp to define which page to be applied. These routings' paths cannot be conflicted each other.
+These are path-pecific ones of everyxxxxxx event which I already wrote. As `path`, you can set string or regexp to define which page to be applied.
 
-If you specify `ignoregetvals: true` to any, get values like `?foo=bar` in the URL will be ignored about these path rule.
+These routings' paths cannot be conflicted each other. This is pretty important. if jQuery.LazyJaxDavis found plural matched config about a URL, it shows error.
+
+If you specify `ignoregetvals: true` to any, get values like `?foo=bar` in the URL will be ignored about these path rules.
 
 ### Transparent routing
 
-As I wrote above, each routings cannnot be conflicted. If you like to do complicated routing, use transparent routing feature like below. I introduced this more on [demo]({{ site.basedir }}/pages/demos.html#transparent) page.
+As I wrote above, each routings cannnot be conflicted. But, it's possible. If you like to do complicated routing, use transparent routing feature like below. I introduced this more on [demo]({{ site.basedir }}/pages/demos.html#transparent) page.
 
 {% highlight javascript %}
 $.LazyJaxDavis(function(router){
@@ -83,3 +85,4 @@ $.LazyJaxDavis(function(router){
 });
 {% endhighlight %}
 
+Transparent routing is a feature for groups of pages.
