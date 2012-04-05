@@ -24,8 +24,7 @@ $(function(){
     router.bind('everyfetchsuccess', function(page){
       $root.css('opacity', 1);
       $('#sidenav').empty().append(page.rip('sidenav'));
-      var padding = ($.Deferred()).resolve();
-      $.when(scrollDefer, padding).done(function(){
+      $.when(scrollDefer).done(function(){
           $newcontent = $(page.rip('content')).hide();
           $root.empty().append($newcontent);
           $.when($newcontent.fadeIn()).done(function(){
