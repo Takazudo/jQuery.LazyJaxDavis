@@ -29,6 +29,7 @@ $(function(){
           $root.empty().append($newcontent);
           $.when($newcontent.fadeIn()).done(function(){
             page.trigger('pageready');
+            scrollDefer = null;
           });
       });
     });
