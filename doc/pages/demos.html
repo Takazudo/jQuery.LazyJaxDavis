@@ -605,6 +605,70 @@ This demo doesn't depend on Davis.js. Just not loaded it.</p>
 
 
 
+<h3 id="smooth">Customize anchorhandler with smooth scrolling</h3>
+
+
+<p>Anchorhandler customize with smooth scrolling.</p>
+
+<ul>
+<li><a href="/jQuery.LazyJaxDavis/demos/anchorhandler/" target="_blank" class="apply-nolazy">demo (opens in another window)</a></li>
+</ul>
+
+
+<p>In this demo, I used custom anchorhandler with <a href="https://github.com/Takazudo/jQuery.tinyscroller">jQuery.tinyscroller</a>. This is a bit tricky one. Use this if you can understand what the code below means.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">tinyscroller</span><span class="p">.</span><span class="nx">live</span><span class="p">();</span> <span class="c1">// lively bind events about scroller</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+
+  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+
+    <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">scrollDefer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+    <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
+      <span class="nx">expr</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">sidenav</span><span class="o">:</span> <span class="sr">/&lt;!-- sidenav start --&gt;([\s\S]*)&lt;!-- sidenav end --&gt;/</span>
+      <span class="p">},</span>
+      <span class="nx">anchorhandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hash</span><span class="p">){</span>
+        <span class="nx">$</span><span class="p">.</span><span class="nx">tinyscroller</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="nx">hash</span><span class="p">);</span> <span class="c1">// invoke scrolling</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchstart&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+      <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">);</span>
+      <span class="nx">scrollDefer</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">tinyscroller</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// first, back to top</span>
+    <span class="p">});</span>
+
+    <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchsuccess&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+      <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sidenav&#39;</span><span class="p">).</span><span class="nx">empty</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;sidenav&#39;</span><span class="p">));</span>
+      <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">scrollDefer</span><span class="p">).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+          <span class="nx">$newcontent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)).</span><span class="nx">hide</span><span class="p">();</span>
+          <span class="nx">$root</span><span class="p">.</span><span class="nx">empty</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">$newcontent</span><span class="p">);</span>
+          <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">$newcontent</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">()).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="c1">// tell the router it&#39;s ready</span>
+            <span class="c1">// when scrolling and fadeIn are both done.</span>
+            <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span>
+            <span class="nx">scrollDefer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+          <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+
+    <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchfail&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;ajax error!&#39;</span><span class="p">);</span>
+      <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">});</span>
+
+  <span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+
+
 			</div>
 
 			<!-- LazyJaxDavis end -->

@@ -93,3 +93,7 @@ $.LazyJaxDavis(function(router){
 {% endhighlight %}
 
 With the code above, the anchorhandler will be overridden only if the URL was `/somewhere/foobar.html`.
+
+I made a demo for how to tweak anchorhandler. Check this if interested.
+
+* [Demo - Customize anchorhandler with smooth scrolling]({{ site.basedir }}/pages/demos.html#smooth)
