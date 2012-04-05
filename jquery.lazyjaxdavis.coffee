@@ -216,6 +216,7 @@
       anchorhandler = @config?.anchorhandler or @options?.anchorhandler
       if anchorhandler then @_anchorhandler = anchorhandler
       @bind 'pageready', =>
+        if not @hash then return
         @_anchorhandler.call @, @hash
 
     _anchorhandler: (hash) ->
