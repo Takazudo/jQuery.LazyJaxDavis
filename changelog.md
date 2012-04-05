@@ -1,5 +1,11 @@
 # jQuery.LazyJaxDavis - changelog
 
-## v.0.0.0
+## v.0.1.1
 
-Still under dev
+previous version was compiled with `coffee --bare`.  
+removed `--bare` because this was harmful for global.
+
+## v.0.1.0
+
+release
+
