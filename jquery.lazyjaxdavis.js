@@ -233,7 +233,6 @@
         anchorhandler = ((_ref = this.config) != null ? _ref.anchorhandler : void 0) || ((_ref2 = this.options) != null ? _ref2.anchorhandler : void 0);
         if (anchorhandler) this._anchorhandler = anchorhandler;
         this.bind('pageready', function() {
-          if (!_this.hash) return;
           return _this._anchorhandler.call(_this, _this.hash);
         });
       }
