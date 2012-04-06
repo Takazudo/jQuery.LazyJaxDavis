@@ -262,18 +262,74 @@ foobar
     logger = new ns.HistoryLogger
     equal logger.size(), 1, 'first url will be added automatically'
     for i in [1..10]
-      logger.push 'foobar'
-    logger.push 'moomoo'
+      logger.push { path: 'foobar' }
+    logger.push { path: 'moomoo' }
     equal logger.size(), 12, logger._items
-    equal logger.last(), 'moomoo'
+    equal logger.last().path, 'moomoo'
 
   
   test 'HistoryLogger isToSamePageRequst', ->
     
     logger = new ns.HistoryLogger
     for i in [1..10]
-      logger.push "foobar#{i}"
+      logger.push { path: "foobar#{i}" }
     ok (logger.isToSamePageRequst "foobar10"), 'was same request'
+
+
+  asyncTest 'HistoryLogger setRecentScrollTop', ->
+
+    expect 3
+
+    window.scrollTo(0, 200)
+
+    wait(10).done ->
+    
+      logger = new ns.HistoryLogger
+      item1 = { path: 'foobar' }
+      item2 = { path: 'mewmew' }
+      item3 = { path: 'foobar' }
+      item4 = { path: 'mewmew' }
+      logger.push item1
+      logger.push item2
+      logger.push item3
+      logger.push item4
+      st = $(document).scrollTop()
+      logger.setRecentScrollTop 'foobar', st
+
+      equal item3.scrollTop, st, "item3 scrollTop is: #{item3.scrollTop}"
+      notEqual item1.scrollTop, st, "item1 scrollTop is: #{item1.scrollTop}"
+      notEqual st, 0, "scrollTop was not zero: #{st}"
+
+      window.scrollTo(0, 0)
+      wait(10).done -> start()
+
+
+  asyncTest 'HistoryLogger getRecentScrollTop', ->
+
+    expect 2
+
+    window.scrollTo(0, 200)
+
+    wait(10).done ->
+    
+      logger = new ns.HistoryLogger
+      item1 = { path: 'foobar' }
+      item2 = { path: 'mewmew' }
+      item3 = { path: 'foobar' }
+      item4 = { path: 'mewmew' }
+      logger.push item1
+      logger.push item2
+      logger.push item3
+      logger.push item4
+      st = $(document).scrollTop()
+      logger.setRecentScrollTop 'foobar', st
+
+      res = logger.getRecentScrollTop 'foobar'
+      equal res, st, "recent scrollTop of 'foobar' is: #{res}"
+      notEqual st, 0, "scrollTop was not zero: #{st}"
+
+      window.scrollTo(0, 0)
+      wait(10).done -> start()
 
 
   test 'Page instance creation', ->

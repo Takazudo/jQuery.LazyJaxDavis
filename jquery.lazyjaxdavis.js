@@ -1,4 +1,4 @@
-/*! jQuery.LazyJaxDavis - v0.1.1 -  4/6/2012
+/*! jQuery.LazyJaxDavis - v0.1.1 -  4/7/2012
  * https://github.com/Takazudo/jQuery.LazyJaxDavix
  * Copyright (c) 2012 "Takazudo" Takeshi Takatsudo; Licensed MIT */
 
@@ -150,7 +150,9 @@
 
       function HistoryLogger() {
         this._items = [];
-        this._items.push(location.pathname.replace(/#.*/, ''));
+        this._items.push({
+          path: location.pathname.replace(/#.*/, '')
+        });
       }
 
       HistoryLogger.prototype.push = function(obj) {
@@ -172,7 +174,7 @@
         var last;
         last = this.last();
         if (!last) return false;
-        if (path === last) {
+        if (path === last.path) {
           return true;
         } else {
           return false;
@@ -181,6 +183,31 @@
 
       HistoryLogger.prototype.size = function() {
         return this._items.length;
+      };
+
+      HistoryLogger.prototype.setRecentScrollTop = function(path, scrollTop) {
+        this._items = this._items.reverse();
+        $.each(this._items, function(i, item) {
+          if (item.path !== path) return true;
+          item.scrollTop = scrollTop;
+          return false;
+        });
+        this._items.reverse();
+        return this;
+      };
+
+      HistoryLogger.prototype.getRecentScrollTop = function(path) {
+        var ret;
+        this._items = this._items.reverse();
+        ret = null;
+        $.each(this._items, function(i, item) {
+          console.log(item.path, path, item.scrollTop);
+          if (item.path !== path) return true;
+          ret = item.scrollTop || null;
+          return false;
+        });
+        this._items.reverse();
+        return ret;
       };
 
       return HistoryLogger;
@@ -330,13 +357,23 @@
         minwaittime: 0,
         updatetitle: true,
         firereadyonstart: true,
-        ignoregetvals: false
+        ignoregetvals: false,
+        rememberscrollposition: true
       };
 
       function Router(initializer) {
+        var _ref, _ref2,
+          _this = this;
         if (!(this instanceof arguments.callee)) return new ns.Router(initializer);
         Router.__super__.constructor.apply(this, arguments);
         this.history = new ns.HistoryLogger;
+        if (this.options.rememberscrollposition && ((_ref = this.options.davis) != null ? _ref.linkSelector : void 0)) {
+          $document.on('click', (_ref2 = this.options.davis) != null ? _ref2.linkSelector : void 0, function() {
+            console.log('logged', location.pathname, $document.scrollTop());
+            _this.history.setRecentScrollTop(location.pathname, $document.scrollTop());
+            return _this._ignoreNextScrollTopHandling = true;
+          });
+        }
         initializer.call(this, this);
         if (this.options.davis) this._setupDavis();
         this.firePageready(!this.options.firereadyonstart);
@@ -371,11 +408,22 @@
         self = this;
         completePage = function(page) {
           page.bind('pageready', function() {
+            var y;
+            if (self.options.rememberscrollposition) {
+              if (!self._ignoreNextScrollTopHandling) {
+                y = self.history.getRecentScrollTop(page.path);
+                console.log('tryto rollback', page.path, y);
+                window.scrollTo(0, y);
+              }
+              self._ignoreNextScrollTopHandling = false;
+            }
+            self.history.push({
+              path: page.path
+            });
             self._findWhosePathMatches('page', page.path);
             self.trigger('everypageready');
             return self.fireTransPageready();
           });
-          self.history.push(page.path);
           return self.fetch(page);
         };
         this.davis = new Davis(function() {

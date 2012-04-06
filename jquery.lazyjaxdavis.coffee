@@ -1,7 +1,8 @@
 (($, window, document) -> # encapsulate whole start
-  
+
   ns = {}
   $document = $(document)
+
 
   # ============================================================
   # tiny utils
@@ -156,7 +157,8 @@
     constructor: ->
       @_items = []
       # push first page
-      @_items.push (location.pathname.replace /#.*/, '')
+      @_items.push 
+        path: (location.pathname.replace /#.*/, '')
     push: (obj) ->
       @_items.push obj
       @
@@ -166,12 +168,33 @@
     isToSamePageRequst: (path) ->
       last = @last()
       if not last then return false
-      if path is last
+      if path is last.path
         return true
       else
         return false
     size: ->
       @_items.length
+
+    # remember the scrollTop for the very recent path
+    setRecentScrollTop: (path, scrollTop) ->
+      @_items = @_items.reverse()
+      $.each @_items, (i, item) ->
+        if item.path isnt path then return true
+        item.scrollTop = scrollTop
+        false
+      @_items.reverse()
+      @
+
+    getRecentScrollTop: (path) ->
+      @_items = @_items.reverse()
+      ret = null
+      $.each @_items, (i, item) ->
+        console.log item.path, path, item.scrollTop
+        if item.path isnt path then return true
+        ret = item.scrollTop or null
+        false
+      @_items.reverse()
+      ret
 
   
   class ns.Page extends ns.Event
@@ -294,6 +317,7 @@
       updatetitle: true
       firereadyonstart: true
       ignoregetvals: false
+      rememberscrollposition: true
 
     constructor: (initializer) ->
 
@@ -302,7 +326,15 @@
         return new ns.Router initializer
 
       super
+
       @history = new ns.HistoryLogger
+
+      if @options.rememberscrollposition and @options.davis?.linkSelector
+        $document.on 'click', @options.davis?.linkSelector, =>
+          console.log 'logged', location.pathname, $document.scrollTop()
+          @history.setRecentScrollTop location.pathname, $document.scrollTop()
+          @_ignoreNextScrollTopHandling = true
+
       initializer.call @, @
 
       if @options.davis then @_setupDavis()
@@ -342,10 +374,17 @@
       # complete action
       completePage = (page) ->
         page.bind 'pageready', ->
+          if self.options.rememberscrollposition
+            if not self._ignoreNextScrollTopHandling
+              y = self.history.getRecentScrollTop page.path
+              console.log 'tryto rollback', page.path, y
+              window.scrollTo 0, y
+            self._ignoreNextScrollTopHandling = false
+          self.history.push
+            path: page.path
           self._findWhosePathMatches 'page', page.path # just find for raise error
           self.trigger 'everypageready'
           self.fireTransPageready()
-        self.history.push page.path
         self.fetch page
 
       # start Davis initialization
@@ -372,7 +411,7 @@
       # handle routNotFound
       if @options.davis.handleRouteNotFound
         @davis.bind 'routeNotFound', (request) ->
-          
+
           # if it was just an anchor to the same page, ignore it
           if ns.isToId request.path
             self.trigger 'toid', request.path

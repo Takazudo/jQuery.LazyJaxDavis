@@ -183,19 +183,91 @@
       logger = new ns.HistoryLogger;
       equal(logger.size(), 1, 'first url will be added automatically');
       for (i = 1; i <= 10; i++) {
-        logger.push('foobar');
+        logger.push({
+          path: 'foobar'
+        });
       }
-      logger.push('moomoo');
+      logger.push({
+        path: 'moomoo'
+      });
       equal(logger.size(), 12, logger._items);
-      return equal(logger.last(), 'moomoo');
+      return equal(logger.last().path, 'moomoo');
     });
     test('HistoryLogger isToSamePageRequst', function() {
       var i, logger;
       logger = new ns.HistoryLogger;
       for (i = 1; i <= 10; i++) {
-        logger.push("foobar" + i);
+        logger.push({
+          path: "foobar" + i
+        });
       }
       return ok(logger.isToSamePageRequst("foobar10"), 'was same request');
+    });
+    asyncTest('HistoryLogger setRecentScrollTop', function() {
+      expect(3);
+      window.scrollTo(0, 200);
+      return wait(10).done(function() {
+        var item1, item2, item3, item4, logger, st;
+        logger = new ns.HistoryLogger;
+        item1 = {
+          path: 'foobar'
+        };
+        item2 = {
+          path: 'mewmew'
+        };
+        item3 = {
+          path: 'foobar'
+        };
+        item4 = {
+          path: 'mewmew'
+        };
+        logger.push(item1);
+        logger.push(item2);
+        logger.push(item3);
+        logger.push(item4);
+        st = $(document).scrollTop();
+        logger.setRecentScrollTop('foobar', st);
+        equal(item3.scrollTop, st, "item3 scrollTop is: " + item3.scrollTop);
+        notEqual(item1.scrollTop, st, "item1 scrollTop is: " + item1.scrollTop);
+        notEqual(st, 0, "scrollTop was not zero: " + st);
+        window.scrollTo(0, 0);
+        return wait(10).done(function() {
+          return start();
+        });
+      });
+    });
+    asyncTest('HistoryLogger getRecentScrollTop', function() {
+      expect(2);
+      window.scrollTo(0, 200);
+      return wait(10).done(function() {
+        var item1, item2, item3, item4, logger, res, st;
+        logger = new ns.HistoryLogger;
+        item1 = {
+          path: 'foobar'
+        };
+        item2 = {
+          path: 'mewmew'
+        };
+        item3 = {
+          path: 'foobar'
+        };
+        item4 = {
+          path: 'mewmew'
+        };
+        logger.push(item1);
+        logger.push(item2);
+        logger.push(item3);
+        logger.push(item4);
+        st = $(document).scrollTop();
+        logger.setRecentScrollTop('foobar', st);
+        res = logger.getRecentScrollTop('foobar');
+        equal(res, st, "recent scrollTop of 'foobar' is: " + res);
+        notEqual(st, 0, "scrollTop was not zero: " + st);
+        window.scrollTo(0, 0);
+        return wait(10).done(function() {
+          return start();
+        });
+      });
     });
     test('Page instance creation', function() {
       var config, options, page, request, routed;
