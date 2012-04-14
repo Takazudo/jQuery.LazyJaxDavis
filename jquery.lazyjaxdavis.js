@@ -302,6 +302,10 @@
         return res;
       };
 
+      Page.prototype.ripAll = function(exprKey) {
+        return this.rip(exprKey, true);
+      };
+
       Page.prototype.updatetitle = function() {
         var title;
         if (!this.options.updatetitle) return this;

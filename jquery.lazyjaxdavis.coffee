@@ -275,6 +275,9 @@
         error "ripper could not find the text for key: #{exprKey}"
       res
 
+    ripAll: (exprKey) ->
+      @rip exprKey, true
+
     updatetitle: ->
       if not @options.updatetitle then return @
       title = null

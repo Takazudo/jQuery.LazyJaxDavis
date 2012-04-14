@@ -155,7 +155,7 @@ foobar
     runTest html, shouldbe
     
 
-  test 'util filterStr replace', ->
+  test 'util filterStr captureAll', ->
 
     html = """
       <img src="foobar.gif"> <img src="moomoo.png">
@@ -450,6 +450,56 @@ content here
     ok r2.history instanceof ns.HistoryLogger, 'history logger was attached'
     
   
+  asyncTest 'Page rip captureAll', 4, ->
+
+    request = { path: 'dummy4.html' }
+    config = null
+    routed = false
+    router = null
+    options =
+      updatetitle: false
+      expr:
+        title: /<title[^>]*>([^<]*)<\/title>/
+        content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
+        imgsrc: /src="([^"]+)"/gi
+      
+    page = new ns.Page request, config, routed, router, options
+
+    page.fetch().done ->
+      res = page.ripAll('imgsrc')
+      type = $.type res
+      equal type, 'array', "ripped reuslt type: #{type}"
+      equal res[0], 'foobar.gif', "result[0]: #{res[0]}"
+      equal res[1], 'moomoo.png', "result[1]: #{res[1]}"
+      equal res[2], 'mewmew.gif', "result[2]: #{res[2]}"
+    .always ->
+      start()
+      
+
+  asyncTest 'Page rip captureAll matched nothing', 2, ->
+
+    request = { path: 'dummy5.html' }
+    config = null
+    routed = false
+    router = null
+    options =
+      updatetitle: false
+      expr:
+        title: /<title[^>]*>([^<]*)<\/title>/
+        content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/
+        imgsrc: /src="([^"]+)"/gi
+      
+    page = new ns.Page request, config, routed, router, options
+
+    page.fetch().done ->
+      res = page.ripAll('imgsrc')
+      type = $.type res
+      equal type, 'array', "ripped reuslt type: #{type}"
+      equal res.length, 0, "result's length: #{res.length}"
+    .always ->
+      start()
+      
+
   test 'Router initializer', ->
 
     exported = null

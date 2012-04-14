@@ -78,7 +78,7 @@
       shouldbe = "foobar\n\n\n\nfoobar\nfoobar";
       return runTest(html, shouldbe);
     });
-    test('util filterStr replace', function() {
+    test('util filterStr captureAll', function() {
       var html, res, type;
       html = "<img src=\"foobar.gif\"> <img src=\"moomoo.png\">\n<img src=\"mewmew.gif\">";
       res = ns.filterStr(html, /src="([^"]+)"/gi, true);
@@ -336,6 +336,62 @@
       ok(r1.history instanceof ns.HistoryLogger, 'history logger was attached');
       ok(r2 instanceof ns.Router, 'create instance without new');
       return ok(r2.history instanceof ns.HistoryLogger, 'history logger was attached');
+    });
+    asyncTest('Page rip captureAll', 4, function() {
+      var config, options, page, request, routed;
+      request = {
+        path: 'dummy4.html'
+      };
+      config = null;
+      routed = false;
+      router = null;
+      options = {
+        updatetitle: false,
+        expr: {
+          title: /<title[^>]*>([^<]*)<\/title>/,
+          content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/,
+          imgsrc: /src="([^"]+)"/gi
+        }
+      };
+      page = new ns.Page(request, config, routed, router, options);
+      return page.fetch().done(function() {
+        var res, type;
+        res = page.ripAll('imgsrc');
+        type = $.type(res);
+        equal(type, 'array', "ripped reuslt type: " + type);
+        equal(res[0], 'foobar.gif', "result[0]: " + res[0]);
+        equal(res[1], 'moomoo.png', "result[1]: " + res[1]);
+        return equal(res[2], 'mewmew.gif', "result[2]: " + res[2]);
+      }).always(function() {
+        return start();
+      });
+    });
+    asyncTest('Page rip captureAll matched nothing', 2, function() {
+      var config, options, page, request, routed;
+      request = {
+        path: 'dummy5.html'
+      };
+      config = null;
+      routed = false;
+      router = null;
+      options = {
+        updatetitle: false,
+        expr: {
+          title: /<title[^>]*>([^<]*)<\/title>/,
+          content: /<!-- LazyJaxDavis start -->([\s\S]*)<!-- LazyJaxDavis end -->/,
+          imgsrc: /src="([^"]+)"/gi
+        }
+      };
+      page = new ns.Page(request, config, routed, router, options);
+      return page.fetch().done(function() {
+        var res, type;
+        res = page.ripAll('imgsrc');
+        type = $.type(res);
+        equal(type, 'array', "ripped reuslt type: " + type);
+        return equal(res.length, 0, "result's length: " + res.length);
+      }).always(function() {
+        return start();
+      });
     });
     test('Router initializer', function() {
       var exported, r;
