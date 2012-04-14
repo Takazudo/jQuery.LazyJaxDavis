@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery.LazyJaxDavis demo</title>
+<meta name="viewport" content="width=1000">
+<link rel="stylesheet" href="{{ site.basedir }}/common/css/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="/jQuery.LazyJaxDavis/lib/davis.js"></script>
+<script src="/jQuery.LazyJaxDavis/jquery.lazyjaxdavis.js"></script>
+<script src="{{ site.basedir }}/common/js/jquery.imgloader.js"></script>
+<script src="{{ site.basedir }}/common/js/script.js"></script>
+</head>
+<body>
+
+{% include header.html %}
+
+<div class="mod-main" id="main">
+
+	{% include sidenav.html %}
+
+	<div id="lazyjaxdavisroot">
+	<!-- LazyJaxDavis start -->
+
+		<div class="mod-article">
+			<h2>{{ page.title }}</h2>
+			<img src="{{ site.basedir }}/common/img/1.jpg?{{ page.title }}" alt="">
+			<img src="{{ site.basedir }}/common/img/2.jpg?{{ page.title }}" alt="">
+			<img src="{{ site.basedir }}/common/img/3.jpg?{{ page.title }}" alt="">
+			<img src="{{ site.basedir }}/common/img/4.jpg?{{ page.title }}" alt="">
+			<img src="{{ site.basedir }}/common/img/5.jpg?{{ page.title }}" alt="">
+			<img src="{{ site.basedir }}/common/img/6.jpg?{{ page.title }}" alt="">
+			<img src="{{ site.basedir }}/common/img/7.jpg?{{ page.title }}" alt="">
+			<img src="{{ site.basedir }}/common/img/8.jpg?{{ page.title }}" alt="">
+			<img src="{{ site.basedir }}/common/img/9.jpg?{{ page.title }}" alt="">
+			<img src="{{ site.basedir }}/common/img/10.jpg?{{ page.title }}" alt="">
+		</div>
+
+	<!-- LazyJaxDavis end -->
+	</div>
+
+</div>
+
+{% include footer.html %}
+
+</body>
+</html>
