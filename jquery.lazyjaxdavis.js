@@ -40,13 +40,21 @@
       if (res[2]) ret.hash = "#" + res[2];
       return ret;
     };
-    ns.filterStr = function(str, expr) {
+    ns.filterStr = function(str, expr, captureAll) {
       var res;
-      res = str.match(expr);
-      if (res && res[1]) {
-        return $.trim(res[1]);
+      if (captureAll) {
+        res = [];
+        str.replace(expr, function(matched, captured) {
+          return res.push(captured);
+        });
+        return res;
       } else {
-        return null;
+        res = str.match(expr);
+        if (res && res[1]) {
+          return $.trim(res[1]);
+        } else {
+          return null;
+        }
       }
     };
     ns.logger = window.Davis ? (new Davis.logger).logger : null;
@@ -283,13 +291,13 @@
         return this;
       };
 
-      Page.prototype.rip = function(exprKey) {
+      Page.prototype.rip = function(exprKey, captureAll) {
         var expr, res, _ref, _ref2;
         if (!this._text) return null;
         if (!exprKey) return this._text;
         expr = (_ref = this.options) != null ? (_ref2 = _ref.expr) != null ? _ref2[exprKey] : void 0 : void 0;
         if (!expr) return null;
-        res = ns.filterStr(this._text, expr);
+        res = ns.filterStr(this._text, expr, captureAll);
         if (!res) error("ripper could not find the text for key: " + exprKey);
         return res;
       };

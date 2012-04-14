@@ -155,6 +155,33 @@ foobar
     runTest html, shouldbe
     
 
+  test 'util filterStr replace', ->
+
+    html = """
+      <img src="foobar.gif"> <img src="moomoo.png">
+      <img src="mewmew.gif">
+    """
+
+    res = ns.filterStr html, /src="([^"]+)"/gi, true
+    type = $.type res
+
+    equal type, 'array', "result type: #{type}"
+    equal res.length, 3, "resutl length: #{res.length}"
+    equal res[0], 'foobar.gif', "result[0]: #{res[0]}"
+    equal res[1], 'moomoo.png', "result[1]: #{res[1]}"
+    equal res[2], 'mewmew.gif', "result[2]: #{res[2]}"
+
+    html = """
+      asdfasdf
+    """
+
+    res = ns.filterStr html, /src="([^"]+)"/gi, true
+    type = $.type res
+
+    equal type, 'array', "result type: #{type}"
+    equal res.length, 0, "resutl length: #{res.length}"
+
+
   asyncTest 'ajax fetchPage', ->
     
     expect 1

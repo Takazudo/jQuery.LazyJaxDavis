@@ -50,15 +50,25 @@
     ret
 
   # filters html string
+  #
   # "<title>foobar</title>", /<title[^>]*>([^<]*)<\/title>/
   # -> "foobar"
+  #
+  # '<img src="foobar.gif"> <img src="moomoo.png">', /src="([^"]+)"/gi, true
+  # -> [ "foobar.gif", "moomoo.png" ]
 
-  ns.filterStr = (str, expr) ->
-    res = str.match expr
-    if res and res[1]
-      return $.trim res[1]
+  ns.filterStr = (str, expr, captureAll) ->
+    if captureAll
+      res = []
+      str.replace expr, (matched, captured) ->
+        res.push captured
+      return res
     else
-      return null
+      res = str.match expr
+      if res and res[1]
+        return $.trim res[1]
+      else
+        return null
 
 
   # ============================================================
@@ -255,12 +265,12 @@
       @_fetchDefer?.abort()
       @
 
-    rip: (exprKey) ->
+    rip: (exprKey, captureAll) ->
       if not @_text then return null
       if not exprKey then return @_text
       expr = @options?.expr?[exprKey]
       if not expr then return null
-      res = ns.filterStr @_text, expr
+      res = ns.filterStr @_text, expr, captureAll
       if not res
         error "ripper could not find the text for key: #{exprKey}"
       res
