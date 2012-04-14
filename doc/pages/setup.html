@@ -313,6 +313,30 @@ If you use <code>page.rip('content')</code> to rip the new content in <code>ever
 </ul>
 
 
+<p>You can also rip all matched regexp result with <code>ripAll</code> like below.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
+    <span class="nx">expr</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">imgsrc</span><span class="o">:</span> <span class="sr">/src=&quot;([^&quot;]+)&quot;/gi</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchsuccess&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">ripAll</span><span class="p">(</span><span class="s1">&#39;imgsrc&#39;</span><span class="p">));</span> <span class="c1">// [ &#39;foobar.gif&#39;, &#39;moomoo.png&#39;, ... ]</span>
+    <span class="p">...</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+<p>I created this <code>ripAll</code> feature for imgs' preloading. See the demo below to learn more.</p>
+
+<ul>
+<li><a href="/jQuery.LazyJaxDavis/doc/pages/demos.html#ripall">Demo - Multirip ripAll</a></li>
+</ul>
+
+
 <h4>davis</h4>
 
 <p>Davis.js options which jQuery.LazyJaxDavis uses.<br/>

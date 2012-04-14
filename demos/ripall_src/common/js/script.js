@@ -3,7 +3,7 @@ $(function(){
   $.LazyJaxDavis(function(router){
 
     var $root = $('#lazyjaxdavisroot');
-    var $loader = $('<div id="loader">Loading...</div>').appendTo('body');
+    var $loading = $('<div id="loading">Loading...</div>').appendTo('body');
 
     router.option({
       expr: {
@@ -13,7 +13,7 @@ $(function(){
 
     router.bind('everyfetchstart', function(page){
       $root.css('opacity', 0.6);
-      $loader.show();
+      $loading.show();
       window.scrollTo(0, 0);
     });
 
@@ -21,7 +21,7 @@ $(function(){
 
       var srcs = page.ripAll('imgsrc');
       var complete = function(){
-        $loader.hide();
+        $loading.hide();
         $root.css('opacity', 1);
         $newcontent = $(page.rip('content')).hide();
         $root.empty().append($newcontent);

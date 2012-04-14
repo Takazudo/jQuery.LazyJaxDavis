@@ -150,6 +150,79 @@ These may help you to understand jQuery.LazyJaxDavis.</p>
 
 
 
+<h3 id="ripall">Multi-rip ripAll</h3>
+
+
+<p>This demo shows how ripAll works.</p>
+
+<ul>
+<li><a href="/jQuery.LazyJaxDavis/demos/ripall/" target="_blank" class="apply-nolazy">demo (opens in another window)</a></li>
+</ul>
+
+
+<p>In this demo, you can see all incoming page's imgs are preloaded.<br/>
+I used <a href="https://github.com/Takazudo/jQuery.ImgLoader">jQuery.ImgLoader</a> to preload all imgs. With jQuery.ImgLoader, you can do something when all passed imgs' srcs were load completed. <code>page.ripAll</code> can rip all imgs' srcs with regexp like <code>/src="([^"]+)"/gi</code>.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+
+  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+
+    <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">$loader</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&quot;loader&quot;&gt;Loading...&lt;/div&gt;&#39;</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">);</span>
+
+    <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
+      <span class="nx">expr</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">imgsrc</span><span class="o">:</span> <span class="sr">/src=&quot;([^&quot;]+)&quot;/gi</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchstart&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+      <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">);</span>
+      <span class="nx">$loader</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchsuccess&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+
+      <span class="kd">var</span> <span class="nx">srcs</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">ripAll</span><span class="p">(</span><span class="s1">&#39;imgsrc&#39;</span><span class="p">);</span> <span class="c1">// ripAll returns results as an array</span>
+      <span class="kd">var</span> <span class="nx">complete</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">$loader</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+        <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="nx">$newcontent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">rip</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)).</span><span class="nx">hide</span><span class="p">();</span>
+        <span class="nx">$root</span><span class="p">.</span><span class="nx">empty</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">$newcontent</span><span class="p">);</span>
+        <span class="nx">$newcontent</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">();</span>
+        <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">srcs</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+        <span class="c1">// if no imgs found, just complete pagefetch.</span>
+        <span class="nx">complete</span><span class="p">();</span>
+      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="c1">// if imgs were there, do imgs&#39; preloading.</span>
+        <span class="kd">var</span> <span class="nx">loader</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">ImgLoader</span><span class="p">({</span>
+          <span class="nx">srcs</span><span class="o">:</span> <span class="nx">srcs</span><span class="p">,</span>
+          <span class="nx">pipesize</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+          <span class="nx">delay</span><span class="o">:</span> <span class="mi">0</span>
+        <span class="p">});</span>
+        <span class="nx">loader</span><span class="p">.</span><span class="nx">load</span><span class="p">().</span><span class="nx">done</span><span class="p">(</span><span class="nx">complete</span><span class="p">);</span>
+      <span class="p">}</span>
+
+    <span class="p">});</span>
+
+    <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchfail&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;ajax error!&#39;</span><span class="p">);</span>
+      <span class="nx">$root</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;opacity&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">});</span>
+
+  <span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+
+
 <h3 id="customloading">Custom loading</h3>
 
 
