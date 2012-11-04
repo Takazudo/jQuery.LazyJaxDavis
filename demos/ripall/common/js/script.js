@@ -7,7 +7,7 @@ $(function(){
 
     router.option({
       expr: {
-        imgsrc: /src="([^"]+)"/gi
+        imgsrc: /img src="([^"]+)"/gi
       }
     });
 
