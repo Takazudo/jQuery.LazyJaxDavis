@@ -95,18 +95,18 @@
     current = null
     (url, options) ->
       ret = $.Deferred (defer) ->
-        if current then current.abort()
-        options = $.extend
-          url: url
-        , options
-        current = ($.ajax options).then (res) ->
+        current.abort() if current?.abort?
+        defaults = { url: url }
+        options = $.extend defaults, options
+        current = ($.ajax options)
+        current.then (res) ->
           current = null
           defer.resolve res
         , (xhr, msg) ->
           aborted = (msg is 'abort')
           defer.reject aborted
       .promise()
-      ret.abort = -> current?.abort()
+      ret.abort = -> current?.abort?()
       ret
   )()
 
@@ -248,7 +248,8 @@
         o.data = $.extend true, {}, o.data, @request.params
 
       @_fetchDefer = $.Deferred (defer) =>
-        currentFetch = (ns.fetchPage path, o).then (text) =>
+        currentFetch = (ns.fetchPage path, o)
+        currentFetch.then (text) =>
           @_text = text
           @updatetitle()
           defer.resolve()

@@ -200,7 +200,8 @@ foobar
     
     expect 2
     
-    res = (ns.fetchPage 'dummy.html?12345').then ->
+    res = ns.fetchPage 'dummy.html?12345'
+    res.then ->
       ok false, 'ajax successed unexpectedly'
     , (aborted) ->
       ok true, 'ajax failed'
@@ -346,14 +347,15 @@ foobar
       
     page = new ns.Page request, config, routed, router, options
 
-    page.fetch().then ->
+    fetchDefer = page.fetch()
+    fetchDefer.then ->
       ok false, '1st fetch successed'
     , (error) ->
       ok error.aborted, '1st fetch aborted'
     .always ->
       start()
 
-    page.abort()
+    fetchDefer.abort()
       
 
   asyncTest 'Page fetch events fail', ->

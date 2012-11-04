@@ -114,7 +114,8 @@
     asyncTest('ajax fetchPage call abort', function() {
       var res;
       expect(2);
-      res = (ns.fetchPage('dummy.html?12345')).then(function() {
+      res = ns.fetchPage('dummy.html?12345');
+      res.then(function() {
         return ok(false, 'ajax successed unexpectedly');
       }, function(aborted) {
         ok(true, 'ajax failed');
@@ -248,7 +249,7 @@
       });
     });
     asyncTest('Page fetch events abort', function() {
-      var config, options, page, request, routed;
+      var config, fetchDefer, options, page, request, routed;
       expect(1);
       request = {
         path: 'dummy.html'
@@ -258,14 +259,15 @@
       router = null;
       options = null;
       page = new ns.Page(request, config, routed, router, options);
-      page.fetch().then(function() {
+      fetchDefer = page.fetch();
+      fetchDefer.then(function() {
         return ok(false, '1st fetch successed');
       }, function(error) {
         return ok(error.aborted, '1st fetch aborted');
       }).always(function() {
         return start();
       });
-      return page.abort();
+      return fetchDefer.abort();
     });
     asyncTest('Page fetch events fail', function() {
       var config, options, page, request, routed;

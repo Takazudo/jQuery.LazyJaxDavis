@@ -83,13 +83,16 @@
       return function(url, options) {
         var ret;
         ret = $.Deferred(function(defer) {
-          if (current) {
+          var defaults;
+          if ((current != null ? current.abort : void 0) != null) {
             current.abort();
           }
-          options = $.extend({
+          defaults = {
             url: url
-          }, options);
-          return current = ($.ajax(options)).then(function(res) {
+          };
+          options = $.extend(defaults, options);
+          current = $.ajax(options);
+          return current.then(function(res) {
             current = null;
             return defer.resolve(res);
           }, function(xhr, msg) {
@@ -99,7 +102,7 @@
           });
         }).promise();
         ret.abort = function() {
-          return current != null ? current.abort() : void 0;
+          return current != null ? typeof current.abort === "function" ? current.abort() : void 0 : void 0;
         };
         return ret;
       };
@@ -298,7 +301,8 @@
           o.data = $.extend(true, {}, o.data, this.request.params);
         }
         this._fetchDefer = $.Deferred(function(defer) {
-          return currentFetch = (ns.fetchPage(path, o)).then(function(text) {
+          currentFetch = ns.fetchPage(path, o);
+          return currentFetch.then(function(text) {
             _this._text = text;
             _this.updatetitle();
             return defer.resolve();

@@ -12,8 +12,8 @@ Makes everything ajaxify with flexible URL routing powered by html5 history API.
 
 ## Depends
 
-* [jQuery 1.7.2](http://jquery.com/)
-* [Davis.js 0.8.1](http://davisjs.com/)
+* [jQuery 1.8.2](http://jquery.com/)
+* [Davis.js 0.9.5](http://davisjs.com/)
 
 ## Browsers
 
