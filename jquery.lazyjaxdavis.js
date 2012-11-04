@@ -1,4 +1,4 @@
-/*! jQuery.LazyJaxDavis - v0.1.2 -  11/4/2012
+/*! jQuery.LazyJaxDavis - v0.1.3 -  11/4/2012
  * https://github.com/Takazudo/jQuery.LazyJaxDavix
  * Copyright (c) 2012 "Takazudo" Takeshi Takatsudo; Licensed MIT */
 

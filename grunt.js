@@ -46,7 +46,7 @@ module.exports = function(grunt){
     watch: {
       lajax: {
         files: [ '<config:coffee.lajax.files>' ],
-        tasks: 'coffee:lajax concat ok'
+        tasks: 'coffee:lajax concat uglify ok'
       },
       test: {
         files: [ '<config:coffee.test.files>' ],
@@ -60,6 +60,6 @@ module.exports = function(grunt){
   });
 
   grunt.loadTasks('gruntTasks');
-  grunt.registerTask('default', 'coffee sass concat ok');
+  grunt.registerTask('default', 'coffee sass concat uglify ok');
 
 };
