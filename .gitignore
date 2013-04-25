@@ -3,3 +3,6 @@
 
 # jekyll cache
 _cache
+
+# node
+node_modules

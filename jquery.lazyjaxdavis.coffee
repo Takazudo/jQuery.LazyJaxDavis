@@ -311,10 +311,6 @@
 
     constructor: (initializer) ->
 
-      # handle instance creation wo new
-      if not (@ instanceof arguments.callee)
-        return new ns.Router initializer
-
       super
       @history = new ns.HistoryLogger
       initializer.call @, @
