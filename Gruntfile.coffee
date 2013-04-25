@@ -76,6 +76,7 @@ module.exports = (grunt) ->
         ]
 
       doc:
+        files: '<%= sass.doc.src %>'
         tasks: [
           'sass:doc'
           'growl:ok'
