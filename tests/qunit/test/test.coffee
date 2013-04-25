@@ -444,12 +444,9 @@ content here
   test 'Router new', ->
     
     r1 = new ns.Router $.noop
-    r2 = ns.Router $.noop
 
     ok r1 instanceof ns.Router, 'create instance with new'
     ok r1.history instanceof ns.HistoryLogger, 'history logger was attached'
-    ok r2 instanceof ns.Router, 'create instance without new'
-    ok r2.history instanceof ns.HistoryLogger, 'history logger was attached'
     
   
   asyncTest 'Page rip captureAll', 4, ->

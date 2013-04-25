@@ -333,13 +333,10 @@
       return equal(page.rip(), null, 'notfetched yet so rip returns null');
     });
     test('Router new', function() {
-      var r1, r2;
+      var r1;
       r1 = new ns.Router($.noop);
-      r2 = ns.Router($.noop);
       ok(r1 instanceof ns.Router, 'create instance with new');
-      ok(r1.history instanceof ns.HistoryLogger, 'history logger was attached');
-      ok(r2 instanceof ns.Router, 'create instance without new');
-      return ok(r2.history instanceof ns.HistoryLogger, 'history logger was attached');
+      return ok(r1.history instanceof ns.HistoryLogger, 'history logger was attached');
     });
     asyncTest('Page rip captureAll', 4, function() {
       var config, options, page, request, routed;
