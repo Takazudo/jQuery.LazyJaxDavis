@@ -37,7 +37,7 @@ $(function(){
   var loglight = function(msg) { logger.loglight(msg); };
   var logblue = function(msg) { logger.logblue(msg); };
 
-  $.LazyJaxDavis(function(router){
+  new $.LazyJaxDavis(function(router){
 
     var $root = $('#lazyjaxdavisroot');
 

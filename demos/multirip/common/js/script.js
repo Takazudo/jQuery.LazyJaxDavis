@@ -1,6 +1,6 @@
 $(function(){
 
-  $.LazyJaxDavis(function(router){
+  new $.LazyJaxDavis(function(router){
 
     var $root = $('#lazyjaxdavisroot');
     var $sidenav = $('#sidenav');

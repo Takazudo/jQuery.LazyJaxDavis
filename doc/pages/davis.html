@@ -88,8 +88,7 @@ If you want to use jQuery.LazyJaxDavis, you need to load Davis.js too.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>This helps you to create url based JavaScript based web apps.<br/>
@@ -108,7 +107,7 @@ In web apps, you almost need to assign what to do to URLs. For example, if the U
 
 <p>JQuery.LazyJaxDavis has its own URL routing features as I wrote on "URL routing". But, if you want to use Davis.js's routing directly, you can use it like below.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">lazyJaxDavis</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">lazyJaxDavis</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="p">...</span>
 
@@ -131,8 +130,7 @@ In web apps, you almost need to assign what to do to URLs. For example, if the U
 <span class="p">});</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">lazyJaxDavis</span><span class="p">.</span><span class="nx">davis</span><span class="p">);</span> <span class="c1">// davis&#39;s instance here</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>You can pass the initializer to Davis with <code>routeDavis</code> method. To learn more, see the demo page below.</p>

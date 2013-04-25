@@ -33,7 +33,7 @@ $(function(){
   var log = function(msg) { logger.log(msg); };
   var loglight = function(msg) { logger.loglight(msg); };
 
-  $.LazyJaxDavis(function(router){
+  new $.LazyJaxDavis(function(router){
 
     var $root = $('#lazyjaxdavisroot');
 

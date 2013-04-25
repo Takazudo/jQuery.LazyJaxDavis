@@ -59,7 +59,7 @@ All anchors whose `href` starts with `http` will automatically become no-lazy li
 You can define what elements to be hijacked like below.  
 
 {% highlight javascript %}
-$.LazyJaxDavis(function(router){
+new $.LazyJaxDavis(function(router){
   router.option({
     davis: {
       linkSelector: 'a:not([href^=#]):not(.apply-nolazy)'
@@ -131,7 +131,7 @@ As lazy links, you can avoid the ajax behavior to add `apply-nolazy` to the form
 If you handle form POST with jQuery.LazyJaxDavis, you need to make url routings for POST receiver pages like below.
 
 {% highlight javascript %}
-$.LazyJaxDavis(function(router){
+new $.LazyJaxDavis(function(router){
 	router.route([
 		{
 			path: '{{ site.basedir }}/posttest.html',

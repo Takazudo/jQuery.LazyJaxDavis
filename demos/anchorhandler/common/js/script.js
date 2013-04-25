@@ -2,7 +2,7 @@ $.tinyscroller.live(); // lively bind events about scroller
 
 $(function(){
 
-  $.LazyJaxDavis(function(router){
+  new $.LazyJaxDavis(function(router){
 
     var $root = $('#lazyjaxdavisroot');
     var scrollDefer = null;

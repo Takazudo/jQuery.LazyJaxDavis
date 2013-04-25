@@ -51,7 +51,7 @@ So what we should do when the location was changed is - replace the html source 
 With jQuery.LazyJaxDavis, do like below on documentready.
 
 {% highlight javascript %}
-$.LazyJaxDavis(function(router){
+new $.LazyJaxDavis(function(router){
 
   var $root = $('#lazyjaxdavisroot'); // main content wrapper
 
@@ -84,7 +84,7 @@ $.LazyJaxDavis(function(router){
 });
 {% endhighlight %}
 
-if you do `$.LazyJaxDavis()`, all links and form submits are hijacked. Instead of normal location change, jQuery.LazyJaxDavis does pushState and fetch the target page using `$.ajax`. You need to define what to do when - ajax was started - and,  ajax was completed.
+if you do `new $.LazyJaxDavis()`, all links and form submits are hijacked. Instead of normal location change, jQuery.LazyJaxDavis does pushState and fetch the target page using `$.ajax`. You need to define what to do when - ajax was started - and,  ajax was completed.
 
 After the ajax thing was done, you can rip the part of the fetched page using `page.rip('content')`. What does this rip from the page? It's the html source in the main area, of course.
 

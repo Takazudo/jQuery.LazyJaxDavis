@@ -64,7 +64,7 @@ These may help you to understand jQuery.LazyJaxDavis.</p>
 
 <p>This demo is pretty simiar to this document itself. It just fetches the new page, then update the main content with animation.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
 
@@ -87,8 +87,7 @@ These may help you to understand jQuery.LazyJaxDavis.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 
@@ -107,7 +106,7 @@ These may help you to understand jQuery.LazyJaxDavis.</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
     <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
     <span class="kd">var</span> <span class="nx">$sidenav</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sidenav&#39;</span><span class="p">);</span>
@@ -144,8 +143,7 @@ These may help you to understand jQuery.LazyJaxDavis.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 
@@ -165,7 +163,7 @@ I used <a href="https://github.com/Takazudo/jQuery.ImgLoader">jQuery.ImgLoader</
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
     <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
     <span class="kd">var</span> <span class="nx">$loader</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&quot;loader&quot;&gt;Loading...&lt;/div&gt;&#39;</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">);</span>
@@ -217,8 +215,7 @@ I used <a href="https://github.com/Takazudo/jQuery.ImgLoader">jQuery.ImgLoader</
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 
@@ -237,7 +234,7 @@ I used <a href="https://github.com/Takazudo/jQuery.ImgLoader">jQuery.ImgLoader</
 
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
     <span class="kd">var</span> <span class="nx">$overlay</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">hideoverlay</span><span class="p">.</span><span class="nx">setup</span><span class="p">({</span>
       <span class="nx">spinnersrc</span><span class="o">:</span> <span class="s1">&#39;/jQuery.LazyJaxDavis/demos/customloading/common/img/spinner.gif&#39;</span>
@@ -269,8 +266,7 @@ I used <a href="https://github.com/Takazudo/jQuery.ImgLoader">jQuery.ImgLoader</
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <h3>URL routing</h3>
@@ -294,7 +290,7 @@ I used <a href="https://github.com/Takazudo/jQuery.ImgLoader">jQuery.ImgLoader</
   <span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">};</span>
   <span class="kd">var</span> <span class="nx">loglight</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">loglight</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">};</span>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
     <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
 
@@ -401,8 +397,7 @@ I used <a href="https://github.com/Takazudo/jQuery.ImgLoader">jQuery.ImgLoader</
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 
@@ -430,7 +425,7 @@ I used <a href="https://github.com/Takazudo/jQuery.ImgLoader">jQuery.ImgLoader</
   <span class="kd">var</span> <span class="nx">loglight</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">loglight</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">};</span>
   <span class="kd">var</span> <span class="nx">logblue</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">logblue</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">};</span>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
     <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
 
@@ -521,8 +516,7 @@ I used <a href="https://github.com/Takazudo/jQuery.ImgLoader">jQuery.ImgLoader</
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 
@@ -550,7 +544,7 @@ This demo doesn't depend on Davis.js. Just not loaded it.</p>
   <span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">};</span>
   <span class="kd">var</span> <span class="nx">logblue</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">logblue</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">};</span>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
     <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
 
@@ -601,8 +595,7 @@ This demo doesn't depend on Davis.js. Just not loaded it.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 
@@ -629,7 +622,7 @@ This demo doesn't depend on Davis.js. Just not loaded it.</p>
   <span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">};</span>
   <span class="kd">var</span> <span class="nx">loglight</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">loglight</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">};</span>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
     <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
 
@@ -672,8 +665,7 @@ This demo doesn't depend on Davis.js. Just not loaded it.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 
@@ -694,7 +686,7 @@ This demo doesn't depend on Davis.js. Just not loaded it.</p>
 
 <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 
-  <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+  <span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
     <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span>
     <span class="kd">var</span> <span class="nx">scrollDefer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
@@ -736,8 +728,7 @@ This demo doesn't depend on Davis.js. Just not loaded it.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 

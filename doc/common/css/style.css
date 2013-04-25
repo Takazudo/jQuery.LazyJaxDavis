@@ -100,7 +100,7 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
   margin: 1em 0;
   padding: 0; }
 
@@ -118,7 +118,7 @@ mark {
 /* Redeclare monospace font family: h5bp.com/j */
 pre, code, kbd, samp {
   font-family: monospace, serif;
-  _font-family: 'courier new', monospace;
+  _font-family: "courier new", monospace;
   font-size: 1em; }
 
 /* Improve readability of pre-formatted text in all browsers */
@@ -587,146 +587,146 @@ body {
   /* Literal.Number.Integer.Long */ }
   .highlight pre {
     padding: 20px 0 20px 20px;
-    border-left: 1px solid #999;
-    border-top: 1px solid #999;
-    border-bottom: 1px solid #999;
+    border-left: 1px solid #999999;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
     font-size: 16px;
     line-height: 1.4; }
   .highlight pre .c {
-    color: #586E75; }
+    color: #586e75; }
   .highlight pre .err {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .g {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .k {
     color: #859900; }
   .highlight pre .l {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .n {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .o {
     color: #859900; }
   .highlight pre .x {
-    color: #CB4B16; }
+    color: #cb4b16; }
   .highlight pre .p {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .cm {
-    color: #586E75; }
+    color: #586e75; }
   .highlight pre .cp {
     color: #859900; }
   .highlight pre .c1 {
-    color: #586E75; }
+    color: #586e75; }
   .highlight pre .cs {
     color: #859900; }
   .highlight pre .gd {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .ge {
     color: #93A1A1;
     font-style: italic; }
   .highlight pre .gr {
-    color: #DC322F; }
+    color: #dc322f; }
   .highlight pre .gh {
-    color: #CB4B16; }
+    color: #cb4b16; }
   .highlight pre .gi {
     color: #859900; }
   .highlight pre .go {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .gp {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .gs {
     color: #93A1A1;
     font-weight: bold; }
   .highlight pre .gu {
-    color: #CB4B16; }
+    color: #cb4b16; }
   .highlight pre .gt {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .kc {
-    color: #CB4B16; }
+    color: #cb4b16; }
   .highlight pre .kd {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .kn {
     color: #859900; }
   .highlight pre .kp {
     color: #859900; }
   .highlight pre .kr {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .kt {
-    color: #DC322F; }
+    color: #dc322f; }
   .highlight pre .ld {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .m {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .s {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .na {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .nb {
-    color: #B58900; }
+    color: #b58900; }
   .highlight pre .nc {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .no {
-    color: #CB4B16; }
+    color: #cb4b16; }
   .highlight pre .nd {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .ni {
-    color: #CB4B16; }
+    color: #cb4b16; }
   .highlight pre .ne {
-    color: #CB4B16; }
+    color: #cb4b16; }
   .highlight pre .nf {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .nl {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .nn {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .nx {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .py {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .nt {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .nv {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .ow {
     color: #859900; }
   .highlight pre .w {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .mf {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .mh {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .mi {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .mo {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .sb {
-    color: #586E75; }
+    color: #586e75; }
   .highlight pre .sc {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .sd {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .s2 {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .se {
-    color: #CB4B16; }
+    color: #cb4b16; }
   .highlight pre .sh {
-    color: #93A1A1; }
+    color: #93a1a1; }
   .highlight pre .si {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .sx {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .sr {
-    color: #DC322F; }
+    color: #dc322f; }
   .highlight pre .s1 {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .ss {
-    color: #2AA198; }
+    color: #2aa198; }
   .highlight pre .bp {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .vc {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .vg {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .vi {
-    color: #268BD2; }
+    color: #268bd2; }
   .highlight pre .il {
-    color: #2AA198; }
+    color: #2aa198; }

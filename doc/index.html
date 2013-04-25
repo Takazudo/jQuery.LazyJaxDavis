@@ -94,7 +94,7 @@ In the case of this website, only the html source in this main area is different
 
 <p>With jQuery.LazyJaxDavis, do like below on documentready.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="kd">var</span> <span class="nx">$root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#lazyjaxdavisroot&#39;</span><span class="p">);</span> <span class="c1">// main content wrapper</span>
 
@@ -125,11 +125,10 @@ In the case of this website, only the html source in this main area is different
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
-<p>if you do <code>$.LazyJaxDavis()</code>, all links and form submits are hijacked. Instead of normal location change, jQuery.LazyJaxDavis does pushState and fetch the target page using <code>$.ajax</code>. You need to define what to do when - ajax was started - and,  ajax was completed.</p>
+<p>if you do <code>new $.LazyJaxDavis()</code>, all links and form submits are hijacked. Instead of normal location change, jQuery.LazyJaxDavis does pushState and fetch the target page using <code>$.ajax</code>. You need to define what to do when - ajax was started - and,  ajax was completed.</p>
 
 <p>After the ajax thing was done, you can rip the part of the fetched page using <code>page.rip('content')</code>. What does this rip from the page? It's the html source in the main area, of course.</p>
 
@@ -150,8 +149,7 @@ You need to add the comment to the html like below.</p>
     <span class="nt">&lt;/div&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>The source code between <code>&lt;!-- LazyJaxDavis start --&gt;</code> and <code>&lt;!-- LazyJaxDavis end --&gt;</code> is the result of <code>page.rip('content')</code>. This is what we want. Then, add the code to update the dom on the page.</p>

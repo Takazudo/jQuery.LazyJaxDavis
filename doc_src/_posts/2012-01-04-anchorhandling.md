@@ -62,7 +62,7 @@ This anchor handing method will be called after the 'pageready' event automatica
 If you don't like this behavior, you can override this anchorhandler with the code like below.
 
 {% highlight javascript %}
-$.LazyJaxDavis(function(router){
+new $.LazyJaxDavis(function(router){
 
   router.option({
     anchorhandler: function(hash){
@@ -79,7 +79,7 @@ You can use smoothcroll library or something with the code like above.
 This feature is available within URL routing too.
 
 {% highlight javascript %}
-$.LazyJaxDavis(function(router){
+new $.LazyJaxDavis(function(router){
 
   router.route({
     path: '/somewhere/foobar.html',

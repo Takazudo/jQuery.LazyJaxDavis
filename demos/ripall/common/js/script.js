@@ -1,13 +1,13 @@
 $(function(){
 
-  $.LazyJaxDavis(function(router){
+  new $.LazyJaxDavis(function(router){
 
     var $root = $('#lazyjaxdavisroot');
     var $loading = $('<div id="loading">Loading...</div>').appendTo('body');
 
     router.option({
       expr: {
-        imgsrc: /img src="([^"]+)"/gi
+        imgsrc: /<img src="([^"]+)"/gi
       }
     });
 

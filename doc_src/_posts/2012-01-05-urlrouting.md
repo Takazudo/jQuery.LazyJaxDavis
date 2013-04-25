@@ -12,7 +12,7 @@ You can define custom events for specific URLs using URL routing.
 Pass the array of URL routing configs to the `route` method like below.
 
 {% highlight javascript %}
-$.LazyJaxDavis(function(router){
+new $.LazyJaxDavis(function(router){
 
   ...
 
@@ -54,7 +54,7 @@ If you specify `ignoregetvals: true` to any, get values like `?foo=bar` in the U
 As I wrote above, each routings cannnot be conflicted. But, it's possible. If you like to do complicated routing, use transparent routing feature like below. I introduced this more on [demo]({{ site.basedir }}/pages/demos.html#transparent) page.
 
 {% highlight javascript %}
-$.LazyJaxDavis(function(router){
+new $.LazyJaxDavis(function(router){
 
   ...
 

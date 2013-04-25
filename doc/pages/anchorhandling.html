@@ -59,8 +59,7 @@ jQuery.LazyJaxDavis handles them automatically.</p>
 These are just the anchor link.</p>
 
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#main&quot;</span><span class="nt">&gt;</span>link to the id on the same page<span class="nt">&lt;/a&gt;</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>Click the link below to confirm.</p>
@@ -76,8 +75,7 @@ These are just the anchor link.</p>
 Because without jQuery.LazyJaxDavis, the browser does full page redraw. Then it automatically scroll to the element.</p>
 
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;somewhere.html#main&quot;</span><span class="nt">&gt;</span>link to the id on another page<span class="nt">&lt;/a&gt;</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>But with jQuery.LazyJaxDavis, the browser does not do the scrolling because there is not the specified element in the page. It will be on the page after the refresh was complete. To handle this, jQuery.LazyJaxDavis does scrolling like below as default.</p>
@@ -89,8 +87,7 @@ Because without jQuery.LazyJaxDavis, the browser does full page redraw. Then it 
   <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">top</span><span class="p">);</span>
   <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
 <span class="p">};</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>Click the links below to confirm this.</p>
@@ -129,7 +126,7 @@ Because without jQuery.LazyJaxDavis, the browser does full page redraw. Then it 
 
 <p>If you don't like this behavior, you can override this anchorhandler with the code like below.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
     <span class="nx">anchorhandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hash</span><span class="p">){</span>
@@ -139,15 +136,14 @@ Because without jQuery.LazyJaxDavis, the browser does full page redraw. Then it 
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>You can use smoothcroll library or something with the code like above.</p>
 
 <p>This feature is available within URL routing too.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="nx">router</span><span class="p">.</span><span class="nx">route</span><span class="p">({</span>
     <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/somewhere/foobar.html&#39;</span><span class="p">,</span>
@@ -158,8 +154,7 @@ Because without jQuery.LazyJaxDavis, the browser does full page redraw. Then it 
   <span class="p">});</span>
 
 <span class="p">]);</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>With the code above, the anchorhandler will be overridden only if the URL was <code>/somewhere/foobar.html</code>.</p>

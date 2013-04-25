@@ -56,17 +56,16 @@
 
 <p>First, load <a href="http://jquery.com/">jQuery 1.8.2 (or later)</a>, <a href="http://davisjs.com/">Davis.js</a> and <a href="https://github.com/Takazudo/jQuery.LazyJaxDavis/blob/gh-pages/jquery.lazyjaxdavis.js">jquery.lazyjaxdavis.js</a>.</p>
 
-<h3>Call $.LazyJaxDavis()</h3>
+<h3>Call new $.LazyJaxDavis()</h3>
 
-<p>Then, call <code>$.LazyJaxDavis()</code> with initializer as the 1st argument like below.</p>
+<p>Then, call <code>new $.LazyJaxDavis()</code> with initializer as the 1st argument like below.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
     <span class="c1">// setup jQuery.LazyJaxDavis here</span>
     
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>You can setup jQuery.LazyJaxDavis in this scope. In this page, I write about what you should do here. Before using jQuery.LazyJaxDavis, make sure that the comments are in the html. Those are what I wrote in <a href="/jQuery.LazyJaxDavis/doc/">introduction</a>.</p>
@@ -80,8 +79,7 @@
   <span class="nt">&lt;/div&gt;</span>
   blah blah blah
 <span class="nt">&lt;/body&gt;</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <h3>everyfetchsuccess event</h3>
@@ -91,7 +89,7 @@ The first thing you need to do is - event bindings.</p>
 
 <p>Instead of location change, jQuery.LazyJaxDavis fetches the target page. So, you need to define what to do after the ajax was successed.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="c1">// bind ajax start event</span>
   <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchsuccess&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
@@ -107,8 +105,7 @@ The first thing you need to do is - event bindings.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>With only these codes above, every links invokes ajaxed location change.</p>
@@ -117,7 +114,7 @@ The first thing you need to do is - event bindings.</p>
 
 <p>If you like to show loading spinner or something while ajax was in progress, use <code>everyfetchstart</code>.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="kd">var</span> <span class="nx">loading</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Loading</span><span class="p">;</span> <span class="c1">// here&#39;s my loading</span>
 
@@ -134,8 +131,7 @@ The first thing you need to do is - event bindings.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>The <code>loading</code> here is not what jQuery.LazyJaxDavis prepared. It's your code. <code>everyfatchstart</code> will be fired when page fetching ajax was satarted. You can tell users to know that it's loading with this.</p>
@@ -147,13 +143,12 @@ The first thing you need to do is - event bindings.</p>
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
   <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.apply-rollover&#39;</span><span class="p">).</span><span class="nx">rollover</span><span class="p">();</span> <span class="c1">// initialize my widget!</span>
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>Oh hey, but newly added doms in the main content area are not ready for this. Because it was not in the page on documentready. It was added after ajax was successed. So, use <code>everypageready</code> event for this.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="kd">var</span> <span class="nx">$content</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">);</span> <span class="c1">// caching jQuery object is better</span>
 
@@ -170,8 +165,7 @@ The first thing you need to do is - event bindings.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>With this, the rollover is ready for the newly added doms too.</p>
@@ -182,7 +176,7 @@ The first thing you need to do is - event bindings.</p>
 
 <p>If you don't want to run <code>everypageready</code> on the first time, set <code>firereadyonstart: false</code> as option like below.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="c1">// override default options</span>
   <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
@@ -202,15 +196,14 @@ The first thing you need to do is - event bindings.</p>
   <span class="p">}</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <h3>everyfetchfail event</h3>
 
 <p>If the page fetching ajax was failed, the visitor can't know that it was bugged. Because with the code above, there must be a loading indicator or something which tells it's still loading. To avoid this, use <code>everyfetchfail</code> event. This will be fired when ajax was failed.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="nx">router</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;everyfetchstart&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">loading</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
@@ -227,8 +220,7 @@ The first thing you need to do is - event bindings.</p>
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>The code above shows just a alert dialog. I think you should redirect to the 404 page or show something which tells the user that your website got troubled.</p>
@@ -249,7 +241,7 @@ The first thing you need to do is - event bindings.</p>
 <p>The options listed below are also available.<br/>
 And these are default value of each options. If you specify some, <code>$.LazyJaxDavis</code> will be initialized with the overridden options.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
 
   <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
     <span class="nx">ajaxoptions</span><span class="o">:</span> <span class="p">{</span>
@@ -274,8 +266,7 @@ And these are default value of each options. If you specify some, <code>$.LazyJa
   <span class="p">});</span>
 
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <h4>ajaxoptions</h4>
@@ -290,7 +281,7 @@ If you use <code>page.rip('content')</code> to rip the new content in <code>ever
 
 <p>In addition, you may want to rip the other html source of the fetched page. Then define your own pattern like below. Then <code>page.rip('sidenav')</code> is also available.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
   <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
     <span class="nx">expr</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">sidenav</span><span class="o">:</span> <span class="sr">/&lt;!-- sidenav start --&gt;([\s\S]*)&lt;!-- sidenav end --&gt;/</span>
@@ -302,8 +293,7 @@ If you use <code>page.rip('content')</code> to rip the new content in <code>ever
     <span class="nx">page</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;pageready&#39;</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>I made a demo for this feature. Check the demo below to learn more.</p>
@@ -315,7 +305,7 @@ If you use <code>page.rip('content')</code> to rip the new content in <code>ever
 
 <p>You can also rip all matched regexp result with <code>ripAll</code> like below.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
+<div class="highlight"><pre><code class="javascript"><span class="k">new</span> <span class="nx">$</span><span class="p">.</span><span class="nx">LazyJaxDavis</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">router</span><span class="p">){</span>
   <span class="nx">router</span><span class="p">.</span><span class="nx">option</span><span class="p">({</span>
     <span class="nx">expr</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">imgsrc</span><span class="o">:</span> <span class="sr">/src=&quot;([^&quot;]+)&quot;/gi</span>
@@ -326,8 +316,7 @@ If you use <code>page.rip('content')</code> to rip the new content in <code>ever
     <span class="p">...</span>
   <span class="p">});</span>
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div>
 
 
 <p>I created this <code>ripAll</code> feature for imgs' preloading. See the demo below to learn more.</p>

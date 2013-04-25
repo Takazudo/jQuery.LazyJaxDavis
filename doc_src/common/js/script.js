@@ -89,7 +89,7 @@ $(function(){
   
   // do it
 
-  $.LazyJaxDavis(function(router){
+  new $.LazyJaxDavis(function(router){
 
     router.bind('everyfetchstart', function(page){
       $root.css('opacity', 0.6);

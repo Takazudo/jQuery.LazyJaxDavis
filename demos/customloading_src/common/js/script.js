@@ -1,6 +1,6 @@
 $(function(){
 
-  $.LazyJaxDavis(function(router){
+  new $.LazyJaxDavis(function(router){
 
     var $overlay = $.ui.hideoverlay.setup({
       spinnersrc: '/jQuery.LazyJaxDavis/demos/customloading/common/img/spinner.gif'

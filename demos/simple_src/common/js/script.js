@@ -2,7 +2,7 @@ $(function(){
 
   // define the root of the main content
 
-  $.LazyJaxDavis(function(router){
+  new $.LazyJaxDavis(function(router){
 
     var $root = $('#lazyjaxdavisroot');
 
