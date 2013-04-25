@@ -13,7 +13,7 @@ Makes everything ajaxify with flexible URL routing powered by html5 history API.
 ## Depends
 
 * [jQuery 1.8.2](http://jquery.com/)
-* [Davis.js 0.9.5](http://davisjs.com/)
+* [Davis.js 0.9.9](http://davisjs.com/)
 
 ## Browsers
 
@@ -30,6 +30,8 @@ This scirpt was developed with following things.
 
  * [CoffeeScript][coffeescript]
  * [grunt][grunt]
+ * [jekyll][jekyll] for doc and demos
 
 [coffeescript]: http://coffeescript.org/ "CoffeeScript"
 [grunt]: https://github.com/cowboy/grunt "grunt"
+[jekyll]: http://jekyllrb.com/ "jekyll"

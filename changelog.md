@@ -1,5 +1,11 @@
 # jQuery.LazyJaxDavis - changelog
 
+## v.0.2.0
+
+* udpated build to Grunt 0.4.x
+* update Davis.js to 0.9.9
+* forced to use `new` to create instance
+
 ## v.0.1.3
 
 * tweaked for jQuery 1.8.2
