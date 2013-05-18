@@ -1,5 +1,9 @@
 # jQuery.LazyJaxDavis - changelog
 
+## v.0.2.1
+
+* Fixed: anchors in the same page triggered page fetching.
+
 ## v.0.2.0
 
 * udpated build to Grunt 0.4.x

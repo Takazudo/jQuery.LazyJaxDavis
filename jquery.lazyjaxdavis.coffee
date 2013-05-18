@@ -31,6 +31,11 @@
     else
       return false
 
+  # "hogehoge#foobar" -> hogehoge
+
+  ns.trimAnchor = (str) ->
+    str.replace /#.*/, ''
+
   # "page.html?foo=bar" -> "page.html"
 
   ns.trimGetVals = (path) ->
@@ -166,7 +171,7 @@
     constructor: ->
       @_items = []
       # push first page
-      @_items.push (location.pathname.replace /#.*/, '')
+      @_items.push (ns.trimAnchor location.pathname)
     push: (obj) ->
       @_items.push obj
       @
@@ -174,7 +179,8 @@
       l = @_items.length
       return if l then @_items[l-1] else null
     isToSamePageRequst: (path) ->
-      last = @last()
+      path = (ns.trimAnchor path)
+      last = (ns.trimAnchor @last())
       if not last then return false
       if path is last
         return true

@@ -1,5 +1,5 @@
 /*! jQuery.LazyJaxDavis (https://github.com/Takazudo/jQuery.LazyJaxDavis)
- * lastupdate: 2013-04-26
+ * lastupdate: 2013-05-18
  * version: 0.2.0
  * author: "Takazudo" Takeshi Takatsudo
  * License: MIT */
@@ -26,6 +26,9 @@
       } else {
         return false;
       }
+    };
+    ns.trimAnchor = function(str) {
+      return str.replace(/#.*/, '');
     };
     ns.trimGetVals = function(path) {
       return path.replace(/\?.*/, '');
@@ -182,7 +185,7 @@
 
       function HistoryLogger() {
         this._items = [];
-        this._items.push(location.pathname.replace(/#.*/, ''));
+        this._items.push(ns.trimAnchor(location.pathname));
       }
 
       HistoryLogger.prototype.push = function(obj) {
@@ -202,7 +205,8 @@
 
       HistoryLogger.prototype.isToSamePageRequst = function(path) {
         var last;
-        last = this.last();
+        path = ns.trimAnchor(path);
+        last = ns.trimAnchor(this.last());
         if (!last) {
           return false;
         }
