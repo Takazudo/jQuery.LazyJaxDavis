@@ -1,6 +1,6 @@
 /*! jQuery.LazyJaxDavis (https://github.com/Takazudo/jQuery.LazyJaxDavis)
  * lastupdate: 2013-07-13
- * version: 0.2.1
+ * version: 0.2.2
  * author: "Takazudo" Takeshi Takatsudo
  * License: MIT */
 (function() {
