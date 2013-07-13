@@ -1,5 +1,9 @@
 # jQuery.LazyJaxDavis - changelog
 
+## v.0.2.2
+
+* Fixed: configuring was not working
+
 ## v.0.2.1
 
 * Fixed: anchors in the same page triggered page fetching.
