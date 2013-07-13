@@ -382,40 +382,41 @@
               completePage page
             true
 
-        # if extra davisRoutings were there, do it
-        self.davisInitializer?.call davis
+        # handle routNotFound
+        if self.options.davis.handleRouteNotFound
+          davis.bind 'routeNotFound', (request) ->
+            
+            # if it was just an anchor to the same page, ignore it
+            if ns.isToId request.path
+              self.trigger 'toid', request.path
+              return
 
-      # handle routNotFound
-      if @options.davis.handleRouteNotFound
-        @davis.bind 'routeNotFound', (request) ->
-          
-          # if it was just an anchor to the same page, ignore it
-          if ns.isToId request.path
-            self.trigger 'toid', request.path
-            return
+            # check whether the request was another page with anchor.
+            # If was anchored, there may be config in @pages
+            res = ns.tryParseAnotherPageAnchor request.path
+            hash = res.hash or null
+            path = res.path or request.path
 
-          # check whether the request was another page with anchor.
-          # If was anchored, there may be config in @pages
-          res = ns.tryParseAnotherPageAnchor request.path
-          hash = res.hash or null
-          path = res.path or request.path
+            # log
+            if self.history.isToSamePageRequst path then return
 
-          # log
-          if self.history.isToSamePageRequst path then return
+            # find matched page config
+            config = (self._findWhosePathMatches 'page', path) or null
+            routed = if config then true else false
 
-          # find matched page config
-          config = (self._findWhosePathMatches 'page', path) or null
-          routed = if config then true else false
+            # then complete it
+            page = self._createPage request, config, routed, hash
+            completePage page
 
-          # then complete it
-          page = self._createPage request, config, routed, hash
-          completePage page
+        # configure davis
+        davis.configure (config) =>
+          $.each self.options.davis, (key, val) ->
+            config[key] = val
+            true
 
-      # configure davis
-      @davis.configure (config) =>
-        $.each @options.davis, (key, val) ->
-          config[key] = val
-          true
+      # if extra davisRoutings were there, do it
+      self.davisInitializer?.call davis
+
       @_tweakDavis()
 
       @

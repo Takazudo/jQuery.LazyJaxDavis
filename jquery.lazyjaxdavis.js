@@ -1,5 +1,5 @@
 /*! jQuery.LazyJaxDavis (https://github.com/Takazudo/jQuery.LazyJaxDavis)
- * lastupdate: 2013-05-18
+ * lastupdate: 2013-07-13
  * version: 0.2.1
  * author: "Takazudo" Takeshi Takatsudo
  * License: MIT */
@@ -433,8 +433,7 @@
       };
 
       Router.prototype._setupDavis = function() {
-        var completePage, self,
-          _this = this;
+        var completePage, self, _ref;
         if (!$.support.pushstate) {
           return;
         }
@@ -449,7 +448,8 @@
           return self.fetch(page);
         };
         this.davis = new Davis(function() {
-          var davis, _ref;
+          var davis,
+            _this = this;
           davis = this;
           if (self.pages) {
             $.each(self.pages, function(i, pageConfig) {
@@ -469,33 +469,35 @@
               return true;
             });
           }
-          return (_ref = self.davisInitializer) != null ? _ref.call(davis) : void 0;
-        });
-        if (this.options.davis.handleRouteNotFound) {
-          this.davis.bind('routeNotFound', function(request) {
-            var config, hash, page, path, res, routed;
-            if (ns.isToId(request.path)) {
-              self.trigger('toid', request.path);
-              return;
-            }
-            res = ns.tryParseAnotherPageAnchor(request.path);
-            hash = res.hash || null;
-            path = res.path || request.path;
-            if (self.history.isToSamePageRequst(path)) {
-              return;
-            }
-            config = (self._findWhosePathMatches('page', path)) || null;
-            routed = config ? true : false;
-            page = self._createPage(request, config, routed, hash);
-            return completePage(page);
+          if (self.options.davis.handleRouteNotFound) {
+            davis.bind('routeNotFound', function(request) {
+              var config, hash, page, path, res, routed;
+              if (ns.isToId(request.path)) {
+                self.trigger('toid', request.path);
+                return;
+              }
+              res = ns.tryParseAnotherPageAnchor(request.path);
+              hash = res.hash || null;
+              path = res.path || request.path;
+              if (self.history.isToSamePageRequst(path)) {
+                return;
+              }
+              config = (self._findWhosePathMatches('page', path)) || null;
+              routed = config ? true : false;
+              page = self._createPage(request, config, routed, hash);
+              return completePage(page);
+            });
+          }
+          return davis.configure(function(config) {
+            return $.each(self.options.davis, function(key, val) {
+              config[key] = val;
+              return true;
+            });
           });
+        });
+        if ((_ref = self.davisInitializer) != null) {
+          _ref.call(davis);
         }
-        this.davis.configure(function(config) {
-          return $.each(_this.options.davis, function(key, val) {
-            config[key] = val;
-            return true;
-          });
-        });
         this._tweakDavis();
         return this;
       };
